@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gloy AI 1.8 - Free AI for Everyone - GLOY AI</title>
+    <meta name="description" content="Introducing Gloy AI 1.8, our free and accessible AI model for everyday tasks.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8A2BE2;
+            --dark-purple: #4B0082;
+            --light-purple: #9370DB;
+            --lavender: #E6E6FA;
+            --neon-purple: #BF00FF;
+            --gradient: linear-gradient(135deg, var(--primary-purple), var(--neon-purple));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-color: #0a0418;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(100, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(191, 0, 255, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 4, 24, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-emoji {
+            font-size: 32px;
+        }
+        
+        .back-button {
+            background: transparent;
+            color: var(--lavender);
+            border: 2px solid var(--primary-purple);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        article {
+            padding: 120px 0 80px;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .article-date {
+            color: var(--light-purple);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .article-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 30%, var(--light-purple) 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .article-subtitle {
+            font-size: 1.3rem;
+            color: var(--lavender);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .article-content {
+            background: rgba(20, 10, 40, 0.6);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .article-content h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            color: white;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .article-content h2:first-child {
+            margin-top: 0;
+        }
+        
+        .article-content p {
+            color: var(--lavender);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        .article-content ul {
+            color: var(--lavender);
+            line-height: 1.8;
+            margin: 20px 0 20px 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: white;
+        }
+        
+        .highlight-box {
+            background: rgba(0, 230, 118, 0.1);
+            border-left: 4px solid #00E676;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(30, 15, 50, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(138, 43, 226, 0.4);
+        }
+        
+        .cta-section h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../fun.html" class="logo">
+                <span class="logo-emoji">👾</span>
+                <span class="logo-text">GLOY AI</span>
+            </a>
+            <a href="../fun.html#telegram" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to News
+            </a>
+        </div>
+    </header>
+    
+    <article>
+        <div class="container">
+            <div class="article-header">
+                <div class="article-date">November 28, 2024</div>
+                <h1 class="article-title">Gloy AI 1.8 - Free AI for Everyone</h1>
+                <p class="article-subtitle">Introducing our most accessible AI model yet, designed to help everyone with everyday tasks—completely free.</p>
+            </div>
+            
+            <div class="article-content">
+                <p>Today, we're excited to announce Gloy AI 1.8, our free AI model that brings powerful artificial intelligence to everyone. Whether you're a student, professional, or just curious about AI, Gloy AI 1.8 is here to help.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>🎉 Completely Free:</strong> No credit card required. No hidden fees. No usage limits. Gloy AI 1.8 is free for everyone, forever.</p>
+                </div>
+                
+                <h2>✨ What Can Gloy AI 1.8 Do?</h2>
+                
+                <p>Gloy AI 1.8 is designed to be your everyday AI assistant:</p>
+                
+                <ul>
+                    <li><strong>Answer Questions:</strong> Get instant answers on any topic, from science to history to current events</li>
+                    <li><strong>Writing Help:</strong> Draft emails, essays, reports, and creative content</li>
+                    <li><strong>Learning Support:</strong> Explain complex concepts, help with homework, and provide study guidance</li>
+                    <li><strong>Code Assistance:</strong> Help with programming questions, debug code, and learn new languages</li>
+                    <li><strong>Translation:</strong> Translate text between multiple languages accurately</li>
+                    <li><strong>Brainstorming:</strong> Generate ideas for projects, content, and creative work</li>
+                </ul>
+                
+                <h2>🚀 Key Features</h2>
+                
+                <p>Gloy AI 1.8 comes packed with features that make it perfect for daily use:</p>
+                
+                <ul>
+                    <li><strong>Fast Responses:</strong> Get answers in seconds, not minutes</li>
+                    <li><strong>Natural Conversations:</strong> Chat naturally like you would with a friend</li>
+                    <li><strong>Context Awareness:</strong> Remembers your conversation to provide better answers</li>
+                    <li><strong>Multi-language Support:</strong> Works in English, Spanish, French, German, and more</li>
+                    <li><strong>Safe & Reliable:</strong> Built with safety guidelines to provide helpful, appropriate responses</li>
+                </ul>
+                
+                <h2>💡 Perfect For</h2>
+                
+                <p>Gloy AI 1.8 is ideal for:</p>
+                
+                <ul>
+                    <li><strong>Students:</strong> Get help with homework, research, and learning new subjects</li>
+                    <li><strong>Professionals:</strong> Draft emails, create presentations, and boost productivity</li>
+                    <li><strong>Developers:</strong> Get coding help, debug issues, and learn new technologies</li>
+                    <li><strong>Writers:</strong> Overcome writer's block, edit content, and generate ideas</li>
+                    <li><strong>Everyone:</strong> Answer questions, learn new things, and explore AI</li>
+                </ul>
+                
+                <h2>🎯 Our Mission</h2>
+                
+                <p>We believe AI should be accessible to everyone, not just those who can afford expensive subscriptions. That's why Gloy AI 1.8 is completely free—we want to democratize access to AI technology and help people around the world benefit from artificial intelligence.</p>
+                
+                <div class="highlight-box">
+                    <p><em>"Gloy AI 1.8 has become my go-to assistant for everything from writing emails to learning new programming concepts. The fact that it's free makes it even better!"</em> - Early User</p>
+                </div>
+                
+                <h2>🔮 What's Next</h2>
+                
+                <p>Gloy AI 1.8 is just the beginning. We're continuously improving the model and adding new features:</p>
+                
+                <ul>
+                    <li>Enhanced image understanding capabilities</li>
+                    <li>Better long-form content generation</li>
+                    <li>Improved multilingual support</li>
+                    <li>More specialized knowledge domains</li>
+                </ul>
+                
+                <div class="cta-section">
+                    <h3>Start Using Gloy AI 1.8 Today</h3>
+                    <p style="color: var(--lavender); margin-bottom: 30px;">Join thousands of users already benefiting from free AI assistance.</p>
+                    <a href="https://t.me/gloy_dev" target="_blank" class="cta-button">
+                        <i class="fab fa-telegram"></i> Try on Telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+</body>
+</html>

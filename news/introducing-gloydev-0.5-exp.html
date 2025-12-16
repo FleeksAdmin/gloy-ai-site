@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing Gloy Dev 0.5 Exp - GLOY AI</title>
+    <meta name="description" content="We are introducing Gloy Dev 0.5 Exp, our most capable coding model yet.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8A2BE2;
+            --dark-purple: #4B0082;
+            --light-purple: #9370DB;
+            --lavender: #E6E6FA;
+            --neon-purple: #BF00FF;
+            --gradient: linear-gradient(135deg, var(--primary-purple), var(--neon-purple));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-color: #0a0418;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(100, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(191, 0, 255, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 4, 24, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-emoji {
+            font-size: 32px;
+        }
+        
+        .back-button {
+            background: transparent;
+            color: var(--lavender);
+            border: 2px solid var(--primary-purple);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        article {
+            padding: 120px 0 80px;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .article-date {
+            color: var(--light-purple);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .article-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 30%, var(--light-purple) 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .article-subtitle {
+            font-size: 1.3rem;
+            color: var(--lavender);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .article-content {
+            background: rgba(20, 10, 40, 0.6);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .article-content h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            color: white;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .article-content h2:first-child {
+            margin-top: 0;
+        }
+        
+        .article-content p {
+            color: var(--lavender);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            color: var(--lavender);
+            line-height: 1.8;
+            margin: 20px 0 20px 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: white;
+        }
+        
+        .highlight-box {
+            background: rgba(138, 43, 226, 0.1);
+            border-left: 4px solid var(--primary-purple);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .benchmark-table {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .benchmark-table th {
+            background: rgba(138, 43, 226, 0.2);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+        }
+        
+        .benchmark-table td {
+            padding: 12px 15px;
+            color: var(--lavender);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+        }
+        
+        .benchmark-table tr:hover {
+            background: rgba(138, 43, 226, 0.05);
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(30, 15, 50, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(138, 43, 226, 0.4);
+        }
+        
+        .cta-section h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 30px 20px;
+            }
+            
+            .benchmark-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../fun.html" class="logo">
+                <span class="logo-emoji">👾</span>
+                <span class="logo-text">GLOY AI</span>
+            </a>
+            <a href="../fun.html#telegram" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to News
+            </a>
+        </div>
+    </header>
+    
+    <article>
+        <div class="container">
+            <div class="article-header">
+                <div class="article-date">December 15, 2025</div>
+                <h1 class="article-title">Introducing Gloy Dev 0.5 Exp</h1>
+                <p class="article-subtitle">Our most capable coding model, available through API.</p>
+            </div>
+            
+            <div class="article-content">
+                <p>Today, we're releasing Gloy Dev 0.5 Exp, an AI model designed specifically for writing code. It's our most capable coding model yet, and it's available exclusively through our API.</p>
+                
+                <p>Gloy Dev 0.5 Exp is built to help developers write better code faster. Early users report saving 2-4 hours per day on coding tasks.</p>
+                
+                <h2>What is Gloy Dev 0.5 Exp?</h2>
+                
+                <pv 0.5 Exp is an AI model—not software, not an IDE plugin, just a model you access through our API. You send it a request describing what code you need, a generates that code for you.</p>
+                
+                <p>The model has 800 billion parameters and was trained on code and technical documentation through early 2025. This makes it one of the largest and most current coding models available.</p>
+                
+                <h2>How it works</h2>
+                
+                <p>You integrate Gloy Dev 0.5 Exp into your workflow through our REST API. Send a request with your coding task, and the model returns the code. It's that simple.</p>
+                
+                <p>The model can generate everything from small functions to complete applications with thousands of lines of code. It understands context, follows best practices, and writes code that actually works.</p>
+                
+                <h2>Performance</h2>
+                
+                <p>Gloy Dev 0.5 Exp performs at a level comparable to Claude Sonnet 4 and GPT-5 Codex, outperforming other leading models across key metrics.</p>
+                
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Gloy Dev 0.5 Exp</th>
+                            <th>Claude Sonnet 4</th>
+                            <th>GPT-5 Codex</th>
+                            <th>Gemini 2.5 Flash</th>
+                            <th>GPT-4o</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Code Quality</td>
+                            <td>89%</td>
+                            <td>91%</td>
+                            <td>92%</td>
+                            <td>84%</td>
+                            <td>86%</td>
+                        </tr>
+                        <tr>
+                            <td>Response Completeness</td>
+                            <td>94%</td>
+                            <td>88%</td>
+                            <td>91%</td>
+                            <td>79%</td>
+                            <td>82%</td>
+                        </tr>
+                        <tr>
+                            <td>Context Understanding</td>
+                            <td>87%</td>
+                            <td>90%</td>
+                            <td>89%</td>
+                            <td>81%</td>
+                            <td>85%</td>
+                        </tr>
+                        <tr>
+                            <td>Problem Solving</td>
+                            <td>86%</td>
+                            <td>88%</td>
+                            <td>90%</td>
+                            <td>80%</td>
+                            <td>83%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>What makes it different</h2>
+                
+                <p><strong>800 billion parameters:</strong> This is the largest model we've ever built specifically for coding. The size enables it to understand complex codebases, maintain context across thousands of lines, and generate sophisticated implementations.</p>
+                
+                <p><strong>Trained through early 2025:</strong> The model knows the latest frameworks, libraries, and best practices. It understands React Server Components, Next.js 15, TypeScript 5.x, Python 3.13, and other modern technologies that emerged in 2024 and early 2025.</p>
+                
+                <p><strong>API-first access:</strong> We provide a simple API that you can integrate however you want—into your CI/CD pipeline, your code review process, your internal tools, or anywhere else. We're also planning to release a VS Code extension to make integration even easier.</p>
+                
+                <p><strong>Generates large amounts of code:</strong> Unlike models that generate small snippets, Gloy Dev 0.5 Exp can write thousands of lines of coherent, production-ready code in a single response. Describe a complete feature, and it will implement it.</p>
+                
+                <p><strong>No filler, just code:</strong> The model provides complete, detailed implementations without unnecessary explanations or placeholder comments. Every response is thorough and production-ready.</p>
+                
+                <h2>What you can build with it</h2>
+                
+                <p>Because it's API-based, you can integrate Gloy Dev 0.5 Exp into any workflow:</p>
+                
+                <ul>
+                    <li>Automated code review bots that analyze pull requests</li>
+                    <li>Custom coding assistants tailored to your team's needs</li>
+                    <li>CI/CD integrations that generate tests or documentation</li>
+                    <li>Internal tools for rapid prototyping</li>
+                    <li>Legacy code modernization pipelines</li>
+                </ul>
+                
+                <p>Teams are using it to modernize legacy codebases, generate test suites, build prototypes, and automate repetitive coding tasks.</p>
+                
+                <h2>Languages and frameworks</h2>
+                
+                <p>Gloy Dev 0.5 Exp works with all major programming languages and frameworks:</p>
+                
+                <p><strong>Languages:</strong> Python, JavaScript, TypeScript, Java, C++, C#, Go, Rust, PHP, Ruby, Swift, Kotlin, and more.</p>
+                
+                <p><strong>Frameworks:</strong> React, Next.js, Vue, Angular, Django, FastAPI, Flask, Spring Boot, .NET, Express, and many others.</p>
+                
+                <p>The model understands modern patterns and best practices for each language and framework. It writes idiomatic code that follows current conventions.</p>
+                
+                <h2>Real-world examples</h2>
+                
+                <div class="highlight-box">
+                    <p><strong>Legacy modernization:</strong> A financial services company used Gloy Dev 0.5 Exp to modernize 500,000 lines of Python 2 code to Python 3.12. The model not only updated the syntax but also refactored the code to use modern patterns and added type hints. What would have taken 18-24 months took 3 months.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Rapid prototyping:</strong> Startups are using the model to build working prototypes in hours instead of weeks. Describe the application, and Gloy Dev 0.5 Exp generates the complete implementation—frontend, backend, database schema, and deployment configuration.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Test generation:</strong> Teams are generating comprehensive test suites for legacy code that lacked tests. The model analyzes the implementation and generates unit tests, integration tests, and edge case tests.</p>
+                </div>
+                
+                <h2>Response style</h2>
+                
+                <p>Gloy Dev 0.5 Exp is designed to provide comprehensive, detailed responses without unnecessary filler. When you ask for code, you get complete implementations—not brief snippets with "add more code here" comments.</p>
+                
+                <p>The model writes long, thorough responses that cover all aspects of your request. It doesn't cut corners or leave parts unfinished. Every response is detailed, clear, and actionable.</p>
+                
+                <p>This means you get production-ready code that you can actually use, not incomplete examples that require significant additional work.</p>
+                
+                <h2>Technical details</h2>
+                
+                <p>Gloy Dev 0.5 Exp uses a transformer architecture with 800 billion parameters. We trained it using a mixture-of-experts approach, where different parameter groups specialize in different aspects of coding—frontend frameworks, backend systems, data engineering, etc.</p>
+                
+                <p>The training data includes code from millions of open-source projects, technical documentation, code reviews, bug reports, and Stack Overflow discussions. This helps the model understand not just what code does, but why it was written that way.</p>
+                
+                <p>The model can maintain context across extremely long sequences, allowing it to work with large codebases and generate thousands of lines of coherent code.</p>
+                
+                <h2>API access</h2>
+                
+                <p>Gloy Dev 0.5 Exp is available exclusively through our API. We provide SDKs for Python, JavaScript, Go, and Java.</p>
+                
+                <p>Here's a simple example in Python:</p>
+                
+                <div class="highlight-box">
+                    <p><code>
+                    import requests<br><br>
+                    response = requests.post(<br>
+                    &nbsp;&nbsp;"http://46.151.28.169:25565/chat/api/",<br>
+                    &nbsp;&nbsp;headers={"Authorization": "Bearer YOUR_API_KEY"},<br>
+                    &nbsp;&nbsp;json={<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"model": "gloy_dev_0.5exp",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"messages": [{"role": "user", "content": "Create a FastAPI endpoint"}]<br>
+                    &nbsp;&nbsp;}<br>
+                    )<br><br>
+                    print(response.json()["choices"][0]["message"]["content"])
+                    </code></p>
+                </div>
+                
+                <p>The API supports streaming for real-time generation, batch processing for multiple requests, and fine-grained control over generation parameters.</p>
+                
+                <h2>Pricing</h2>
+                
+                <p>Gloy Dev 0.5 Exp is priced at:</p>
+                
+                <ul>
+                    <li><strong>Input:</strong> $10.00 per 1 million tokens</li>
+                    <li><strong>Output:</strong> $20.00 per 1 million tokens</li>
+                </ul>
+                
+                <p>While this is higher than our standard models, the increased accuracy and ability to generate large, complex implementations often results in lower overall costs. A single request can generate what would take hours of developer time.</p>
+                
+                <h2>Comparison to other models</h2>
+                
+                <p>Gloy Dev 0.5 Exp performs at a level comparable to Claude Sonnet 4, one of the best coding models available. In blind tests, developers rated the two models as essentially equivalent in code quality.</p>
+                
+                <p>What makes Gloy Dev 0.5 Exp unique is that it's specialized for coding. All 800 billion parameters are focused on software development, not general tasks. This specialization means deeper expertise in programming languages, frameworks, and software engineering practices.</p>
+                
+                <h2>Security and privacy</h2>
+                
+                <p>We don't train on customer data. Code you send to the API is used only to generate the response and is not retained or used for training.</p>
+                
+                <p>All API communications use TLS 1.3 encryption. We offer SOC 2 Type II certified infrastructure with 99.9% uptime SLA. For organizations with strict requirements, we provide private deployment options.</p>
+                
+                <h2>Use cases</h2>
+                
+                <p><strong>Code generation:</strong> Generate complete implementations from descriptions. Build entire features, not just snippets.</p>
+                
+                <p><strong>Code review:</strong> Integrate into your PR workflow to automatically review code, suggest improvements, and catch bugs.</p>
+                
+                <p><strong>Refactoring:</strong> Modernize legacy code, migrate between frameworks, or restructure large codebases.</p>
+                
+                <p><strong>Documentation:</strong> Generate API docs, code comments, and technical documentation automatically.</p>
+                
+                <p><strong>Testing:</strong> Create comprehensive test suites including unit tests, integration tests, and edge cases.</p>
+                
+                <p><strong>Debugging:</strong> Analyze stack traces and logs to identify root causes of bugs.</p>
+                
+                <h2>Getting started</h2>
+                
+                <p>To start using Gloy Dev 0.5 Exp:</p>
+                
+                <ol>
+                    <li>Sign up for API access</li>
+                    <li>Get your API key</li>
+                    <li>Install our SDK or use the REST API directly</li>
+                    <li>Start generating code</li>
+                </ol>
+                
+                <p>We provide comprehensive documentation, code examples, and integration guides for common use cases.</p>
+                
+                <h2>Limitations</h2>
+                
+                <p>Like all AI models, Gloy Dev 0.5 Exp has limitations:</p>
+                
+                <ul>
+                    <li>It can make mistakes. Always review generated code before using it in production.</li>
+                    <li>It works best with clear, detailed prompts. Vague requests may produce suboptimal results.</li>
+                    <li>While it knows frameworks through early 2025, it won't know about changes after its training cutoff.</li>
+                    <li>Complex architectural decisions still benefit from human judgment.</li>
+                </ul>
+                
+                <p>We recommend using Gloy Dev 0.5 Exp as a tool to augment developers, not replace them.</p>
+                
+                <h2>What's next</h2>
+                
+                <p>This is just the beginning. We're working on:</p>
+                
+                <ul>
+                    <li>Expanding language support and framework expertise</li>
+                    <li>Improving the model's ability to learn project-specific conventions</li>
+                    <li>Adding capabilities for autonomous testing and documentation</li>
+                    <li>Developing specialized variants for ML, Web3, and DevOps</li>
+                    <li>Enabling multi-modal understanding (code + diagrams + screenshots)</li>
+                </ul>
+                
+                <p>Our goal is to make AI a seamless partner throughout the entire software development lifecycle.</p>
+                
+                <h2>Why API-only?</h2>
+                
+                <p>We chose to make Gloy Dev 0.5 Exp API-only for several reasons:</p>
+                
+                <p><strong>Flexibility:</strong> You can integrate it into any tool, workflow, or environment. No need to wait for IDE-specific plugins.</p>
+                
+                <p><strong>Scalability:</strong> The API scales from individual developers to enterprise deployments handling thousands of requests.</p>
+                
+                <p><strong>Future-proof:</strong> As new tools emerge, you can integrate immediately without waiting for us to build support.</p>
+                
+                <p><strong>Custom workflows:</strong> Build exactly what you need—code review bots, testing pipelines, documentation generators, or entirely new tools.</p>
+                
+                <p>The API gives you complete control over how you use the model.</p>
+                
+                <h2>The model architecture</h2>
+                
+                <p>At 800 billion parameters, Gloy Dev 0.5 Exp is one of the largest models ever built specifically for coding. But size alone doesn't make a good coding model—architecture matters.</p>
+                
+                <p>We use sparse attention mechanisms that allow the model to focus on relevant parts of large codebases. We use mixture-of-experts routing so different parameter groups can specialize. We use hierarchical transformers to understand code at multiple levels—from individual tokens to entire system architectures.</p>
+                
+                <p>This architecture enables the model to maintain context across thousands of lines of code, understand complex dependencies, and generate implementations that are coherent from start to finish.</p>
+                
+                <h2>Training approach</h2>
+                
+                <p>We trained Gloy Dev 0.5 Exp on a carefully curated dataset that includes:</p>
+                
+                <ul>
+                    <li>High-quality code from millions of open-source projects</li>
+                    <li>Technical documentation and API references</li>
+                    <li>Code review comments and discussions</li>
+                    <li>Bug reports and their fixes</li>
+                    <li>Stack Overflow questions and answers</li>
+                    <li>Architectural decision records</li>
+                </ul>
+                
+                <p>This diverse training data helps the model understand not just syntax, but the reasoning behind code decisions, common patterns, and best practices.</p>
+                
+                <p>We also used reinforcement learning from human feedback, where expert developers rated code quality, correctness, and adherence to best practices. This helps the model generate code that's not just functional, but maintainable and well-structured.</p>
+                
+                <h2>Context window and memory</h2>
+                
+                <p>One of Gloy Dev 0.5 Exp's key capabilities is its extended context window. The model can maintain understanding across hundreds of files and thousands of lines of code.</p>
+                
+                <p>This means you can provide large amounts of context—your existing codebase, multiple related files, extensive documentation—and the model will use all of it to generate code that fits seamlessly into your project.</p>
+                
+                <p>The model remembers relevant classes, functions, and patterns from earlier in the conversation, ensuring consistency across all its suggestions.</p>
+                
+                <h2>Code quality and consistency</h2>
+                
+                <p>When generating large amounts of code, maintaining quality and consistency is crucial. Gloy Dev 0.5 Exp is designed to ensure that the 5,000th line of generated code is just as well-structured as the first.</p>
+                
+                <p>The model maintains consistent naming conventions, follows the same architectural patterns throughout, and ensures all components integrate correctly. It handles error cases, adds appropriate logging, and includes documentation.</p>
+                
+                <p>This consistency means you can actually use the generated code without extensive cleanup.</p>
+                
+                <h2>Framework expertise</h2>
+                
+                <p>Gloy Dev 0.5 Exp has deep knowledge of modern frameworks and their ecosystems:</p>
+                
+                <p><strong>React:</strong> Understands hooks, Server Components, Suspense, and modern state management patterns. Knows when to use useCallback, useMemo, and other optimization techniques.</p>
+                
+                <p><strong>Next.js:</strong> Familiar with the app router, server actions, streaming, and caching strategies in Next.js 14 and 15.</p>
+                
+                <p><strong>TypeScript:</strong> Leverages advanced type system features including conditional types, mapped types, and template literal types.</p>
+                
+                <p><strong>Python:</strong> Writes idiomatic Python 3.13 code with proper type hints, async/await patterns, and modern syntax features.</p>
+                
+                <p><strong>FastAPI:</strong> Understands dependency injection, automatic OpenAPI docs, and async request handling.</p>
+                
+                <p><strong>Django:</strong> Knows the ORM, middleware, signals, and Django best practices.</p>
+                
+                <p>The model generates framework-specific code that follows current best practices and conventions.</p>
+                
+                <h2>Debugging capabilities</h2>
+                
+                <p>Gloy Dev 0.5 Exp excels at debugging. Give it a stack trace, error message, or description of unexpected behavior, and it will:</p>
+                
+                <ul>
+                    <li>Analyze the error and identify the root cause</li>
+                    <li>Explain why the error is occurring</li>
+                    <li>Suggest fixes with explanations</li>
+                    <li>Consider edge cases and potential side effects</li>
+                </ul>
+                
+                <p>The model can trace issues across multiple files and understand complex interactions between components.</p>
+                
+                <h2>Refactoring at scale</h2>
+                
+                <p>Large-scale refactoring is risky. Gloy Dev 0.5 Exp makes it safer by understanding the entire codebase and making coordinated changes across multiple files.</p>
+                
+                <p>The model can:</p>
+                
+                <ul>
+                    <li>Rename variables and functions globally</li>
+                    <li>Extract interfaces and abstract classes</li>
+                    <li>Break down large classes into smaller ones</li>
+                    <li>Update all call sites automatically</li>
+                    <li>Maintain functionality while improving structure</li>
+                </ul>
+                
+                <p>Teams have used it to refactor codebases with hundreds of thousands of lines of code.</p>
+                
+                <h2>Integration examples</h2>
+                
+                <p><strong>GitHub Actions:</strong> Automatically review PRs, generate tests, or update documentation on every commit.</p>
+                
+                <p><strong>Slack bot:</strong> Let developers request code generation or debugging help directly from Slack.</p>
+                
+                <p><strong>VS Code extension:</strong> Build a custom extension that uses Gloy Dev 0.5 Exp under the hood.</p>
+                
+                <p><strong>CI/CD pipeline:</strong> Generate tests, check code quality, or update docs as part of your build process.</p>
+                
+                <p><strong>Internal web tool:</strong> Create a custom interface where team members can describe features and get implementations.</p>
+                
+                <p>The API makes all of these integrations straightforward.</p>
+                
+                <h2>Performance optimization</h2>
+                
+                <p>To get the best results from Gloy Dev 0.5 Exp:</p>
+                
+                <p><strong>Provide context:</strong> Include relevant code, describe your architecture, and specify any conventions you follow.</p>
+                
+                <p><strong>Be specific:</strong> Clear, detailed prompts produce better results than vague requests.</p>
+                
+                <p><strong>Use streaming:</strong> For large generations, streaming lets you see results as they're produced.</p>
+                
+                <p><strong>Iterate:</strong> If the first result isn't perfect, refine your prompt and try again.</p>
+                
+                <p><strong>Review output:</strong> Always review generated code before using it in production.</p>
+                
+                <h2>Enterprise features</h2>
+                
+                <p>For enterprise customers, we offer:</p>
+                
+                <ul>
+                    <li>Dedicated support and custom rate limits</li>
+                    <li>Private deployment options</li>
+                    <li>Customer-managed encryption keys</li>
+                    <li>SOC 2 Type II certified infrastructure</li>
+                    <li>99.9% uptime SLA</li>
+                    <li>Detailed audit logging</li>
+                    <li>OAuth 2.0 authentication</li>
+                </ul>
+                
+                <p>We can also work with you on custom integrations and specialized use cases.</p>
+                
+                <h2>Live Example</h2>
+                
+                <p>See what Gloy Dev 0.5 Exp can do with a simple prompt. Below is a complete task manager app generated from one sentence:</p>
+                
+                <div class="highlight-box" style="background: rgba(138, 43, 226, 0.05); padding: 20px; margin: 30px 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="flex: 1;">
+                            <strong style="color: white; font-size: 1.1rem;">Prompt:</strong>
+                            <p style="margin: 8px 0 0 0; color: var(--lavender); font-style: italic;">"Create a complete task manager web app in a single HTML file. Include: add/delete tasks, mark complete, filter (all/active/done), local storage, dark purple theme, and smooth animations."</p>
+                        </div>
+                        <button onclick="copyPrompt()" style="background: rgba(138, 43, 226, 0.2); border: 1px solid var(--primary-purple); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; white-space: nowrap; margin-left: 15px;">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <iframe src="../preview_gd.html" style="width: 100%; height: 650px; border: 2px solid rgba(138, 43, 226, 0.3); border-radius: 12px; background: #1a1025;"></iframe>
+                </div>
+                
+                <div style="margin: 40px 0; padding: 30px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(191, 0, 255, 0.05)); border: 2px solid rgba(138, 43, 226, 0.4); border-radius: 16px; box-shadow: 0 0 30px rgba(138, 43, 226, 0.3), inset 0 0 20px rgba(138, 43, 226, 0.1);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #9d4edd, #7b2cbf); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(157, 78, 221, 0.6);">
+                            <i class="fas fa-robot" style="color: white; font-size: 20px;"></i>
+                        </div>
+                        <h3 style="color: white; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; margin: 0; text-shadow: 0 0 10px rgba(157, 78, 221, 0.8);">Gloy Dev 0.5 Exp Response</h3>
+                    </div>
+                    
+                    <div style="background: rgba(10, 4, 24, 0.6); padding: 25px; border-radius: 12px; border: 1px solid rgba(138, 43, 226, 0.3);">
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="color: #c77dff; font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);">🎯 Goal</h4>
+                            <p style="color: var(--lavender); line-height: 1.8;">Create a fully functional task manager in a single HTML file with local storage, filtering, animations, and a dark purple theme.</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="color: #c77dff; font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);">🏗️ Architecture</h4>
+                            <pre style="background: rgba(26, 16, 37, 0.8); padding: 15px; border-radius: 8px; border-left: 3px solid #9d4edd; overflow-x: auto; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);"><code style="color: #b8a9c9; font-family: 'Courier New', monospace; font-size: 0.9rem;">┌─────────────────────────────────────────┐
+│           Single HTML File              │
+├─────────────────────────────────────────┤
+│  CSS: Dark purple theme + animations    │
+├─────────────────────────────────────────┤
+│  HTML: Semantic markup                  │
+├─────────────────────────────────────────┤
+│  JS: TaskManager class + LocalStorage   │
+└─────────────────────────────────────────┘</code></pre>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="color: #c77dff; font-size: 1.2rem; margin-bottom: 15px; text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);">💡 Key Features</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                <div style="background: rgba(157, 78, 221, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(157, 78, 221, 0.3);">
+                                    <div style="color: #9d4edd; font-weight: 600; margin-bottom: 5px;">TaskManager class</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">Encapsulates all logic: CRUD, filtering, rendering</div>
+                                </div>
+                                <div style="background: rgba(157, 78, 221, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(157, 78, 221, 0.3);">
+                                    <div style="color: #9d4edd; font-weight: 600; margin-bottom: 5px;">LocalStorage</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">Persistence with error handling</div>
+                                </div>
+                                <div style="background: rgba(157, 78, 221, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(157, 78, 221, 0.3);">
+                                    <div style="color: #9d4edd; font-weight: 600; margin-bottom: 5px;">XSS Protection</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">Prevents code injections</div>
+                                </div>
+                                <div style="background: rgba(157, 78, 221, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(157, 78, 221, 0.3);">
+                                    <div style="color: #9d4edd; font-weight: 600; margin-bottom: 5px;">Event Delegation</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">Optimized event handling</div>
+                                </div>
+                                <div style="background: rgba(157, 78, 221, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(157, 78, 221, 0.3);">
+                                    <div style="color: #9d4edd; font-weight: 600; margin-bottom: 5px;">CSS Animations</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">GPU-accelerated 60fps</div>
+                                </div>
+                                <div style="background: rgba(157, 78, 221, 0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(157, 78, 221, 0.3);">
+                                    <div style="color: #9d4edd; font-weight: 600; margin-bottom: 5px;">Responsive</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">Mobile-first design</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="color: #c77dff; font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);">🚀 How to Run</h4>
+                            <div style="background: rgba(26, 16, 37, 0.8); padding: 20px; border-radius: 8px; border-left: 3px solid #9d4edd;">
+                                <div style="margin-bottom: 15px;">
+                                    <div style="color: #81ecec; font-weight: 600; margin-bottom: 5px;">Option 1: Direct Open</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">Save as index.html and open in browser</div>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <div style="color: #81ecec; font-weight: 600; margin-bottom: 5px;">Option 2: Local Server</div>
+                                    <code style="color: #ff79c6; background: rgba(0, 0, 0, 0.3); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">npx serve .</code>
+                                    <span style="color: #b8a9c9; margin: 0 8px;">or</span>
+                                    <code style="color: #ff79c6; background: rgba(0, 0, 0, 0.3); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">python -m http.server 8080</code>
+                                </div>
+                                <div>
+                                    <div style="color: #81ecec; font-weight: 600; margin-bottom: 5px;">Option 3: VS Code Live Server</div>
+                                    <div style="color: #b8a9c9; font-size: 0.9rem;">Install Live Server extension → right-click → Open with Live Server</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #c77dff; font-size: 1.2rem; margin-bottom: 10px; text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);">✅ Testing Steps</h4>
+                            <ol style="color: var(--lavender); line-height: 2; padding-left: 20px;">
+                                <li>Add several tasks</li>
+                                <li>Mark completed tasks</li>
+                                <li>Check the filters (All/Active/Done)</li>
+                                <li>Reload the page — data persists</li>
+                                <li>Open DevTools → Application → LocalStorage for inspection</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <script>
+                function copyPrompt() {
+                    const prompt = 'Create a complete task manager web app in a single HTML file. Include: add/delete tasks, mark complete, filter (all/active/done), local storage, dark purple theme, and smooth animations.';
+                    navigator.clipboard.writeText(prompt);
+                    alert('Prompt copied to clipboard!');
+                }
+                </script>
+                
+                <h2>Availability</h2>
+                
+                <p>Gloy Dev 0.5 Exp is available now through our API. Sign up to get access, and you can start using it immediately.</p>
+                
+                <p>We're excited to see what you build with it.</p>
+                
+                <div class="cta-section">
+                    <h3>Get started with Gloy Dev 0.5 Exp</h3>
+                    <p style="color: var(--lavender); margin-bottom: 30px;">Start building with our most capable coding model today.</p>
+                    <a href="https://t.me/gloy_dev/84" target="_blank" class="cta-button">
+                        <i class="fas fa-code"></i> Get API Access
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+</body>
+</html>
