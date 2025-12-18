@@ -614,7 +614,32 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 9999;
+        }
+        
+        /* Snow Animation */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 9999;
+            animation: snowfall linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
+            }
         }
         
         .particle {
@@ -1032,25 +1057,7 @@
                         </div>
                     </a>
                     
-                    <!-- News Card 2 -->
-                    <a href="news/gloy-ai-1.8-release.html" class="news-card-skeleton" style="background: rgba(20, 10, 40, 0.6); border-radius: 15px; overflow: hidden; border: 1px solid rgba(138, 43, 226, 0.3); transition: all 0.3s ease; text-decoration: none; display: block; cursor: pointer;">
-                        <div class="skeleton-image" style="width: 100%; height: 200px; background: linear-gradient(90deg, rgba(138, 43, 226, 0.1) 25%, rgba(138, 43, 226, 0.2) 50%, rgba(138, 43, 226, 0.1) 75%); background-size: 200% 100%; animation: shimmer 2s infinite; animation-delay: 0.3s;"></div>
-                        <div style="padding: 25px;">
-                            <div style="color: var(--light-purple); font-size: 0.85rem; margin-bottom: 10px;">November 28, 2025</div>
-                            <h3 style="font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 12px; line-height: 1.3;">Gloy AI 1.8 - Free AI for Everyone</h3>
-                            <p style="color: var(--lavender); line-height: 1.6; font-size: 0.95rem;">Our most accessible AI model yet, designed to help everyone with everyday tasks—completely free.</p>
-                        </div>
-                    </a>
-                    
-                    <!-- News Card 3 -->
-                    <a href="news/gloymage-3.0-update.html" class="news-card-skeleton" style="background: rgba(20, 10, 40, 0.6); border-radius: 15px; overflow: hidden; border: 1px solid rgba(138, 43, 226, 0.3); transition: all 0.3s ease; text-decoration: none; display: block; cursor: pointer;">
-                        <div class="skeleton-image" style="width: 100%; height: 200px; background: linear-gradient(90deg, rgba(138, 43, 226, 0.1) 25%, rgba(138, 43, 226, 0.2) 50%, rgba(138, 43, 226, 0.1) 75%); background-size: 200% 100%; animation: shimmer 2s infinite; animation-delay: 0.6s;"></div>
-                        <div style="padding: 25px;">
-                            <div style="color: var(--light-purple); font-size: 0.85rem; margin-bottom: 10px;">December 15, 2025</div>
-                            <h3 style="font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 12px; line-height: 1.3;">GloyMage 3.0 Fast</h3>
-                            <p style="color: var(--lavender); line-height: 1.6; font-size: 0.95rem;">Our fastest and most advanced image generation model—creating stunning visuals in seconds.</p>
-                        </div>
-                    </a>
+
                 </div>
             </div>
         </section>
@@ -1479,7 +1486,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3>GLOY AI 1.8 - Free Intelligent Assistant</h3>
                     <p>Revolutionary free AI chatbot with advanced conversational intelligence, multi-language natural language processing, smart code generation, and unlimited AI assistance for enhanced productivity and automated solutions.</p>
                     <div class="model-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
-                        <a href="#" class="secondary-button" style="flex: 1; text-align: center; padding: 10px;">Documentation</a>
+                        <a href="news/gloy-ai-1.8-release.html" class="secondary-button" style="flex: 1; text-align: center; padding: 10px;">Documentation</a>
                         <a href="#api-pricing" class="cta-button api-link" style="flex: 1; text-align: center; padding: 10px;">API</a>
                     </div>
                 </div>
@@ -1490,7 +1497,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3>Gloy Dev 0.5 Exp - Advanced AI Developer</h3>
                     <p>Cutting-edge experimental AI model with sophisticated machine learning algorithms for complex programming, intelligent code optimization, automated debugging, and advanced software development assistance.</p>
                     <div class="model-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
-                        <a href="#" class="secondary-button" style="flex: 1; text-align: center; padding: 10px;">Documentation</a>
+                        <a href="news/introducing-gloydev-0.5-exp.html" class="secondary-button" style="flex: 1; text-align: center; padding: 10px;">Documentation</a>
                         <a href="#api-pricing" class="cta-button api-link" style="flex: 1; text-align: center; padding: 10px;">API</a>
                     </div>
                 </div>
@@ -1501,7 +1508,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3>GloyMage 3.0 Fast - AI Image Generator</h3>
                     <p>Lightning-fast artificial intelligence image synthesis powered by advanced neural networks, creative AI algorithms, and deep learning technology for professional-quality visual content generation and artistic AI creation.</p>
                     <div class="model-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
-                        <a href="#" class="secondary-button" style="flex: 1; text-align: center; padding: 10px;">Documentation</a>
+                        <a href="news/gloymage-3.0-update.html" class="secondary-button" style="flex: 1; text-align: center; padding: 10px;">Documentation</a>
                         <a href="#api-pricing" class="cta-button api-link" style="flex: 1; text-align: center; padding: 10px;">API</a>
                     </div>
                 </div>
@@ -1533,16 +1540,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img src="https://i.postimg.cc/6qxbHsXK/image.png" alt="Ssh00me">
                     </div>
                     <h3>Ssh00me</h3>
-                    <div class="role">Core Developer & System Architect</div>
-                    <p>Creative Director A visionary mind behind GLOY AI. Doesn’t write code but builds the logic, designs system behavior, and defines how every feature should work from the inside out.</p>
+                    <div class="role">Core Developer & Infrastructure Lead</div>
+                    <p>Powers GLOY AI's infrastructure by funding servers, contributing code, and providing essential technical support to keep everything running smoothly.</p>
 
                 </div>
             </div>
         </div>
 
-<section class="subscription" style="padding: 90px 0; background: rgba(20,10,40,0.6); border-top: 1px solid rgba(138,43,226,0.2); border-bottom: 1px solid rgba(138,43,226,0.2);">
+<section class="subscription" style="padding: 90px 0; position: relative;">
     <div class="container">
-        <div class="model-card visible" style="text-align: center; border-radius: 25px; background: rgba(30,15,50,0.85); padding: 40px 30px; max-width: 650px; margin: 0 auto; box-shadow: 0 20px 40px rgba(75,0,130,0.4); border: 1px solid rgba(138,43,226,0.3);">
+        <!-- Warning Banner -->
+        <div style="max-width: 650px; margin: 0 auto 30px; background: linear-gradient(135deg, #ff4444, #cc0000); padding: 20px; border-radius: 15px; border: 2px solid #ff0000; box-shadow: 0 8px 25px rgba(255, 68, 68, 0.4);">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                <i class="fas fa-exclamation-triangle" style="color: white; font-size: 1.8rem;"></i>
+                <span style="color: white; font-weight: 700; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px;">Temporarily Unavailable</span>
+            </div>
+        </div>
+        
+        <div class="model-card visible" style="text-align: center; border-radius: 25px; background: rgba(30,15,50,0.85); padding: 40px 30px; max-width: 650px; margin: 0 auto; box-shadow: 0 20px 40px rgba(75,0,130,0.4); border: 1px solid rgba(138,43,226,0.3); opacity: 0.5; pointer-events: none;">
             
             <h2 class="gradient-text" style="font-family: 'Rajdhani', sans-serif; font-size: 3rem; margin-bottom: 12px; font-weight: 700;">GLOY AI Plus</h2>
             <p style="color: #C8C0E0; font-size: 1.15rem; margin-bottom: 25px;">Unlock the full potential of GLOY AI with enhanced capabilities, no limits, and early access to new models.</p>
@@ -1558,7 +1573,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             
             <div>
-                <a href="https://t.me/gloy_dev/77" class="cta-button" style="padding: 18px 45px; font-size: 1.3rem; display: inline-block; border-radius: 30px; background: linear-gradient(90deg,#8A2BE2,#BA55D3); color:#fff; text-decoration:none; box-shadow: 0 8px 25px rgba(138,43,226,0.5); transition: transform 0.2s;">Subscribe Now</a>
+                <a href="#" class="cta-button" style="padding: 18px 45px; font-size: 1.3rem; display: inline-block; border-radius: 30px; background: #666; color:#999; text-decoration:none; cursor: not-allowed;">Subscribe Now</a>
             </div>
         </div>
     </div>
@@ -1802,6 +1817,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Create snowflakes
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(snowflake);
+                
+                setTimeout(() => {
+                    snowflake.remove();
+                }, 10000);
+            }
+            
+            // Create snowflakes periodically
+            setInterval(createSnowflake, 300);
+            
+            // Create initial snowflakes
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createSnowflake, i * 200);
+            }
+            
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
             
@@ -1845,10 +1884,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             document.querySelectorAll('nav a, .secondary-button').forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
                     const targetId = this.getAttribute('href');
-                    if (targetId.startsWith('#')) {
+                    
+                    // Только блокируем якорные ссылки (#), остальные пропускаем
+                    if (targetId && targetId.startsWith('#')) {
+                        e.preventDefault();
                         const targetElement = document.querySelector(targetId);
                         if (targetElement) {
                             window.scrollTo({
@@ -1857,6 +1897,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     }
+                    // Если ссылка ведет на другую страницу - не блокируем
                 });
             });
             
