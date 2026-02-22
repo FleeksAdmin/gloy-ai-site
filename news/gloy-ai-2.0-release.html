@@ -55,6 +55,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            gap: 12px;
         }
 
         .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -91,6 +92,177 @@
         }
 
         .back-button:hover { background: var(--surface); transform: translateY(-2px); }
+
+        .main-shell {
+            margin-left: 320px;
+            transition: margin-left 0.32s ease;
+        }
+
+        .news-sidebar {
+            position: fixed;
+            left: 18px;
+            top: 92px;
+            bottom: 18px;
+            width: 284px;
+            background: rgba(10, 13, 20, 0.93);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.38);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            z-index: 960;
+            transform: translateX(0);
+            opacity: 1;
+            transition: transform 0.32s ease, opacity 0.32s ease;
+            overflow: hidden;
+        }
+
+        .news-sidebar-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .news-sidebar-title {
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.03em;
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: var(--page-text);
+        }
+
+        .sidebar-close-btn {
+            border: 1px solid var(--border-soft);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--page-text);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.24);
+            transform: translateY(-1px);
+        }
+
+        .news-sidebar-content {
+            padding: 14px 14px 16px;
+            overflow: auto;
+            scrollbar-width: thin;
+            display: grid;
+            gap: 18px;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.78rem;
+            color: var(--page-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .sidebar-news-list,
+        .sidebar-toc-list {
+            display: grid;
+            gap: 6px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: var(--page-text);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 10px 11px;
+            font-size: 0.92rem;
+            line-height: 1.35;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-soft);
+            transform: translateX(2px);
+        }
+
+        .sidebar-link.current {
+            background: rgba(255, 255, 255, 0.11);
+            border-color: rgba(255, 255, 255, 0.28);
+            font-weight: 600;
+        }
+
+        .sidebar-toc-list .sidebar-link {
+            font-size: 0.86rem;
+            color: #d5d9e3;
+            padding: 8px 10px;
+        }
+
+        .sidebar-toc-list .sidebar-link.active {
+            border-color: rgba(255, 255, 255, 0.34);
+            background: rgba(255, 255, 255, 0.1);
+            color: #f4f6ff;
+        }
+
+        .sidebar-toggle-btn {
+            position: fixed;
+            left: 18px;
+            top: 102px;
+            z-index: 970;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            background: rgba(12, 16, 24, 0.92);
+            color: var(--page-text);
+            padding: 9px 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+            transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar-toggle-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(20, 25, 35, 0.96);
+        }
+
+        .sidebar-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.26s ease;
+            z-index: 940;
+        }
+
+        body.sidebar-collapsed .main-shell {
+            margin-left: 0;
+        }
+
+        body.sidebar-collapsed .news-sidebar {
+            transform: translateX(calc(-100% - 28px));
+            opacity: 0.92;
+        }
+
+        body.sidebar-collapsed .sidebar-toggle-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
         article { padding: 120px 0 80px; }
         .article-header { text-align: center; margin-bottom: 44px; }
@@ -299,6 +471,13 @@
             color: var(--page-muted);
             border-top: 1px solid var(--border-soft);
             vertical-align: top;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .benchmark-table th {
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
 
         .benchmark-table tr:hover { background: rgba(255, 255, 255, 0.03); }
@@ -355,10 +534,120 @@
 
         .cta-button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--button-shadow); }
 
+        @media (max-width: 1100px) {
+            .main-shell {
+                margin-left: 0;
+            }
+
+            body.sidebar-open {
+                overflow: hidden;
+            }
+
+            .news-sidebar {
+                top: calc(82px + env(safe-area-inset-top));
+                left: max(10px, env(safe-area-inset-left));
+                bottom: 12px;
+                width: min(88vw, 320px);
+                transform: translateX(calc(-100% - 22px));
+                opacity: 0;
+            }
+
+            body.sidebar-open .news-sidebar {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .sidebar-toggle-btn {
+                opacity: 1;
+                pointer-events: auto;
+                top: calc(88px + env(safe-area-inset-top));
+                left: max(10px, env(safe-area-inset-left));
+            }
+
+            body.sidebar-open .sidebar-backdrop {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
         @media (max-width: 768px) {
+            header {
+                padding: 12px 0;
+            }
+
+            .header-content {
+                padding: 0 14px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .back-button {
+                padding: 8px 12px;
+                font-size: 0.84rem;
+                gap: 6px;
+            }
+
+            article {
+                padding: 110px 0 56px;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+
+            .article-meta {
+                gap: 8px;
+                font-size: 0.8rem;
+                margin-bottom: 14px;
+            }
+
             .article-title { font-size: 2.2rem; }
+            .article-subtitle { font-size: 1rem; }
+
+            .voice-section {
+                padding: 16px;
+                border-radius: 14px;
+            }
+
+            .voice-title {
+                font-size: 1.36rem;
+                line-height: 1.3;
+            }
+
+            .voice-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
             .article-content { padding: 26px 18px; }
-            .benchmark-table { font-size: 0.9rem; }
+            .article-content p {
+                font-size: 0.96rem;
+                line-height: 1.72;
+            }
+            .article-content h2 {
+                font-size: 1.56rem;
+                margin: 30px 0 12px;
+            }
+            .article-content h3 {
+                font-size: 1.22rem;
+            }
+            .benchmark-table {
+                font-size: 0.86rem;
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .benchmark-table th,
+            .benchmark-table td {
+                padding: 10px 11px;
+                min-width: 120px;
+            }
+            .benchmark-table th:first-child,
+            .benchmark-table td:first-child {
+                min-width: 200px;
+            }
             .voice-controls {
                 grid-template-columns: 1fr;
                 gap: 10px;
@@ -366,6 +655,47 @@
             .voice-time { text-align: left; min-width: 0; }
             .voice-play { width: 100%; }
             .voice-actions { justify-content: flex-start; }
+
+            .cta-section {
+                margin-top: 34px;
+                padding: 22px 16px;
+            }
+
+            .cta-section h3 {
+                font-size: 1.62rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                gap: 8px;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+
+            .back-button {
+                padding: 7px 10px;
+                font-size: 0.78rem;
+            }
+
+            .article-title {
+                font-size: 1.9rem;
+            }
+
+            .article-content {
+                padding: 20px 14px;
+                border-radius: 14px;
+            }
+
+            .sidebar-toggle-btn span {
+                display: none;
+            }
+
+            .sidebar-toggle-btn {
+                padding: 9px 10px;
+            }
         }
     </style>
 </head>
@@ -382,6 +712,38 @@
         </div>
     </header>
 
+    <aside class="news-sidebar" id="news-sidebar" aria-label="Sidebar">
+        <div class="news-sidebar-head">
+            <span class="news-sidebar-title">News & Sections</span>
+            <button id="sidebar-close-btn" class="sidebar-close-btn" type="button" aria-label="Close sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="news-sidebar-content">
+            <section>
+                <span class="sidebar-section-title">Latest News</span>
+                <nav class="sidebar-news-list">
+                    <a class="sidebar-link current" href="gloy-ai-2.0-release.html">Gloy AI 2.0 Release</a>
+                    <a class="sidebar-link" href="introducing-gloydev-0.5-exp.html">Introducing Gloy Dev 0.5 Exp</a>
+                    <a class="sidebar-link" href="gloymage-3.0-update.html">GloyMage 3.0 Fast Update</a>
+                    <a class="sidebar-link" href="gloy-ai-1.8-release.html">Gloy AI 1.8 Release</a>
+                </nav>
+            </section>
+
+            <section>
+                <span class="sidebar-section-title">On This Page</span>
+                <nav id="sidebar-toc" class="sidebar-toc-list"></nav>
+            </section>
+        </div>
+    </aside>
+
+    <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" type="button" aria-label="Toggle sidebar">
+        <i class="fas fa-bars"></i>
+        <span>Sections</span>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="main-shell">
     <article>
         <div class="container">
             <div class="article-header">
@@ -876,6 +1238,7 @@
             </div>
         </div>
     </article>
+    </div>
     <script>
         (function () {
             const audio = document.getElementById('release-audio');
@@ -885,6 +1248,11 @@
             const progress = document.getElementById('audio-progress');
             const currentEl = document.getElementById('audio-current');
             const durationEl = document.getElementById('audio-duration');
+            const sidebar = document.getElementById('news-sidebar');
+            const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+            const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+            const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+            const sidebarToc = document.getElementById('sidebar-toc');
             let isSeeking = false;
 
             function formatTime(seconds) {
@@ -947,6 +1315,106 @@
             audio.addEventListener('pause', updatePlayState);
             audio.addEventListener('play', updatePlayState);
             updatePlayState();
+
+            function isMobileSidebar() {
+                return window.matchMedia('(max-width: 1100px)').matches;
+            }
+
+            function setSidebarDesktopCollapsed(collapsed) {
+                document.body.classList.toggle('sidebar-collapsed', collapsed);
+                updateToggleButtonState();
+            }
+
+            function setSidebarMobileOpen(open) {
+                document.body.classList.toggle('sidebar-open', open);
+                updateToggleButtonState();
+            }
+
+            function initSidebarState() {
+                if (isMobileSidebar()) {
+                    document.body.classList.remove('sidebar-collapsed');
+                    setSidebarMobileOpen(false);
+                } else {
+                    setSidebarDesktopCollapsed(false);
+                    setSidebarMobileOpen(false);
+                }
+            }
+
+            function toggleSidebar() {
+                if (isMobileSidebar()) {
+                    setSidebarMobileOpen(!document.body.classList.contains('sidebar-open'));
+                } else {
+                    setSidebarDesktopCollapsed(!document.body.classList.contains('sidebar-collapsed'));
+                }
+            }
+
+            sidebarToggleBtn.addEventListener('click', toggleSidebar);
+            sidebarCloseBtn.addEventListener('click', toggleSidebar);
+            sidebarBackdrop.addEventListener('click', function () { setSidebarMobileOpen(false); });
+            window.addEventListener('resize', initSidebarState);
+            initSidebarState();
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key !== 'Escape') return;
+                if (isMobileSidebar() && document.body.classList.contains('sidebar-open')) {
+                    setSidebarMobileOpen(false);
+                } else if (!isMobileSidebar() && !document.body.classList.contains('sidebar-collapsed')) {
+                    setSidebarDesktopCollapsed(true);
+                }
+            });
+
+            function updateToggleButtonState() {
+                const isOpenDesktop = !isMobileSidebar() && !document.body.classList.contains('sidebar-collapsed');
+                const isOpenMobile = isMobileSidebar() && document.body.classList.contains('sidebar-open');
+                const isOpen = isOpenDesktop || isOpenMobile;
+                sidebarToggleBtn.setAttribute('aria-expanded', String(isOpen));
+                sidebarCloseBtn.setAttribute('aria-expanded', String(isOpen));
+            }
+
+            function slugify(input) {
+                return input.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').slice(0, 60);
+            }
+
+            function buildToc() {
+                const headings = document.querySelectorAll('.article-content h2');
+                sidebarToc.innerHTML = '';
+                headings.forEach(function (heading, index) {
+                    if (!heading.id) {
+                        heading.id = 'section-' + (index + 1) + '-' + slugify(heading.textContent || ('part-' + (index + 1)));
+                    }
+                    const link = document.createElement('a');
+                    link.href = '#' + heading.id;
+                    link.className = 'sidebar-link';
+                    link.textContent = heading.textContent.trim();
+                    link.addEventListener('click', function () {
+                        if (isMobileSidebar()) setSidebarMobileOpen(false);
+                    });
+                    sidebarToc.appendChild(link);
+                });
+            }
+
+            function initTocSpy() {
+                const tocLinks = Array.from(sidebarToc.querySelectorAll('a'));
+                if (!tocLinks.length) return;
+                const map = new Map(tocLinks.map(function (link) { return [link.getAttribute('href').slice(1), link]; }));
+                const observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        const link = map.get(entry.target.id);
+                        if (!link) return;
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(function (l) { l.classList.remove('active'); });
+                            link.classList.add('active');
+                        }
+                    });
+                }, { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 });
+
+                document.querySelectorAll('.article-content h2').forEach(function (heading) {
+                    observer.observe(heading);
+                });
+            }
+
+            buildToc();
+            initTocSpy();
         })();
     </script>
 </body>
