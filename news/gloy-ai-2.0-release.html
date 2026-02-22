@@ -534,6 +534,152 @@
 
         .cta-button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--button-shadow); }
 
+        .continue-section {
+            margin-top: 34px;
+            padding: 24px 0 4px;
+        }
+
+        .continue-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .continue-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            color: var(--page-text);
+            letter-spacing: 0.01em;
+        }
+
+        .continue-view-all {
+            color: #d1d5db;
+            text-decoration: none;
+            border: 1px solid var(--border-soft);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.88rem;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .continue-view-all:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .continue-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .continue-card {
+            text-decoration: none;
+            color: inherit;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-soft);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .continue-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.26);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+        }
+
+        .continue-media {
+            aspect-ratio: 16 / 10;
+            position: relative;
+            background: linear-gradient(135deg, #1f2937, #111827);
+            overflow: hidden;
+        }
+
+        .continue-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .continue-media-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.58);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .continue-media.is-placeholder {
+            background: linear-gradient(135deg, #101722 0%, #1b2432 40%, #0f172a 100%);
+        }
+
+        .continue-media.is-placeholder::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.15) 45%, transparent 70%);
+            transform: translateX(-100%);
+            animation: continueShimmer 1.7s linear infinite;
+        }
+
+        .continue-media.is-placeholder .continue-placeholder-label {
+            position: absolute;
+            left: 12px;
+            bottom: 12px;
+            font-size: 0.78rem;
+            color: #c7d2fe;
+            z-index: 1;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        @keyframes continueShimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .continue-body {
+            padding: 13px 13px 14px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .continue-card-title {
+            font-size: 1.02rem;
+            line-height: 1.35;
+            color: #f8fafc;
+        }
+
+        .continue-card-excerpt {
+            color: #c7cdd6;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .continue-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            color: #a1a8b3;
+            font-size: 0.8rem;
+        }
+
         @media (max-width: 1100px) {
             .main-shell {
                 margin-left: 0;
@@ -664,6 +810,19 @@
             .cta-section h3 {
                 font-size: 1.62rem;
             }
+
+            .continue-header {
+                margin-bottom: 14px;
+            }
+
+            .continue-title {
+                font-size: 1.56rem;
+            }
+
+            .continue-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -695,6 +854,11 @@
 
             .sidebar-toggle-btn {
                 padding: 9px 10px;
+            }
+
+            .continue-view-all {
+                padding: 6px 11px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -1236,6 +1400,14 @@
                     </a>
                 </div>
             </div>
+
+            <section class="continue-section" aria-label="Continue reading">
+                <div class="continue-header">
+                    <h2 class="continue-title">Continue Reading</h2>
+                    <a class="continue-view-all" href="../index.html">View all news</a>
+                </div>
+                <div id="continue-reading-grid" class="continue-grid"></div>
+            </section>
         </div>
     </article>
     </div>
@@ -1253,6 +1425,7 @@
             const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
             const sidebarBackdrop = document.getElementById('sidebar-backdrop');
             const sidebarToc = document.getElementById('sidebar-toc');
+            const continueGrid = document.getElementById('continue-reading-grid');
             let isSeeking = false;
 
             function formatTime(seconds) {
@@ -1415,6 +1588,115 @@
 
             buildToc();
             initTocSpy();
+
+            function shuffleArray(list) {
+                const arr = list.slice();
+                for (let i = arr.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+                return arr;
+            }
+
+            function createNewsCard(item) {
+                const card = document.createElement('a');
+                card.className = 'continue-card';
+                card.href = item.href;
+
+                const media = document.createElement('div');
+                media.className = 'continue-media';
+
+                const badge = document.createElement('span');
+                badge.className = 'continue-media-badge';
+                badge.textContent = item.tag;
+                media.appendChild(badge);
+
+                if (item.image) {
+                    const img = document.createElement('img');
+                    img.loading = 'lazy';
+                    img.src = item.image;
+                    img.alt = item.title + ' preview';
+                    img.addEventListener('error', function () {
+                        media.classList.add('is-placeholder');
+                        media.innerHTML = '<span class="continue-media-badge">' + item.tag + '</span><span class="continue-placeholder-label">Preview loading</span>';
+                    });
+                    media.appendChild(img);
+                } else {
+                    media.classList.add('is-placeholder');
+                    const placeholder = document.createElement('span');
+                    placeholder.className = 'continue-placeholder-label';
+                    placeholder.textContent = 'Preview loading';
+                    media.appendChild(placeholder);
+                }
+
+                const body = document.createElement('div');
+                body.className = 'continue-body';
+
+                const title = document.createElement('h3');
+                title.className = 'continue-card-title';
+                title.textContent = item.title;
+
+                const excerpt = document.createElement('p');
+                excerpt.className = 'continue-card-excerpt';
+                excerpt.textContent = item.excerpt;
+
+                const meta = document.createElement('div');
+                meta.className = 'continue-meta';
+                meta.innerHTML = '<span>' + item.category + '</span><span>' + item.date + '</span><span>' + item.readTime + '</span>';
+
+                body.appendChild(title);
+                body.appendChild(excerpt);
+                body.appendChild(meta);
+
+                card.appendChild(media);
+                card.appendChild(body);
+                return card;
+            }
+
+            function initContinueReading() {
+                if (!continueGrid) return;
+                const newsItems = [
+                    {
+                        href: 'introducing-gloydev-0.5-exp.html',
+                        title: 'Introducing Gloy Dev 0.5 Exp',
+                        excerpt: 'Our most capable coding model through API, focused on reliable engineering output and faster iteration.',
+                        category: 'Engineering',
+                        date: 'Feb 2026',
+                        readTime: '~8 min',
+                        tag: 'Dev',
+                        image: 'gd_news.png'
+                    },
+                    {
+                        href: 'gloymage-3.0-update.html',
+                        title: 'GloyMage 3.0 Fast Update',
+                        excerpt: 'Faster image generation with better detail consistency and stronger prompt adherence for visual workflows.',
+                        category: 'Vision',
+                        date: 'Feb 2026',
+                        readTime: '~6 min',
+                        tag: 'Image',
+                        image: null
+                    },
+                    {
+                        href: 'gloy-ai-1.8-release.html',
+                        title: 'Gloy AI 1.8 Release',
+                        excerpt: 'A lightweight legacy model for simple text tasks, with support for Vision 1.0 and Vision 2.0.',
+                        category: 'Model',
+                        date: 'Feb 2026',
+                        readTime: '~7 min',
+                        tag: 'Legacy',
+                        image: null
+                    }
+                ];
+
+                continueGrid.innerHTML = '';
+                shuffleArray(newsItems).slice(0, 3).forEach(function (item) {
+                    continueGrid.appendChild(createNewsCard(item));
+                });
+            }
+
+            initContinueReading();
         })();
     </script>
 </body>
