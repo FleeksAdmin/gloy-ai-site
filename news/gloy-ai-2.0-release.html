@@ -137,6 +137,100 @@
             margin: 0 auto;
         }
 
+        .voice-section {
+            margin: 0 auto 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 10px 30px var(--button-shadow);
+        }
+
+        .voice-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--page-text);
+        }
+
+        .voice-subtitle {
+            color: var(--page-muted);
+            font-size: 0.98rem;
+            margin-bottom: 18px;
+        }
+
+        .voice-controls {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .voice-play {
+            border: none;
+            border-radius: 999px;
+            background: var(--gradient);
+            color: var(--button-text);
+            min-width: 130px;
+            padding: 11px 16px;
+            font-weight: 700;
+            font-size: 0.96rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--button-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .voice-play:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px var(--button-shadow);
+        }
+
+        .voice-progress {
+            width: 100%;
+            accent-color: #e5e7eb;
+            cursor: pointer;
+        }
+
+        .voice-time {
+            font-variant-numeric: tabular-nums;
+            color: var(--page-muted);
+            font-size: 0.92rem;
+            min-width: 110px;
+            text-align: right;
+        }
+
+        .voice-actions {
+            margin-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .voice-download {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border-strong);
+            color: var(--page-text);
+            border-radius: 999px;
+            padding: 9px 14px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .voice-download:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-1px);
+        }
+
         .article-content {
             background: var(--surface);
             border-radius: 20px;
@@ -265,6 +359,13 @@
             .article-title { font-size: 2.2rem; }
             .article-content { padding: 26px 18px; }
             .benchmark-table { font-size: 0.9rem; }
+            .voice-controls {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .voice-time { text-align: left; min-width: 0; }
+            .voice-play { width: 100%; }
+            .voice-actions { justify-content: flex-start; }
         }
     </style>
 </head>
@@ -295,6 +396,27 @@
                 <h1 class="article-title">Gloy AI 2.0</h1>
                 <p class="article-subtitle">One flagship model built for serious production work: deeper reasoning, stronger coding, larger structured responses, and stable long-context execution at enterprise scale.</p>
             </div>
+
+
+            <section class="voice-section" aria-label="Audio version of article">
+                <h2 class="voice-title"><i class="fas fa-headphones"></i> Listen to the article</h2>
+                <p class="voice-subtitle">The full essence of the article in an easy listening format.</p>
+                <audio id="release-audio" preload="metadata" src="gloy-ai-2.0-final.mp3"></audio>
+                <div class="voice-controls">
+                    <button id="audio-play-btn" class="voice-play" type="button" aria-label="Play or pause">
+                        <i class="fas fa-play"></i>
+                        <span>Listen</span>
+                    </button>
+                    <input id="audio-progress" class="voice-progress" type="range" min="0" max="0" step="0.1" value="0" aria-label="Audio progress">
+                    <div class="voice-time"><span id="audio-current">00:00</span> / <span id="audio-duration">00:00</span></div>
+                </div>
+                <div class="voice-actions">
+                    <a class="voice-download" href="gloy-ai-2.0-final.mp3" download>
+                        <i class="fas fa-download"></i>
+                        Download MP3
+                    </a>
+                </div>
+            </section>
 
             <div class="article-content">
                 <p>Today we are announcing <strong>Gloy AI 2.0</strong>, our most advanced and most reliable model release to date. This is not a catalog of separate sub-models and not a multi-tier naming stack. It is one flagship line designed for real work under real operational constraints.</p>
@@ -754,5 +876,78 @@
             </div>
         </div>
     </article>
+    <script>
+        (function () {
+            const audio = document.getElementById('release-audio');
+            const playBtn = document.getElementById('audio-play-btn');
+            const playIcon = playBtn.querySelector('i');
+            const playText = playBtn.querySelector('span');
+            const progress = document.getElementById('audio-progress');
+            const currentEl = document.getElementById('audio-current');
+            const durationEl = document.getElementById('audio-duration');
+            let isSeeking = false;
+
+            function formatTime(seconds) {
+                if (!Number.isFinite(seconds) || seconds < 0) return '00:00';
+                const hrs = Math.floor(seconds / 3600);
+                const mins = Math.floor((seconds % 3600) / 60);
+                const secs = Math.floor(seconds % 60);
+                if (hrs > 0) {
+                    return String(hrs).padStart(2, '0') + ':' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+                }
+                return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+            }
+
+
+            function updatePlayState() {
+                if (audio.paused) {
+                    playIcon.className = 'fas fa-play';
+                    playText.textContent = 'Listen';
+                } else {
+                    playIcon.className = 'fas fa-pause';
+                    playText.textContent = 'Pause';
+                }
+            }
+
+            audio.addEventListener('loadedmetadata', function () {
+                progress.max = audio.duration || 0;
+                durationEl.textContent = formatTime(audio.duration);
+            });
+
+            audio.addEventListener('timeupdate', function () {
+                if (!isSeeking) {
+                    progress.value = audio.currentTime;
+                }
+                currentEl.textContent = formatTime(audio.currentTime);
+            });
+
+            audio.addEventListener('ended', function () {
+                updatePlayState();
+            });
+
+            playBtn.addEventListener('click', function () {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+                updatePlayState();
+            });
+
+            progress.addEventListener('input', function () {
+                isSeeking = true;
+                currentEl.textContent = formatTime(Number(progress.value));
+            });
+
+            progress.addEventListener('change', function () {
+                audio.currentTime = Number(progress.value);
+                isSeeking = false;
+            });
+
+            audio.addEventListener('pause', updatePlayState);
+            audio.addEventListener('play', updatePlayState);
+            updatePlayState();
+        })();
+    </script>
 </body>
 </html>
