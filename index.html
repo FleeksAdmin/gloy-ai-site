@@ -73,12 +73,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-purple: #8A2BE2;
-            --dark-purple: #4B0082;
-            --light-purple: #9370DB;
-            --lavender: #E6E6FA;
-            --neon-purple: #BF00FF;
+            --primary-purple: #f5f5f5;
+            --dark-purple: #a1a1aa;
+            --light-purple: #ffffff;
+            --lavender: #d4d4d8;
+            --neon-purple: #71717a;
             --gradient: linear-gradient(135deg, var(--primary-purple), var(--neon-purple));
+            --page-text: #f4f4f5;
+            --page-muted: #d4d4d8;
+            --page-bg: #07090f;
+            --page-bg-accent-1: rgba(255, 255, 255, 0.07);
+            --page-bg-accent-2: rgba(255, 255, 255, 0.04);
+            --surface: rgba(15, 18, 27, 0.72);
+            --surface-soft: rgba(15, 18, 27, 0.58);
+            --surface-strong: rgba(11, 14, 22, 0.92);
+            --border-soft: rgba(255, 255, 255, 0.14);
+            --border-strong: rgba(255, 255, 255, 0.32);
+            --button-text: #0a0d12;
+            --button-shadow: rgba(0, 0, 0, 0.35);
+            --hero-start: #ffffff;
+            --hero-end: #bcc0c8;
+            --snow-color: #f4f4f5;
+        }
+
+        body.theme-light {
+            --primary-purple: #111827;
+            --dark-purple: #374151;
+            --light-purple: #4b5563;
+            --lavender: #4b5563;
+            --neon-purple: #6b7280;
+            --gradient: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+            --page-text: #111827;
+            --page-muted: #4b5563;
+            --page-bg: #f7f8fa;
+            --page-bg-accent-1: rgba(17, 24, 39, 0.1);
+            --page-bg-accent-2: rgba(17, 24, 39, 0.06);
+            --surface: rgba(255, 255, 255, 0.9);
+            --surface-soft: rgba(255, 255, 255, 0.78);
+            --surface-strong: rgba(255, 255, 255, 0.95);
+            --border-soft: rgba(17, 24, 39, 0.16);
+            --border-strong: rgba(17, 24, 39, 0.28);
+            --button-text: #ffffff;
+            --button-shadow: rgba(17, 24, 39, 0.18);
+            --hero-start: #111827;
+            --hero-end: #4b5563;
+            --snow-color: #4b5563;
         }
         
         * {
@@ -89,12 +128,13 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            color: #333;
-            background-color: #0a0418;
+            color: var(--page-text);
+            background-color: var(--page-bg);
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(100, 43, 226, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(191, 0, 255, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 10% 20%, var(--page-bg-accent-1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, var(--page-bg-accent-2) 0%, transparent 20%);
+            transition: background-color 0.35s ease, color 0.35s ease;
         }
         
         .container {
@@ -110,15 +150,21 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(10, 4, 24, 0.9);
+            background: var(--surface-strong);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+            border-bottom: 1px solid var(--border-soft);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
         .logo {
@@ -165,7 +211,7 @@
         }
         
         nav a:hover {
-            color: white;
+            color: var(--page-text);
         }
         
         nav a::after {
@@ -186,19 +232,35 @@
         
         .cta-button {
             background: var(--gradient);
-            color: white;
+            color: var(--button-text);
             border: none;
             padding: 12px 25px;
             border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 4px 15px var(--button-shadow);
         }
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 6px 20px var(--button-shadow);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            color: var(--page-text);
+            border: 1px solid var(--border-strong);
+            padding: 11px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--surface);
+            border-color: var(--page-text);
         }
         
         .hero {
@@ -214,7 +276,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at center, var(--page-bg-accent-1) 0%, transparent 70%);
             z-index: -1;
         }
         
@@ -223,7 +285,7 @@
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 30%, var(--light-purple) 70%);
+            background: linear-gradient(135deg, var(--hero-start) 30%, var(--hero-end) 70%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             opacity: 0;
@@ -320,9 +382,8 @@
    .model-icon {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #8A2BE2; /* Фиолетовый цвет вместо градиента */
-    /* или */
-    filter: hue-rotate(45deg); /* Изменить цвет эмодзи */
+    color: var(--primary-purple);
+    filter: none;
 }
         
         .model-card h3 {
@@ -375,8 +436,8 @@
         }
         
         .badge-pro {
-            background: rgba(213, 0, 249, 0.2);
-            color: #D500F9;
+            background: rgba(55, 65, 81, 0.2);
+            color: #374151;
         }
         
         .developers {
@@ -605,6 +666,15 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .theme-toggle,
+            .cta-button {
+                padding: 10px 16px;
+            }
         }
         
         .particles {
@@ -733,7 +803,7 @@
         }
     </style>
 </head>
-<body>
+<body class="theme-dark">
     <div class="particles" id="particles"></div>
     
     <header>
@@ -749,7 +819,10 @@
                     <li><a href="#telegram">News</a></li>
                 </ul>
             </nav>
-            <button class="cta-button">Get Started</button>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme">Light theme</button>
+                <button class="cta-button">Get Started</button>
+            </div>
         </div>
     </header>
     
@@ -1038,43 +1111,284 @@
 <body>
     <div class="container">
         <!-- News Section -->
-        <section class="news-section" id="telegram" style="padding: 80px 0; margin-top: 40px;">
+        <section class="news-section" id="telegram">
             <div class="container">
-                <div class="section-title">
-                    <h2><i class="fas fa-newspaper"></i> News</h2>
-                    <p>Stay updated with the latest news and announcements from GLOY AI</p>
-                </div>
-                <div class="news-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
-                    <!-- News Card 1 -->
-                    <a href="news/introducing-gloydev-0.5-exp.html" class="news-card-skeleton" style="background: rgba(20, 10, 40, 0.6); border-radius: 15px; overflow: hidden; border: 1px solid rgba(138, 43, 226, 0.3); transition: all 0.3s ease; text-decoration: none; display: block; cursor: pointer;">
-                        <div style="width: 100%; height: 200px; overflow: hidden; background: rgba(138, 43, 226, 0.05);">
-                            <img src="news/gd_news.png" alt="Gloy Dev 0.5 Exp" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: center; image-rendering: -webkit-optimize-contrast; transform: translateZ(0); will-change: transform;">
-                        </div>
-                        <div style="padding: 25px;">
-                            <div style="color: var(--light-purple); font-size: 0.85rem; margin-bottom: 10px;">December 15, 2025</div>
-                            <h3 style="font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 12px; line-height: 1.3;">Introducing Gloy Dev 0.5 Exp</h3>
-                            <p style="color: var(--lavender); line-height: 1.6; font-size: 0.95rem;">Our most experimental and capable coding model yet for professional software development.</p>
-                        </div>
-                    </a>
-                    
+                <div class="news-shell">
+                    <div class="news-head">
+                        <div class="news-kicker">Product Journal</div>
+                        <h2><i class="fas fa-newspaper"></i> Latest News</h2>
+                        <p>Release notes, model updates, and platform changes from the GLOY AI team.</p>
+                    </div>
 
+                    <div class="news-grid">
+                        <article class="news-card-skeleton">
+                            <a href="news/introducing-gloydev-0.5-exp.html" class="news-card-link">
+                                <div class="news-image-wrap">
+                                    <img src="news/gd_news.png" alt="Introducing Gloy Dev 0.5 Exp" loading="lazy">
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-date">December 15, 2025</span>
+                                        <span class="news-dot"></span>
+                                        <span class="news-type">Model Release</span>
+                                        <span class="news-dot"></span>
+                                        <span class="news-time">~12 min read</span>
+                                    </div>
+                                    <h3>Introducing Gloy Dev 0.5 Exp</h3>
+                                    <p>Experimental coding model with stronger reasoning and higher-quality engineering output.</p>
+                                    <span class="news-read">Read update <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                        </article>
+
+                        <article class="news-card-skeleton">
+                            <a href="news/gloymage-3.0-update.html" class="news-card-link">
+                                <div class="news-image-wrap">
+                                    <img src="" alt="GloyMage 3.0 Fast update" loading="lazy">
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-date">December 15, 2024</span>
+                                        <span class="news-dot"></span>
+                                        <span class="news-type">Image Models</span>
+                                        <span class="news-dot"></span>
+                                        <span class="news-time">~2 min read</span>
+                                    </div>
+                                    <h3>GloyMage 3.0 Fast Update</h3>
+                                    <p>Faster image pipeline and improved visual consistency for prompt-driven generation tasks.</p>
+                                    <span class="news-read">Read update <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                        </article>
+
+                        <article class="news-card-skeleton">
+                            <a href="news/gloy-ai-1.8-release.html" class="news-card-link">
+                                <div class="news-image-wrap">
+                                    <img src="" alt="Gloy AI 1.8 release" loading="lazy">
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-date">November 28, 2024</span>
+                                        <span class="news-dot"></span>
+                                        <span class="news-type">Core Model</span>
+                                        <span class="news-dot"></span>
+                                        <span class="news-time">~2 min read</span>
+                                    </div>
+                                    <h3>Gloy AI 1.8 Release</h3>
+                                    <p>Core assistant upgrade focused on reliability, response quality, and broader daily-use coverage.</p>
+                                    <span class="news-read">Read update <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
         
         <style>
-            @keyframes shimmer {
+            .news-section {
+                padding: 80px 0;
+                margin-top: 40px;
+            }
+
+            .news-shell {
+                background: var(--surface);
+                border: 1px solid var(--border-soft);
+                border-radius: 24px;
+                padding: 34px;
+                backdrop-filter: blur(6px);
+            }
+
+            .news-head {
+                margin-bottom: 28px;
+            }
+
+            .news-kicker {
+                display: inline-block;
+                padding: 6px 12px;
+                border-radius: 999px;
+                font-size: 0.78rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--page-muted);
+                border: 1px solid var(--border-strong);
+                margin-bottom: 12px;
+            }
+
+            .news-head h2 {
+                font-family: 'Rajdhani', sans-serif;
+                font-size: 2.2rem;
+                color: var(--page-text);
+                margin-bottom: 10px;
+            }
+
+            .news-head p {
+                color: var(--lavender);
+                max-width: 720px;
+                line-height: 1.6;
+            }
+
+            .news-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 22px;
+            }
+
+            .news-card-skeleton {
+                border-radius: 18px;
+                overflow: hidden;
+                border: 1px solid var(--border-soft);
+                background: var(--surface);
+                transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+            }
+
+            .news-card-link {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .news-image-wrap {
+                position: relative;
+                height: 185px;
+                overflow: hidden;
+                background: rgba(255, 255, 255, 0.04);
+            }
+
+            .news-image-wrap::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    90deg,
+                    rgba(148, 163, 184, 0.08) 0%,
+                    rgba(203, 213, 225, 0.32) 50%,
+                    rgba(148, 163, 184, 0.08) 100%
+                );
+                background-size: 220% 100%;
+                animation: newsImageLoading 1.8s linear infinite;
+                opacity: 0;
+                transition: opacity 0.25s ease;
+                pointer-events: none;
+            }
+
+            .news-image-wrap.is-loading::before {
+                opacity: 1;
+            }
+
+            body.theme-light .news-image-wrap::before {
+                background: linear-gradient(
+                    90deg,
+                    rgba(71, 85, 105, 0.08) 0%,
+                    rgba(100, 116, 139, 0.28) 50%,
+                    rgba(71, 85, 105, 0.08) 100%
+                );
+                background-size: 220% 100%;
+            }
+
+            .news-image-wrap img {
+                position: relative;
+                z-index: 1;
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                transition: transform 0.35s ease, opacity 0.25s ease;
+            }
+
+            .news-image-wrap.is-loading img {
+                opacity: 0;
+            }
+
+            .news-content {
+                padding: 20px;
+            }
+
+            .news-meta {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 10px;
+                color: var(--page-muted);
+                font-size: 0.82rem;
+                letter-spacing: 0.02em;
+            }
+
+            .news-dot {
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: currentColor;
+                opacity: 0.8;
+            }
+
+            .news-type {
+                border: 1px solid var(--border-soft);
+                border-radius: 999px;
+                padding: 2px 8px;
+                font-size: 0.72rem;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+
+            .news-time {
+                white-space: nowrap;
+                opacity: 0.95;
+            }
+
+            .news-content h3 {
+                font-family: 'Rajdhani', sans-serif;
+                font-size: 1.4rem;
+                color: var(--page-text);
+                margin-bottom: 10px;
+                line-height: 1.3;
+            }
+
+            .news-content p {
+                color: var(--lavender);
+                line-height: 1.6;
+                font-size: 0.96rem;
+            }
+
+            .news-read {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                margin-top: 16px;
+                font-weight: 600;
+                color: var(--page-text);
+            }
+
+            .news-card-skeleton:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 36px rgba(0, 0, 0, 0.35);
+                border-color: var(--border-strong);
+            }
+
+            .news-card-skeleton:hover .news-image-wrap img {
+                transform: scale(1.04);
+            }
+
+            @keyframes newsImageLoading {
                 0% {
-                    background-position: -200% 0;
+                    background-position: 220% 0;
                 }
                 100% {
-                    background-position: 200% 0;
+                    background-position: -220% 0;
                 }
             }
-            
-            .news-card-skeleton:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(75, 0, 130, 0.3);
+
+            @media (max-width: 768px) {
+                .news-shell {
+                    padding: 22px;
+                }
+
+                .news-head h2 {
+                    font-size: 1.8rem;
+                }
             }
         </style>
 
@@ -1778,6 +2092,253 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 
+<style>
+body.theme-dark {
+    --primary-purple: #f5f5f5;
+    --dark-purple: #a1a1aa;
+    --light-purple: #ffffff;
+    --lavender: #d4d4d8;
+    --neon-purple: #71717a;
+    --gradient: linear-gradient(135deg, var(--primary-purple), var(--neon-purple));
+    --page-text: #f4f4f5;
+    --page-muted: #d4d4d8;
+    --page-bg: #07090f;
+    --page-bg-accent-1: rgba(255, 255, 255, 0.07);
+    --page-bg-accent-2: rgba(255, 255, 255, 0.04);
+    --surface: rgba(15, 18, 27, 0.72);
+    --surface-soft: rgba(15, 18, 27, 0.58);
+    --surface-strong: rgba(11, 14, 22, 0.92);
+    --border-soft: rgba(255, 255, 255, 0.14);
+    --border-strong: rgba(255, 255, 255, 0.32);
+    --button-text: #0a0d12;
+    --button-shadow: rgba(0, 0, 0, 0.35);
+    --hero-start: #ffffff;
+    --hero-end: #bcc0c8;
+    --snow-color: #f4f4f5;
+}
+
+body.theme-light {
+    --primary-purple: #111827;
+    --dark-purple: #374151;
+    --light-purple: #4b5563;
+    --lavender: #4b5563;
+    --neon-purple: #6b7280;
+    --gradient: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+    --page-text: #111827;
+    --page-muted: #4b5563;
+    --page-bg: #f7f8fa;
+    --page-bg-accent-1: rgba(17, 24, 39, 0.1);
+    --page-bg-accent-2: rgba(17, 24, 39, 0.06);
+    --surface: rgba(255, 255, 255, 0.9);
+    --surface-soft: rgba(255, 255, 255, 0.78);
+    --surface-strong: rgba(255, 255, 255, 0.95);
+    --border-soft: rgba(17, 24, 39, 0.16);
+    --border-strong: rgba(17, 24, 39, 0.28);
+    --button-text: #ffffff;
+    --button-shadow: rgba(17, 24, 39, 0.18);
+    --hero-start: #111827;
+    --hero-end: #4b5563;
+    --snow-color: #4b5563;
+}
+
+body {
+    color: var(--page-text);
+    background-color: var(--page-bg);
+    background-image:
+        radial-gradient(circle at 10% 20%, var(--page-bg-accent-1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, var(--page-bg-accent-2) 0%, transparent 20%);
+}
+
+header {
+    background: var(--surface-strong) !important;
+    border-bottom: 1px solid var(--border-soft) !important;
+}
+
+nav a,
+.dev-social a,
+.footer-column a {
+    color: var(--page-muted);
+}
+
+nav a:hover,
+.dev-social a:hover,
+.footer-column a:hover {
+    color: var(--page-text);
+}
+
+.developers,
+footer {
+    background: var(--surface-soft) !important;
+    border-color: var(--border-soft) !important;
+}
+
+.model-card,
+.dev-card,
+.cta-content,
+.telegram-cta,
+.rules-section,
+.rules-header,
+.rules-content,
+.rules-intro,
+.rules-section-item,
+.rules-footer,
+.news-card-skeleton,
+.api-pricing .telegram-cta {
+    background: var(--surface) !important;
+    border-color: var(--border-soft) !important;
+}
+
+.api-pricing {
+    background: var(--surface-soft) !important;
+    border-top: 1px solid var(--border-soft) !important;
+    border-bottom: 1px solid var(--border-soft) !important;
+}
+
+.api-pricing .price-tier {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--border-soft) !important;
+}
+
+body.theme-light .api-pricing .price-tier {
+    background: rgba(17, 24, 39, 0.05) !important;
+}
+
+.news-image-wrap {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+body.theme-light .news-image-wrap {
+    background: rgba(17, 24, 39, 0.05) !important;
+}
+
+.news-card-skeleton:hover {
+    box-shadow: 0 15px 30px var(--button-shadow) !important;
+    border-color: var(--border-strong) !important;
+}
+
+.hero p,
+.section-title p,
+.model-card p,
+.model-features li,
+.dev-card p,
+.cta-content p,
+.footer-bottom,
+.telegram-cta p,
+.api-pricing .price-tier .tokens,
+.rules-intro,
+.rules-section-item p,
+.rules-footer p {
+    color: var(--page-muted) !important;
+}
+
+.model-card h3,
+.dev-card h3,
+.footer-column h3,
+.telegram-cta h3,
+.rules-title,
+.rules-section-item h3,
+.rules-section-item h4,
+.rules-footer h3 {
+    color: var(--page-text) !important;
+}
+
+.hero h1,
+.gradient-text,
+.logo-text,
+.section-title h2,
+.cta-content h2,
+.api-pricing .price-tier .price {
+    color: var(--page-text) !important;
+    background: none !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+.secondary-button {
+    color: var(--page-muted);
+    border-color: var(--border-strong);
+}
+
+.secondary-button:hover {
+    background: var(--surface);
+}
+
+.cta-button {
+    color: var(--button-text);
+    box-shadow: 0 4px 15px var(--button-shadow);
+}
+
+.cta-button:hover {
+    box-shadow: 0 6px 20px var(--button-shadow);
+}
+
+.snowflake {
+    color: var(--snow-color);
+}
+
+body.theme-light .snowflake {
+    opacity: 0.45;
+}
+
+.model-icon {
+    color: var(--primary-purple) !important;
+    filter: none !important;
+}
+
+.rules-title i,
+.rules-arrow i,
+.rules-date,
+.rules-important strong,
+.rules-signature,
+.model-features li i,
+.dev-card .role,
+.api-pricing .telegram-cta strong {
+    color: var(--page-text) !important;
+    text-shadow: none !important;
+    filter: none !important;
+}
+
+.rules-divider {
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent) !important;
+    box-shadow: none !important;
+}
+
+.rules-important {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--border-soft) !important;
+    border-left: 3px solid var(--border-strong) !important;
+    box-shadow: none !important;
+}
+
+body.theme-light .rules-important {
+    background: rgba(17, 24, 39, 0.05) !important;
+}
+
+.rules-header:hover,
+.model-card:hover,
+.dev-card:hover,
+.api-pricing .model-card:hover {
+    box-shadow: 0 16px 32px var(--button-shadow) !important;
+    border-color: var(--border-strong) !important;
+}
+
+.telegram-cta,
+.api-pricing .telegram-cta {
+    animation: none !important;
+}
+
+.back-button,
+.back-button:hover {
+    box-shadow: 0 6px 20px var(--button-shadow) !important;
+}
+
+.subscription [style*="#BA55D3"],
+.subscription [style*="#8A2BE2"],
+.subscription [style*="#9370DB"],
+.subscription [style*="#D500F9"] {
+    color: var(--page-muted) !important;
+}
+</style>
+
 
 
     
@@ -1817,6 +2378,67 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+
+            function applyTheme(themeName) {
+                const isLight = themeName === 'light';
+                body.classList.toggle('theme-light', isLight);
+                body.classList.toggle('theme-dark', !isLight);
+                if (themeToggle) {
+                    themeToggle.textContent = isLight ? 'Dark theme' : 'Light theme';
+                    themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+                }
+            }
+
+            const savedTheme = localStorage.getItem('gloy-theme');
+            const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            applyTheme(savedTheme || (prefersLight ? 'light' : 'dark'));
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const nextTheme = body.classList.contains('theme-light') ? 'dark' : 'light';
+                    applyTheme(nextTheme);
+                    localStorage.setItem('gloy-theme', nextTheme);
+                });
+            }
+
+            const newsImageWrappers = document.querySelectorAll('.news-image-wrap');
+            newsImageWrappers.forEach((wrapper) => {
+                const img = wrapper.querySelector('img');
+                wrapper.classList.add('is-loading');
+
+                if (!img) {
+                    return;
+                }
+
+                const src = (img.getAttribute('src') || '').trim();
+                if (!src) {
+                    img.style.display = 'none';
+                    return;
+                }
+
+                const onLoaded = () => {
+                    wrapper.classList.remove('is-loading');
+                };
+
+                const onError = () => {
+                    img.style.display = 'none';
+                    wrapper.classList.add('is-loading');
+                };
+
+                if (img.complete) {
+                    if (img.naturalWidth > 0) {
+                        onLoaded();
+                    } else {
+                        onError();
+                    }
+                } else {
+                    img.addEventListener('load', onLoaded, { once: true });
+                    img.addEventListener('error', onError, { once: true });
+                }
+            });
+
             // Create snowflakes
             function createSnowflake() {
                 const snowflake = document.createElement('div');
@@ -1928,8 +2550,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         apiSection.style.transition = 'all 0.5s ease-in-out';
                         
                         // Add highlight effect to section
-                        apiSection.style.boxShadow = '0 0 30px rgba(138, 43, 226, 0.8)';
-                        apiSection.style.border = '2px solid rgba(138, 43, 226, 0.8)';
+                        const highlightGlow = body.classList.contains('theme-light') ? 'rgba(17, 24, 39, 0.3)' : 'rgba(255, 255, 255, 0.3)';
+                        const highlightBorder = body.classList.contains('theme-light') ? 'rgba(17, 24, 39, 0.42)' : 'rgba(255, 255, 255, 0.55)';
+                        apiSection.style.boxShadow = `0 0 30px ${highlightGlow}`;
+                        apiSection.style.border = `2px solid ${highlightBorder}`;
                         
                         // Find and highlight specific model card
                         const modelCards = apiSection.querySelectorAll('.model-card');
@@ -1937,21 +2561,21 @@ document.addEventListener('DOMContentLoaded', function() {
                             const targetCard = modelCards[index];
                             targetCard.style.transition = 'all 0.5s ease-in-out';
                             targetCard.style.transform = 'translateY(-15px) scale(1.05)';
-                            targetCard.style.boxShadow = '0 25px 50px rgba(138, 43, 226, 0.6)';
-                            targetCard.style.border = '2px solid rgba(138, 43, 226, 1)';
+                            targetCard.style.boxShadow = `0 25px 50px ${highlightGlow}`;
+                            targetCard.style.border = `2px solid ${highlightBorder}`;
                             
                             // Remove model highlight after 3 seconds with smooth transition
                             setTimeout(() => {
                                 targetCard.style.transform = 'translateY(0) scale(1)';
-                                targetCard.style.boxShadow = '0 15px 30px rgba(75, 0, 130, 0.2)';
-                                targetCard.style.border = '1px solid rgba(138, 43, 226, 0.3)';
+                                targetCard.style.boxShadow = '0 15px 30px var(--button-shadow)';
+                                targetCard.style.border = '1px solid var(--border-soft)';
                             }, 3000);
                         }
                         
                         // Remove section highlight after 3 seconds with smooth transition
                         setTimeout(() => {
                             apiSection.style.boxShadow = '';
-                            apiSection.style.border = '1px solid rgba(138, 43, 226, 0.2)';
+                            apiSection.style.border = '1px solid var(--border-soft)';
                         }, 3000);
                     }
                 });
