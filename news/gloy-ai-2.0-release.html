@@ -970,7 +970,7 @@
                     <cite>Internal release positioning for migration planning</cite>
                 </div>
 
-                <p>Gloy AI 1.8 is now a legacy text-first system. It can still support lightweight writing and basic tasks, but it is not suitable as a primary model for modern coding workflows, long-chain reasoning, or high-density document intelligence. For practical engineering usage, treat 1.8 as a non-coding model.</p>
+                <p>Gloy AI 1.8 is now a legacy text-first system. It can still support lightweight writing and basic tasks, but it is not suitable as a primary model for modern coding workflows, long-chain reasoning, or high-density document intelligence. For practical engineering usage, treat 1.8 as a non-coding model: code output is disabled by design, including simple snippets like <code>print(&quot;hello world&quot;)</code>, to avoid low-quality code generation.</p>
 
                 <p>Gloy AI 2.0 is the opposite: it is engineered for modern multi-step work where correctness, depth, and execution speed must coexist.</p>
 
@@ -996,7 +996,7 @@
                         <tr>
                             <td>Coding readiness</td>
                             <td>Strong for real engineering tasks</td>
-                            <td>Basic coding support, not reliable for production</td>
+                            <td>Code output disabled by design (does not write code)</td>
                         </tr>
                         <tr>
                             <td>Long response quality</td>
@@ -1066,7 +1066,7 @@
                 <p>For legal operations, enterprise support, risk teams, and engineering organizations, this single upgrade changes the cost profile of analysis work. Instead of splitting material into many brittle fragments, teams can run complete evidence chains with stronger continuity.</p>
 
                 <h2>Coding Capability: From Legacy Limits to Production Execution</h2>
-                <p>We want to be explicit: <strong>Gloy AI 1.8 can produce only basic code drafts</strong>. For production engineering, it remains a legacy model with limited coding reliability.</p>
+                <p>We want to be explicit: <strong>Gloy AI 1.8 does not output code at all</strong>. This includes even minimal examples like <code>print(&quot;hello world&quot;)</code>. We made this product decision to avoid low-quality code generation and keep 1.8 focused on light text workflows.</p>
 
                 <p>Gloy AI 2.0 closes that gap. It is built to generate larger, cleaner, and more executable technical outputs with higher first-pass success.</p>
 
@@ -1091,27 +1091,27 @@
                         <tr>
                             <td>Issue-to-patch correctness</td>
                             <td>58.7%</td>
-                            <td>24.8%</td>
+                            <td>Not available (code output disabled)</td>
                         </tr>
                         <tr>
                             <td>Verified fix completion</td>
                             <td>82.1%</td>
-                            <td>22.3%</td>
+                            <td>Not available (code output disabled)</td>
                         </tr>
                         <tr>
                             <td>Code review defect detection precision</td>
                             <td>86.0%</td>
-                            <td>31.4%</td>
+                            <td>Not available (code output disabled)</td>
                         </tr>
                         <tr>
                             <td>Large refactor stability</td>
                             <td>79.4%</td>
-                            <td>27.6%</td>
+                            <td>Not available (code output disabled)</td>
                         </tr>
                         <tr>
                             <td>Frontend implementation completeness</td>
                             <td>88.2%</td>
-                            <td>34.2%</td>
+                            <td>Not available (code output disabled)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1292,7 +1292,7 @@
                 <h2>Deprecation Outlook for Gloy AI 1.8</h2>
                 <p>Gloy AI 1.8 remains available for now as a legacy option for light text tasks. However, it is now considered outdated and may be disabled in the near future as migration to Gloy AI 2.0 completes.</p>
 
-                <p>If your workflows still depend on 1.8, we recommend migration planning now. The primary reasons are technical: smaller 90K context, weak coding quality, and lower stability in long structured sessions.</p>
+                <p>If your workflows still depend on 1.8, we recommend migration planning now. The primary reasons are technical: smaller 90K context, code output disabled by design, and lower stability in long structured sessions.</p>
 
                 <ul>
                     <li>Do not plan new core systems on Gloy AI 1.8.</li>
@@ -1355,8 +1355,8 @@
                         <tr><td>Knowledge-work completion (wins or ties)</td><td>73.1%</td><td>24.6%</td></tr>
                         <tr><td>Knowledge-work clear wins</td><td>55.8%</td><td>22.5%</td></tr>
                         <tr><td>Spreadsheet + planning artifact quality</td><td>72.0%</td><td>28.4%</td></tr>
-                        <tr><td>Repository patch generation</td><td>58.7%</td><td>24.8%</td></tr>
-                        <tr><td>Verified engineering fixes</td><td>82.1%</td><td>22.3%</td></tr>
+                        <tr><td>Repository patch generation</td><td>58.7%</td><td>Not available (code output disabled)</td></tr>
+                        <tr><td>Verified engineering fixes</td><td>82.1%</td><td>Not available (code output disabled)</td></tr>
                         <tr><td>Long-form technical explanation quality</td><td>90.6%</td><td>29.7%</td></tr>
                         <tr><td>Chart reasoning with tools</td><td>89.4%</td><td>37.5%</td></tr>
                         <tr><td>High-resolution UI understanding</td><td>87.0%</td><td>33.4%</td></tr>
@@ -1377,7 +1377,7 @@
 
                 <h2>FAQ</h2>
                 <p><strong>Q: Is Gloy AI 2.0 the best model in your lineup now?</strong><br>Yes. Gloy AI 2.0 is the strongest and most capable model we provide.</p>
-                <p><strong>Q: Does Gloy AI 1.8 still write code well?</strong><br>It can generate basic code, but it is not reliable for production engineering and should be treated as a legacy text-focused model.</p>
+                <p><strong>Q: Does Gloy AI 1.8 still write code well?</strong><br>No. Gloy AI 1.8 does not write code at all, including simple snippets like <code>print(&quot;hello world&quot;)</code>. Code output is intentionally disabled to prevent low-quality coding results.</p>
                 <p><strong>Q: Is Gloy AI 1.8 going away?</strong><br>Possibly soon. We may disable Gloy AI 1.8 in the near term after migration milestones are complete.</p>
                 <p><strong>Q: What is the context size of each model?</strong><br>Gloy AI 2.0 supports up to 820K tokens. Gloy AI 1.8 supports up to 90K tokens.</p>
                 <p><strong>Q: Which vision mode should teams use?</strong><br>Use Vision 3.0 by default. Gloy AI 1.8 supports only Vision 1.0 and Vision 2.0, while Gloy AI 2.0 supports all three.</p>
