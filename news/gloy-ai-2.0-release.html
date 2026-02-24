@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,9 @@
     <title>Gloy AI 2.0 - Official Release Notes | GLOY AI</title>
     <meta name="description" content="Official Gloy AI 2.0 release notes: one flagship model, 820K context, Vision 1.0/2.0/3.0 support, stronger coding, larger structured responses, and API availability now.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --page-text: #f4f4f5;
@@ -69,7 +71,7 @@
         }
 
         .logo-text {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             font-size: 28px;
             color: var(--page-text);
@@ -127,7 +129,7 @@
         }
 
         .news-sidebar-title {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             letter-spacing: 0.03em;
             font-size: 1.12rem;
             font-weight: 700;
@@ -293,7 +295,7 @@
         }
 
         .article-title {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 3.2rem;
             font-weight: 700;
             margin-bottom: 18px;
@@ -322,7 +324,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
             margin-bottom: 8px;
             color: var(--page-text);
@@ -412,7 +414,7 @@
         }
 
         .article-content h2 {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
             color: var(--page-text);
             margin: 40px 0 16px;
@@ -422,7 +424,7 @@
 
         .article-content h2:first-child { margin-top: 0; }
         .article-content h3 {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.45rem;
             color: var(--page-text);
             margin: 28px 0 12px;
@@ -462,7 +464,7 @@
             color: var(--page-text);
             padding: 14px;
             text-align: left;
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.05rem;
         }
 
@@ -509,7 +511,7 @@
         }
 
         .cta-section h3 {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
             color: var(--page-text);
             margin-bottom: 14px;
@@ -548,7 +550,7 @@
         }
 
         .continue-title {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
             color: var(--page-text);
             letter-spacing: 0.01em;
@@ -888,9 +890,8 @@
                 <span class="sidebar-section-title">Latest News</span>
                 <nav class="sidebar-news-list">
                     <a class="sidebar-link current" href="gloy-ai-2.0-release.html">Gloy AI 2.0 Release</a>
+                    <a class="sidebar-link" href="vision-1.0-release.html">Vision 1.0</a>
                     <a class="sidebar-link" href="introducing-gloydev-0.5-exp.html">Introducing Gloy Dev 0.5 Exp</a>
-                    <a class="sidebar-link" href="gloymage-3.0-update.html">GloyMage 3.0 Fast Update</a>
-                    <a class="sidebar-link" href="gloy-ai-1.8-release.html">Gloy AI 1.8 Release</a>
                 </nav>
             </section>
 
@@ -913,7 +914,7 @@
             <div class="article-header">
                 <div class="article-meta">
                     <span class="badge-new">NEW</span>
-                    <span>February 22, 2026</span>
+                    <span>December 26, 2025</span>
                     <span>-</span>
                     <span>~18 min read</span>
                     <span>-</span>
@@ -1669,24 +1670,14 @@
                         image: 'gd_news.png'
                     },
                     {
-                        href: 'gloymage-3.0-update.html',
-                        title: 'GloyMage 3.0 Fast Update',
-                        excerpt: 'Faster image generation with better detail consistency and stronger prompt adherence for visual workflows.',
+                        href: 'vision-1.0-release.html',
+                        title: 'Vision 1.0',
+                        excerpt: 'Foundational visual model supported in Gloy AI 1.8 and 2.0 with baseline image understanding.',
                         category: 'Vision',
                         date: 'Feb 2026',
-                        readTime: '~6 min',
-                        tag: 'Image',
-                        image: null
-                    },
-                    {
-                        href: 'gloy-ai-1.8-release.html',
-                        title: 'Gloy AI 1.8 Release',
-                        excerpt: 'A lightweight legacy model for simple text tasks, with support for Vision 1.0 and Vision 2.0.',
-                        category: 'Model',
-                        date: 'Feb 2026',
-                        readTime: '~7 min',
-                        tag: 'Legacy',
-                        image: null
+                        readTime: '~9 min',
+                        tag: 'New',
+                        image: 'vision_1.0.png'
                     }
                 ];
 
@@ -1701,3 +1692,4 @@
     </script>
 </body>
 </html>
+
