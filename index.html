@@ -668,27 +668,102 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             nav ul {
-                gap: 15px;
+                gap: 12px;
             }
-            
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
             .model-cards {
                 grid-template-columns: 1fr;
             }
-            
+
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
 
+            .header-content {
+                gap: 12px;
+            }
+
             .header-actions {
-                gap: 8px;
+                gap: 6px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .logo-emoji {
+                font-size: 26px;
             }
 
             .theme-toggle,
             .cta-button {
-                padding: 10px 16px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+            }
+
+            nav ul {
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .logo {
+                flex: 1;
+            }
+
+            .header-actions {
+                flex: 0 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .logo-emoji {
+                font-size: 22px;
+            }
+
+            .theme-toggle {
+                padding: 8px;
+                font-size: 0;
+            }
+
+            .theme-toggle::before {
+                content: '☀';
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 0.8rem;
             }
         }
         

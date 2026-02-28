@@ -643,15 +643,26 @@
         @media (max-width: 768px) {
             header { padding: 12px 0; }
 
-            .header-content { padding: 0 14px; }
+            .header-content { 
+                padding: 0 14px;
+                gap: 8px;
+            }
 
-            .logo-text { font-size: 22px; }
+            .logo-text { font-size: 20px; }
+
+            .logo-mark {
+                width: 10px;
+                height: 10px;
+            }
 
             .back-button {
-                padding: 8px 12px;
-                font-size: 0.84rem;
-                gap: 6px;
+                padding: 6px 10px;
+                font-size: 0.78rem;
+                gap: 4px;
+                white-space: nowrap;
             }
+
+            .back-button i { font-size: 0.75rem; }
 
             article { padding: 110px 0 56px; }
 
@@ -692,6 +703,25 @@
             .continue-view-all {
                 padding: 6px 11px;
                 font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                gap: 6px;
+            }
+
+            .logo-text { 
+                font-size: 18px; 
+            }
+
+            .back-button {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+
+            .back-button span {
+                display: none;
             }
         }
     </style>
