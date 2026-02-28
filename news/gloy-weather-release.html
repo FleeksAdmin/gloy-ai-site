@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gloy Weather - Fast & Beautiful Weather | GLOY AI</title>
+    <meta name="description" content="Get weather updates quickly and beautifully through Gloy AI. Just ask for your city or town and receive instant, elegantly displayed forecasts.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --page-text: #f4f4f5;
+            --page-muted: #d4d4d8;
+            --page-bg: #07090f;
+            --page-bg-accent-1: rgba(255, 255, 255, 0.07);
+            --page-bg-accent-2: rgba(255, 255, 255, 0.04);
+            --surface: rgba(15, 18, 27, 0.72);
+            --surface-strong: rgba(11, 14, 22, 0.92);
+            --border-soft: rgba(255, 255, 255, 0.14);
+            --border-strong: rgba(255, 255, 255, 0.32);
+            --button-text: #0a0d12;
+            --button-shadow: rgba(0, 0, 0, 0.35);
+            --gradient: linear-gradient(135deg, #ffffff, #a1a1aa);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--page-text);
+            background-color: var(--page-bg);
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 20%, var(--page-bg-accent-1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, var(--page-bg-accent-2) 0%, transparent 20%);
+        }
+
+        .container { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: var(--surface-strong);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 12px;
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+        .logo-mark {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff, #9ca3af);
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: var(--page-text);
+            letter-spacing: 0.04em;
+        }
+
+        .back-button {
+            background: transparent;
+            color: var(--page-text);
+            border: 1px solid var(--border-strong);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover { background: var(--surface); transform: translateY(-2px); }
+
+        .main-shell {
+            margin-left: 320px;
+            transition: margin-left 0.32s ease;
+        }
+
+        .news-sidebar {
+            position: fixed;
+            left: 18px;
+            top: 92px;
+            bottom: 18px;
+            width: 284px;
+            background: rgba(10, 13, 20, 0.93);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.38);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            z-index: 960;
+            transform: translateX(0);
+            opacity: 1;
+            transition: transform 0.32s ease, opacity 0.32s ease;
+            overflow: hidden;
+        }
+
+        .news-sidebar-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .news-sidebar-title {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.03em;
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: var(--page-text);
+        }
+
+        .sidebar-close-btn {
+            border: 1px solid var(--border-soft);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--page-text);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.24);
+            transform: translateY(-1px);
+        }
+
+        .news-sidebar-content {
+            padding: 14px 14px 16px;
+            overflow: auto;
+            scrollbar-width: thin;
+            display: grid;
+            gap: 18px;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.78rem;
+            color: var(--page-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .sidebar-news-list,
+        .sidebar-toc-list {
+            display: grid;
+            gap: 6px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: var(--page-text);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 10px 11px;
+            font-size: 0.92rem;
+            line-height: 1.35;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-soft);
+            transform: translateX(2px);
+        }
+
+        .sidebar-link.current {
+            background: rgba(255, 255, 255, 0.11);
+            border-color: rgba(255, 255, 255, 0.28);
+            font-weight: 600;
+        }
+
+        .sidebar-toc-list .sidebar-link {
+            font-size: 0.86rem;
+            color: #d5d9e3;
+            padding: 8px 10px;
+        }
+
+        .sidebar-toc-list .sidebar-link.active {
+            border-color: rgba(255, 255, 255, 0.34);
+            background: rgba(255, 255, 255, 0.1);
+            color: #f4f6ff;
+        }
+
+        .sidebar-toggle-btn {
+            position: fixed;
+            left: 18px;
+            top: 102px;
+            z-index: 970;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            background: rgba(12, 16, 24, 0.92);
+            color: var(--page-text);
+            padding: 9px 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+            transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar-toggle-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(20, 25, 35, 0.96);
+        }
+
+        .sidebar-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 950;
+        }
+
+        body.sidebar-collapsed .main-shell { margin-left: 0; }
+        body.sidebar-collapsed .news-sidebar { transform: translateX(calc(-100% - 30px)); opacity: 0; }
+        body.sidebar-collapsed .sidebar-toggle-btn { opacity: 1; pointer-events: auto; }
+
+        article { padding: 130px 0 80px; }
+
+        .article-header { text-align: center; margin-bottom: 40px; }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            color: var(--page-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge-new {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .badge-feature {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .article-subtitle {
+            font-size: 1.15rem;
+            color: var(--page-muted);
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .article-content {
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.75;
+        }
+
+        .article-content p { margin-bottom: 1.2em; }
+
+        .article-content h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 2em 0 0.8em;
+            letter-spacing: -0.01em;
+        }
+
+        .article-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.6em 0 0.6em;
+        }
+
+        .article-content strong { color: #fff; font-weight: 600; }
+
+        .article-content ul, .article-content ol {
+            margin: 1em 0 1.5em 1.5em;
+        }
+
+        .article-content li { margin-bottom: 0.6em; }
+
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 1.5em 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 2em 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            padding: 24px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-strong);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--page-muted);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .screenshot-container {
+            margin: 2em 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-soft);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .screenshot-caption {
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            color: var(--page-muted);
+            text-align: center;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .cta-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-soft);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin: 2.5em 0;
+        }
+
+        .cta-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .cta-section p {
+            color: var(--page-muted);
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            color: var(--button-text);
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .tech-note {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid rgba(59, 130, 246, 0.6);
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5em 0;
+            font-size: 0.95rem;
+        }
+
+        .tech-note strong {
+            color: #60a5fa;
+        }
+
+        .continue-section {
+            max-width: 980px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+        }
+
+        .continue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .continue-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .continue-view-all {
+            color: var(--page-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--border-soft);
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .continue-view-all:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--page-text);
+        }
+
+        .continue-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .continue-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .continue-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-strong);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        .continue-media {
+            aspect-ratio: 16 / 10;
+            position: relative;
+            background: linear-gradient(135deg, #1f2937, #111827);
+            overflow: hidden;
+        }
+
+        .continue-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .continue-media-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.58);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .continue-media.is-placeholder {
+            background: linear-gradient(135deg, #101722 0%, #1b2432 40%, #0f172a 100%);
+        }
+
+        .continue-media.is-placeholder::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.15) 45%, transparent 70%);
+            transform: translateX(-100%);
+            animation: continueShimmer 1.7s linear infinite;
+        }
+
+        .continue-media.is-placeholder .continue-placeholder-label {
+            position: absolute;
+            left: 12px;
+            bottom: 12px;
+            font-size: 0.78rem;
+            color: #c7d2fe;
+            z-index: 1;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        @keyframes continueShimmer {
+            100% { transform: translateX(100%); }
+        }
+
+        .continue-body {
+            padding: 13px 13px 14px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .continue-card-title {
+            font-size: 1.02rem;
+            line-height: 1.35;
+            color: #f8fafc;
+        }
+
+        .continue-card-excerpt {
+            color: #c7cdd6;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .continue-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            color: #a1a8b3;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 1100px) {
+            .main-shell { margin-left: 0; }
+
+            body.sidebar-open { overflow: hidden; }
+
+            .news-sidebar {
+                top: calc(82px + env(safe-area-inset-top));
+                left: max(10px, env(safe-area-inset-left));
+                bottom: 12px;
+                width: min(88vw, 320px);
+                transform: translateX(calc(-100% - 22px));
+                opacity: 0;
+            }
+
+            body.sidebar-open .news-sidebar {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .sidebar-toggle-btn {
+                opacity: 1;
+                pointer-events: auto;
+                top: calc(88px + env(safe-area-inset-top));
+                left: max(10px, env(safe-area-inset-left));
+            }
+
+            body.sidebar-open .sidebar-backdrop {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 12px 0; }
+
+            .header-content { padding: 0 14px; }
+
+            .logo-text { font-size: 22px; }
+
+            .back-button {
+                padding: 8px 12px;
+                font-size: 0.84rem;
+                gap: 6px;
+            }
+
+            article { padding: 110px 0 56px; }
+
+            .container { padding: 0 14px; }
+
+            .article-meta {
+                gap: 8px;
+                font-size: 0.8rem;
+            }
+
+            .article-title { font-size: 1.7rem; }
+
+            .article-subtitle { font-size: 1rem; }
+
+            .article-content { font-size: 0.98rem; }
+
+            .article-content h2 { font-size: 1.35rem; }
+
+            .feature-grid { grid-template-columns: 1fr; }
+
+            .continue-grid { grid-template-columns: 1fr; }
+
+            .continue-header { align-items: flex-start; }
+
+            .continue-section { margin-top: 44px; }
+
+            .cta-section { padding: 22px; }
+
+            .cta-button {
+                padding: 12px 22px;
+                font-size: 0.95rem;
+            }
+
+            .sidebar-toggle-btn span { display: none; }
+
+            .sidebar-toggle-btn { padding: 9px 10px; }
+
+            .continue-view-all {
+                padding: 6px 11px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="logo">
+                <span class="logo-mark"></span>
+                <span class="logo-text">GLOY AI</span>
+            </a>
+            <a href="../index.html#telegram" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to News
+            </a>
+        </div>
+    </header>
+
+    <aside class="news-sidebar" id="news-sidebar" aria-label="Sidebar">
+        <div class="news-sidebar-head">
+            <span class="news-sidebar-title">News & Sections</span>
+            <button id="sidebar-close-btn" class="sidebar-close-btn" type="button" aria-label="Close sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="news-sidebar-content">
+            <section>
+                <span class="sidebar-section-title">Latest News</span>
+                <nav class="sidebar-news-list">
+                    <a class="sidebar-link" href="gloy-ai-2.0-release.html">Gloy AI 2.0 Release</a>
+                    <a class="sidebar-link" href="vision-2.0-release.html">Vision 2.0</a>
+                    <a class="sidebar-link" href="vision-1.0-release.html">Vision 1.0</a>
+                    <a class="sidebar-link" href="introducing-gloydev-0.5-exp.html">Introducing Gloy Dev 0.5 Exp</a>
+                    <a class="sidebar-link current" href="gloy-weather-release.html">Gloy Weather</a>
+                </nav>
+            </section>
+
+            <section>
+                <span class="sidebar-section-title">On This Page</span>
+                <nav id="sidebar-toc" class="sidebar-toc-list"></nav>
+            </section>
+        </div>
+    </aside>
+
+    <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" type="button" aria-label="Toggle sidebar">
+        <i class="fas fa-bars"></i>
+        <span>Sections</span>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="main-shell">
+    <article>
+        <div class="container">
+            <div class="article-header">
+                <div class="article-meta">
+                    <span class="badge-feature">FEATURE</span>
+                    <span>February 27, 2026</span>
+                    <span>-</span>
+                    <span>~3 min read</span>
+                    <span>-</span>
+                    <span>Product Update</span>
+                </div>
+                <h1 class="article-title">Gloy Weather</h1>
+                <p class="article-subtitle">Get weather updates quickly and beautifully. Just ask for your city or town, and Gloy delivers instant forecasts in an elegant, easy-to-read format.</p>
+            </div>
+
+            <div class="article-content">
+                <p>Today we are introducing <strong>Gloy Weather</strong> — a fast, beautiful way to check the weather without leaving your conversation. No apps to install, no websites to navigate. Just ask Gloy, and get your forecast instantly.</p>
+
+                <h2>How It Works</h2>
+                <p>Using Gloy Weather is effortless. Simply tell Gloy your city or town, and the weather appears in a clean, visually appealing window. Current conditions, temperature, and key details are displayed at a glance.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Instant Results</h3>
+                        <p>Get weather information immediately. No waiting, no loading screens — just ask and receive.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Any Location</h3>
+                        <p>Works with cities, towns, and villages worldwide. Just name your place and Gloy finds it.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <h3>Today & Tomorrow</h3>
+                        <p>Need tomorrow's forecast? Just ask. Gloy provides both current and next-day predictions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Beautiful Design</h3>
+                        <p>Weather data presented in an elegant, easy-to-read visual format that fits Gloy's aesthetic.</p>
+                    </div>
+                </div>
+
+                <h2>Tomorrow's Weather Too</h2>
+                <p>Planning ahead? Gloy Weather can provide forecasts for tomorrow as well. Just specify how many days you need — whether it's just today, tomorrow, or a short-range outlook.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Example queries:</strong> "What's the weather in Paris?" / "Weather in my village" / "Forecast for tomorrow in Tokyo" / "Weather for next 2 days in London"</p>
+                </div>
+
+                <div class="screenshot-container">
+                    <img src="demo_gw.png" alt="Gloy Weather showing weather in London with current conditions and today's forecast">
+                    <div class="screenshot-caption">Ask for weather in any city — Gloy displays current conditions and today's forecast in a beautiful, easy-to-read format</div>
+                </div>
+
+                <h2>Powered by Forecast API</h2>
+                <p>Gloy Weather currently operates through Forecast API, providing reliable and accurate weather data. This integration ensures you receive up-to-date information from trusted meteorological sources.</p>
+
+                <div class="tech-note">
+                    <strong>Technical note:</strong> Forecast API integration is currently active on our side. This means weather functionality is available immediately without requiring any API keys or setup from users. We are working to bring this capability fully in-house soon.
+                </div>
+
+                <h2>Try It Now</h2>
+                <p>Gloy Weather is available right now. Open your conversation with Gloy and ask about the weather in your area. Experience how simple and elegant weather updates can be.</p>
+
+                <div class="cta-section">
+                    <h3>Ready to check the weather?</h3>
+                    <p>Open Gloy AI in Telegram and ask about weather in your city.</p>
+                    <a href="https://t.me/gloy_dev" target="_blank" class="cta-button">
+                        <i class="fab fa-telegram"></i> Open in Telegram
+                    </a>
+                </div>
+            </div>
+
+            <section class="continue-section" aria-label="Continue reading">
+                <div class="continue-header">
+                    <h2 class="continue-title">Continue Reading</h2>
+                    <a class="continue-view-all" href="../index.html">View all news</a>
+                </div>
+                <div id="continue-reading-grid" class="continue-grid"></div>
+            </section>
+        </div>
+    </article>
+    </div>
+    <script>
+        (function () {
+            const sidebar = document.getElementById('news-sidebar');
+            const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+            const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+            const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+            const sidebarToc = document.getElementById('sidebar-toc');
+            const continueGrid = document.getElementById('continue-reading-grid');
+
+            function isMobileSidebar() {
+                return window.matchMedia('(max-width: 1100px)').matches;
+            }
+
+            function setSidebarDesktopCollapsed(collapsed) {
+                document.body.classList.toggle('sidebar-collapsed', collapsed);
+                updateToggleButtonState();
+            }
+
+            function setSidebarMobileOpen(open) {
+                document.body.classList.toggle('sidebar-open', open);
+                updateToggleButtonState();
+            }
+
+            function initSidebarState() {
+                if (isMobileSidebar()) {
+                    document.body.classList.remove('sidebar-collapsed');
+                    setSidebarMobileOpen(false);
+                } else {
+                    setSidebarDesktopCollapsed(false);
+                    setSidebarMobileOpen(false);
+                }
+            }
+
+            function toggleSidebar() {
+                if (isMobileSidebar()) {
+                    setSidebarMobileOpen(!document.body.classList.contains('sidebar-open'));
+                } else {
+                    setSidebarDesktopCollapsed(!document.body.classList.contains('sidebar-collapsed'));
+                }
+            }
+
+            sidebarToggleBtn.addEventListener('click', toggleSidebar);
+            sidebarCloseBtn.addEventListener('click', toggleSidebar);
+            sidebarBackdrop.addEventListener('click', function () { setSidebarMobileOpen(false); });
+            window.addEventListener('resize', initSidebarState);
+            initSidebarState();
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key !== 'Escape') return;
+                if (isMobileSidebar() && document.body.classList.contains('sidebar-open')) {
+                    setSidebarMobileOpen(false);
+                } else if (!isMobileSidebar() && !document.body.classList.contains('sidebar-collapsed')) {
+                    setSidebarDesktopCollapsed(true);
+                }
+            });
+
+            function updateToggleButtonState() {
+                const isOpenDesktop = !isMobileSidebar() && !document.body.classList.contains('sidebar-collapsed');
+                const isOpenMobile = isMobileSidebar() && document.body.classList.contains('sidebar-open');
+                const isOpen = isOpenDesktop || isOpenMobile;
+                sidebarToggleBtn.setAttribute('aria-expanded', String(isOpen));
+                sidebarCloseBtn.setAttribute('aria-expanded', String(isOpen));
+            }
+
+            function slugify(input) {
+                return input.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').slice(0, 60);
+            }
+
+            function buildToc() {
+                const headings = document.querySelectorAll('.article-content h2');
+                sidebarToc.innerHTML = '';
+                headings.forEach(function (heading, index) {
+                    if (!heading.id) {
+                        heading.id = 'section-' + (index + 1) + '-' + slugify(heading.textContent || ('part-' + (index + 1)));
+                    }
+                    const link = document.createElement('a');
+                    link.href = '#' + heading.id;
+                    link.className = 'sidebar-link';
+                    link.textContent = heading.textContent.trim();
+                    link.addEventListener('click', function () {
+                        if (isMobileSidebar()) setSidebarMobileOpen(false);
+                    });
+                    sidebarToc.appendChild(link);
+                });
+            }
+
+            function initTocSpy() {
+                const tocLinks = Array.from(sidebarToc.querySelectorAll('a'));
+                if (!tocLinks.length) return;
+                const map = new Map(tocLinks.map(function (link) { return [link.getAttribute('href').slice(1), link]; }));
+                const observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        const link = map.get(entry.target.id);
+                        if (!link) return;
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(function (l) { l.classList.remove('active'); });
+                            link.classList.add('active');
+                        }
+                    });
+                }, { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 });
+
+                document.querySelectorAll('.article-content h2').forEach(function (heading) {
+                    observer.observe(heading);
+                });
+            }
+
+            buildToc();
+            initTocSpy();
+
+            function shuffleArray(list) {
+                const arr = list.slice();
+                for (let i = arr.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+                return arr;
+            }
+
+            function createNewsCard(item) {
+                const card = document.createElement('a');
+                card.className = 'continue-card';
+                card.href = item.href;
+
+                const media = document.createElement('div');
+                media.className = 'continue-media';
+
+                const badge = document.createElement('span');
+                badge.className = 'continue-media-badge';
+                badge.textContent = item.tag;
+                media.appendChild(badge);
+
+                if (item.image) {
+                    const img = document.createElement('img');
+                    img.loading = 'lazy';
+                    img.src = item.image;
+                    img.alt = item.title + ' preview';
+                    img.addEventListener('error', function () {
+                        media.classList.add('is-placeholder');
+                        media.innerHTML = '<span class="continue-media-badge">' + item.tag + '</span><span class="continue-placeholder-label">Preview loading</span>';
+                    });
+                    media.appendChild(img);
+                } else {
+                    media.classList.add('is-placeholder');
+                    const placeholder = document.createElement('span');
+                    placeholder.className = 'continue-placeholder-label';
+                    placeholder.textContent = 'Preview loading';
+                    media.appendChild(placeholder);
+                }
+
+                const body = document.createElement('div');
+                body.className = 'continue-body';
+
+                const title = document.createElement('h3');
+                title.className = 'continue-card-title';
+                title.textContent = item.title;
+
+                const excerpt = document.createElement('p');
+                excerpt.className = 'continue-card-excerpt';
+                excerpt.textContent = item.excerpt;
+
+                const meta = document.createElement('div');
+                meta.className = 'continue-meta';
+                meta.innerHTML = '<span>' + item.category + '</span><span>' + item.date + '</span><span>' + item.readTime + '</span>';
+
+                body.appendChild(title);
+                body.appendChild(excerpt);
+                body.appendChild(meta);
+
+                card.appendChild(media);
+                card.appendChild(body);
+                return card;
+            }
+
+            function initContinueReading() {
+                if (!continueGrid) return;
+                const currentPage = window.location.pathname.split('/').pop() || 'gloy-weather-release.html';
+                const newsItems = [
+                    {
+                        href: 'gloy-ai-2.0-release.html',
+                        title: 'Gloy AI 2.0',
+                        excerpt: 'One flagship model built for serious production work: deeper reasoning, stronger coding, and enterprise scale.',
+                        category: 'Release',
+                        date: 'Dec 2025',
+                        readTime: '~18 min',
+                        tag: 'New',
+                        image: 'gloy2.0_news.png'
+                    },
+                    {
+                        href: 'vision-2.0-release.html',
+                        title: 'Vision 2.0',
+                        excerpt: 'A more stable and slightly faster visual model with stronger full-scene understanding.',
+                        category: 'Vision',
+                        date: 'Feb 2026',
+                        readTime: '~10 min',
+                        tag: 'New',
+                        image: 'vision_2.0.png'
+                    },
+                    {
+                        href: 'vision-1.0-release.html',
+                        title: 'Vision 1.0',
+                        excerpt: 'Foundational visual model supported in Gloy AI 1.8 and 2.0 with baseline image understanding.',
+                        category: 'Vision',
+                        date: 'Feb 2026',
+                        readTime: '~9 min',
+                        tag: 'New',
+                        image: 'vision_1.0.png'
+                    },
+                    {
+                        href: 'introducing-gloydev-0.5-exp.html',
+                        title: 'Gloy Dev 0.5 Exp',
+                        excerpt: 'Our most capable coding model through API, focused on reliable engineering output.',
+                        category: 'Engineering',
+                        date: 'Feb 2026',
+                        readTime: '~8 min',
+                        tag: 'Dev',
+                        image: 'gd_news.png'
+                    }
+                ];
+
+                // Filter out current page and shuffle
+                const otherNews = newsItems.filter(function(item) {
+                    return item.href !== currentPage;
+                });
+
+                continueGrid.innerHTML = '';
+                shuffleArray(otherNews).slice(0, 3).forEach(function (item) {
+                    continueGrid.appendChild(createNewsCard(item));
+                });
+            }
+
+            initContinueReading();
+        })();
+    </script>
+</body>
+</html>

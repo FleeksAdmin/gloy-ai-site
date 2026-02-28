@@ -93,6 +93,7 @@
             --button-shadow: rgba(0, 0, 0, 0.35);
             --hero-start: #ffffff;
             --hero-end: #bcc0c8;
+            --snow-color: #f4f4f5;
         }
 
         body.theme-light {
@@ -116,6 +117,7 @@
             --button-shadow: rgba(17, 24, 39, 0.18);
             --hero-start: #111827;
             --hero-end: #4b5563;
+            --snow-color: #4b5563;
         }
         
         * {
@@ -702,6 +704,31 @@
             z-index: 9999;
         }
         
+        /* Snow Animation */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 9999;
+            animation: snowfall linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+        
         .particle {
             position: absolute;
             border-radius: 50%;
@@ -1189,27 +1216,6 @@
                                     </div>
                                     <h3>Introducing Gloy Dev 0.5 Exp</h3>
                                     <p>Experimental coding model with stronger reasoning and higher-quality engineering output.</p>
-                                    <span class="news-read">Read update <i class="fas fa-arrow-right"></i></span>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article class="news-card-skeleton">
-                            <a href="news/gloy-weather-release.html" class="news-card-link">
-                                <div class="news-image-wrap">
-                                    <img src="news/gloy_weather.png" alt="Gloy Weather" loading="lazy">
-                                </div>
-                                <div class="news-content">
-                                    <div class="news-meta">
-                                        <span class="news-badge-new">NEW</span>
-                                        <span class="news-date">February 27, 2026</span>
-                                        <span class="news-dot"></span>
-                                        <span class="news-type">Feature</span>
-                                        <span class="news-dot"></span>
-                                        <span class="news-time">~3 min read</span>
-                                    </div>
-                                    <h3>Gloy Weather</h3>
-                                    <p>Get weather updates quickly and beautifully. Just ask for your city and receive instant forecasts in an elegant format.</p>
                                     <span class="news-read">Read update <i class="fas fa-arrow-right"></i></span>
                                 </div>
                             </a>
@@ -2222,6 +2228,7 @@ body.theme-dark {
     --button-shadow: rgba(0, 0, 0, 0.35);
     --hero-start: #ffffff;
     --hero-end: #bcc0c8;
+    --snow-color: #f4f4f5;
 }
 
 body.theme-light {
@@ -2245,6 +2252,7 @@ body.theme-light {
     --button-shadow: rgba(17, 24, 39, 0.18);
     --hero-start: #111827;
     --hero-end: #4b5563;
+    --snow-color: #4b5563;
 }
 
 body {
@@ -2375,6 +2383,14 @@ body.theme-light .news-image-wrap {
 
 .cta-button:hover {
     box-shadow: 0 6px 20px var(--button-shadow);
+}
+
+.snowflake {
+    color: var(--snow-color);
+}
+
+body.theme-light .snowflake {
+    opacity: 0.45;
 }
 
 .model-icon {
@@ -2537,6 +2553,30 @@ body.theme-light .rules-important {
                 }
             });
 
+            // Create snowflakes
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(snowflake);
+                
+                setTimeout(() => {
+                    snowflake.remove();
+                }, 10000);
+            }
+            
+            // Create snowflakes periodically
+            setInterval(createSnowflake, 300);
+            
+            // Create initial snowflakes
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createSnowflake, i * 200);
+            }
+            
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
             

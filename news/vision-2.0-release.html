@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vision 1.0 - Foundational Image Understanding | GLOY AI</title>
-    <meta name="description" content="Vision 1.0 is the foundational visual model supported in Gloy AI 1.8 and Gloy AI 2.0. It can analyze images and work with visual context, but it is slower and often less stable than newer vision versions.">
+    <title>Vision 2.0 - Stable Visual Intelligence Upgrade | GLOY AI</title>
+    <meta name="description" content="Vision 2.0 is a more stable and faster visual model than Vision 1.0, with stronger whole-image understanding across practical workflows in Gloy AI 2.0.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -558,6 +558,43 @@
             margin: 14px 0;
         }
 
+        .vision-example-image {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border-soft);
+            margin: 10px 0 14px;
+            display: block;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .vision-output-panel {
+            border: 1px solid var(--border-soft);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .vision-output-title {
+            display: block;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #e5e7eb;
+            margin-bottom: 7px;
+            font-weight: 700;
+        }
+
+        .vision-output-panel ul {
+            margin: 0 0 0 20px;
+        }
+
+        .vision-output-panel li {
+            margin-bottom: 6px;
+            color: var(--page-muted);
+            line-height: 1.62;
+        }
+
         .example-label {
             font-size: 0.78rem;
             text-transform: uppercase;
@@ -948,8 +985,8 @@
             <section>
                 <span class="sidebar-section-title">Latest News</span>
                 <nav class="sidebar-news-list">
-                    <a class="sidebar-link current" href="vision-1.0-release.html">Vision 1.0</a>
-                    <a class="sidebar-link" href="vision-2.0-release.html">Vision 2.0</a>
+                    <a class="sidebar-link current" href="vision-2.0-release.html">Vision 2.0</a>
+                    <a class="sidebar-link" href="vision-1.0-release.html">Vision 1.0</a>
                     <a class="sidebar-link" href="gloy-ai-2.0-release.html">Gloy AI 2.0 Release</a>
                     <a class="sidebar-link" href="introducing-gloydev-0.5-exp.html">Introducing Gloy Dev 0.5 Exp</a>
                 </nav>
@@ -974,202 +1011,219 @@
             <div class="article-header">
                 <div class="article-meta">
                     <span class="badge-new">NEW</span>
-                    <span>February 3, 2026</span>
+                    <span>February 14, 2026</span>
                     <span>-</span>
-                    <span>~9 min read</span>
+                    <span>~10 min read</span>
                     <span>-</span>
                     <span>New Technology Release</span>
                 </div>
-                <h1 class="article-title">Vision 1.0</h1>
-                <p class="article-subtitle">Foundational image understanding for practical workflows. Vision 1.0 can analyze photos and work with visual context, but it is slower and often less stable than newer vision generations.</p>
+                <h1 class="article-title">Vision 2.0</h1>
+                <p class="article-subtitle">A practical step forward in visual intelligence: more stable than Vision 1.0, a bit faster in real workflows, and significantly better at understanding full-scene meaning without overclaiming beyond the evidence.</p>
             </div>
 
-            <section class="voice-section" aria-label="Audio version of article">
-                <h2 class="voice-title"><i class="fas fa-headphones"></i> Listen to the article</h2>
-                <p class="voice-subtitle">The full essence of the article in an easy listening format.</p>
-                <audio id="release-audio" preload="metadata" src="vision-1.0-final.mp3"></audio>
-                <div class="voice-controls">
-                    <button id="audio-play-btn" class="voice-play" type="button" aria-label="Play or pause">
-                        <i class="fas fa-play"></i>
-                        <span>Listen</span>
-                    </button>
-                    <input id="audio-progress" class="voice-progress" type="range" min="0" max="0" step="0.1" value="0" aria-label="Audio progress">
-                    <div class="voice-time"><span id="audio-current">00:00</span> / <span id="audio-duration">00:00</span></div>
-                </div>
-                <div class="voice-actions">
-                    <a class="voice-download" href="vision-1.0-final.mp3" download>
-                        <i class="fas fa-download"></i>
-                        Download MP3
-                    </a>
-                </div>
-            </section>
+
 
             <div class="article-content">
-                <h2>Release Overview</h2>
-                <p>Today we are publishing a focused product note for <strong>Vision 1.0</strong>, our foundational visual model layer. This release is not about claiming the highest speed or the strongest benchmark score. It is about clearly documenting what Vision 1.0 is, where it helps, where it fails, and how teams should use it in real workflows.</p>
-                <p>Vision 1.0 was designed to do one job reliably enough for baseline use: read an image, extract visible context, and produce a useful text response. It can identify main objects, simple layout structure, and high-level scene intent. This is enough for lightweight tasks such as quick screenshot checks, basic photo summaries, and rough content classification.</p>
-                <p>At the same time, we need to be direct: Vision 1.0 is <strong>not</strong> the fastest visual model in our stack, and it is <strong>not</strong> the most stable one. You can get strong output on one request and weaker output on a similar request with minor visual differences. That variance is the central limitation of this generation.</p>
+                <h2>Executive Release Brief</h2>
+                <p><strong>Vision 2.0</strong> is the second-generation visual layer for Gloy workflows. This release is focused on operational quality, not hype: fewer unstable outputs, better scene-level comprehension, and lower retry pressure in daily product usage.</p>
+                <p>Unlike Vision 1.0, which often behaved differently on nearly identical inputs, Vision 2.0 is tuned for repeatability. The practical result is not just "nicer answers". It is better workflow control for support, product, and operations teams that rely on visual interpretation under time constraints.</p>
+                <p>We deliberately do not position Vision 2.0 as a final visual endpoint. It is a strong middle generation that closes major reliability gaps while we continue to higher-tier visual reasoning in the next step of the roadmap.</p>
 
-                <div class="warning-box">
-                    <p><strong>Important:</strong> Vision 1.0 is frequently unstable on complex visual tasks. It can miss fine details, misread dense interfaces, and produce inconsistent results across repeated runs.</p>
+                <div class="highlight-box">
+                    <p><strong>Release position:</strong> Vision 2.0 is the production default for current visual tasks when you need balanced speed and reliability without overcommitting to final-generation claims.</p>
                 </div>
 
-                <h2>Where Vision 1.0 Is Available</h2>
-                <p>Vision 1.0 is currently supported in both <strong>Gloy AI 1.8</strong> and <strong>Gloy AI 2.0</strong>. This means teams using either model line can attach an image and request analysis. The visual layer is shared as a compatibility baseline for broad adoption, migration continuity, and lightweight integrations.</p>
-                <p>In practice, this gives product teams a stable integration surface while they move toward newer visual modes. It also allows older workflows to stay functional without requiring immediate migration to higher-cost or higher-capability visual tiers.</p>
+                <h2>What Changed at System Level</h2>
+                <p>Vision 2.0 ships with meaningful behavior improvements across four dimensions: consistency, context interpretation, latency profile, and instruction discipline. The main objective was to reduce "quality swing" between runs and increase trust in first-pass output.</p>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>Consistency Control</h4>
+                        <p>Repeated runs on similar images are closer in quality and structure than in Vision 1.0.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Context Integrity</h4>
+                        <p>The model preserves whole-image intent better instead of overfocusing on isolated objects.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Latency Tuning</h4>
+                        <p>Response speed is moderately better, reducing friction in interactive support flows.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Instruction Fidelity</h4>
+                        <p>Requested output sections are followed more reliably in structured prompts.</p>
+                    </div>
+                </div>
 
+                <h2>Availability and Deployment Scope</h2>
+                <p>Vision 2.0 is deployed for production use in <strong>Gloy AI 2.0</strong>. Teams migrating from earlier visual stacks can run a staged comparison path with Vision 1.0 for QA, then switch default routing after acceptance checks.</p>
                 <table class="benchmark-table">
                     <thead>
                         <tr>
-                            <th>Capability Layer</th>
-                            <th>Vision 1.0 Status</th>
-                            <th>Practical Note</th>
+                            <th>Layer</th>
+                            <th>Vision 2.0</th>
+                            <th>Operational Impact</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Model availability</td>
-                            <td>Supported in Gloy AI 1.8 and 2.0</td>
-                            <td>Baseline visual compatibility across both lines</td>
+                            <td>Default placement</td>
+                            <td>Primary in Gloy AI 2.0</td>
+                            <td>Recommended for new visual workflows</td>
                         </tr>
                         <tr>
-                            <td>Speed profile</td>
-                            <td>Moderate to slow</td>
-                            <td>Good for non-urgent tasks, weak for latency-sensitive flows</td>
+                            <td>Retry pressure</td>
+                            <td>Reduced vs 1.0</td>
+                            <td>Lower manual prompt repetition</td>
                         </tr>
                         <tr>
-                            <td>Stability profile</td>
-                            <td>Inconsistent on complex inputs</td>
-                            <td>Requires verification on critical outputs</td>
+                            <td>Session continuity</td>
+                            <td>Improved</td>
+                            <td>More stable follow-up behavior on same image thread</td>
                         </tr>
                         <tr>
-                            <td>Detail sensitivity</td>
-                            <td>Limited</td>
-                            <td>Can miss small UI or low-contrast elements</td>
+                            <td>Error handling style</td>
+                            <td>More explicit uncertainty signaling</td>
+                            <td>Safer behavior for review-heavy pipelines</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <h2>What Vision 1.0 Does Well</h2>
-                <p>Although this version has known limits, it still delivers value when used in the right problem scope. The strongest results appear when prompts are concrete, expected output format is explicit, and image complexity is moderate.</p>
+                <h2>Comparative Matrix: Vision 2.0 and Vision 1.0</h2>
+                <p>The comparison below reflects practical behavior in realistic scenarios rather than isolated one-shot demos.</p>
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Vision 2.0</th>
+                            <th>Vision 1.0</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stability on repeated requests</td>
+                            <td>High-moderate (stable trend)</td>
+                            <td>Low-moderate (frequent variance)</td>
+                        </tr>
+                        <tr>
+                            <td>Whole-frame reasoning</td>
+                            <td>Strong</td>
+                            <td>Basic to moderate</td>
+                        </tr>
+                        <tr>
+                            <td>UI screenshot comprehension</td>
+                            <td>Clear improvement</td>
+                            <td>Often partial</td>
+                        </tr>
+                        <tr>
+                            <td>Speed profile</td>
+                            <td>Faster than 1.0</td>
+                            <td>Slower baseline</td>
+                        </tr>
+                        <tr>
+                            <td>Small-detail confidence</td>
+                            <td>Better, still limited</td>
+                            <td>Often unstable</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                <div class="feature-grid">
-                    <div class="feature-box">
-                        <h4>Scene-level understanding</h4>
-                        <p>It can identify what is generally happening in a photo and summarize the primary objects.</p>
-                    </div>
-                    <div class="feature-box">
-                        <h4>Basic screenshot reading</h4>
-                        <p>It can read obvious interface labels, top-level sections, and visible error messages.</p>
-                    </div>
-                    <div class="feature-box">
-                        <h4>Simple visual Q and A</h4>
-                        <p>It can answer direct questions when the answer is clearly visible and unambiguous.</p>
-                    </div>
-                    <div class="feature-box">
-                        <h4>Light moderation support</h4>
-                        <p>It can provide early classification hints for manual review pipelines.</p>
-                    </div>
+                <div class="warning-box">
+                    <p><strong>Operational warning:</strong> Vision 2.0 is better than Vision 1.0, but it is not a zero-error visual judge. High-stakes decisions still require human verification and policy gates.</p>
                 </div>
 
-                <p>If your workflow only needs first-pass interpretation, Vision 1.0 is often enough. For production workflows where exactness is mandatory, it should be used as a helper signal, not as the final decision source.</p>
-
-                <h2>Known Limits: Stability and Speed</h2>
-                <p>Vision 1.0 can feel “good and then inconsistent” because its error profile changes with image density, contrast, compression quality, and prompt ambiguity. A clean, high-resolution image with direct questions usually works. A dense dashboard, small fonts, or overlapping visual elements can degrade output quality significantly.</p>
-                <p>The second limit is latency. Vision 1.0 is functional, but it is not optimized for fast-turnaround analysis at scale. In user-facing products where speed expectations are high, this can reduce perceived responsiveness and increase retry behavior.</p>
-                <p>The third limit is semantic drift in long multi-step image conversations. If users chain many follow-up questions, the model may gradually lose precision unless prompts explicitly restate constraints and required output structure.</p>
-
-                <div class="highlight-box">
-                    <p><strong>Operational guidance:</strong> Vision 1.0 should be treated as a baseline visual interpreter. It is useful, but it is not the right default for high-stakes automation without human verification.</p>
-                </div>
-
-                <h2>Best-Fit Use Cases</h2>
+                <h2>Performance Envelope in Real Work</h2>
+                <p>Vision 2.0 performs best when visual complexity is medium to high, prompt structure is explicit, and expected output format is fixed. It handles mixed inputs better than 1.0, especially screenshot + text + status context combinations.</p>
                 <ul>
-                    <li>Quick photo descriptions for internal notes and communication.</li>
-                    <li>Basic screenshot triage before deeper debugging.</li>
-                    <li>Simple content extraction where minor misses are acceptable.</li>
-                    <li>Educational workflows that need rough image explanation, not forensic precision.</li>
-                    <li>Low-priority back-office pipelines that tolerate retries.</li>
+                    <li>Better triage quality for customer support screenshots.</li>
+                    <li>Cleaner summary extraction from product interfaces.</li>
+                    <li>More coherent responses in multi-step "same image" threads.</li>
+                    <li>Lower hallucination risk when uncertainty policy is requested explicitly.</li>
                 </ul>
 
-                <h2>Where Vision 1.0 Should Not Be Primary</h2>
+                <h2>Failure Modes You Should Still Expect</h2>
+                <p>Even with improvements, Vision 2.0 is not immune to difficult visual conditions. Teams should treat these as known boundaries, not random failures.</p>
                 <ul>
-                    <li>Medical, legal, or financial decisions that require strict correctness.</li>
-                    <li>Dense analytics dashboards with many small labels and low contrast.</li>
-                    <li>Complex UI QA where tiny layout differences are critical.</li>
-                    <li>Fraud or safety workflows with zero-tolerance error policies.</li>
-                    <li>Latency-sensitive user support flows with strict SLA targets.</li>
+                    <li>Tiny fonts inside dense dashboards can still be partially misread.</li>
+                    <li>Severe JPEG compression may collapse low-contrast labels.</li>
+                    <li>Overlapping objects can reduce counting precision.</li>
+                    <li>Ambiguous lighting can produce multiple plausible interpretations.</li>
+                    <li>Long conversational chains can drift if constraints are not restated.</li>
                 </ul>
 
-                <h2>Prompting Pattern for Better Results</h2>
-                <p>Vision 1.0 responds much better when the prompt is structured like an explicit contract. Teams that send vague requests such as “analyze this image” usually get weaker results than teams that define scope and output format clearly.</p>
-                <h3>Recommended mini-template</h3>
+                <h2>Prompt Architecture for Reliable Outputs</h2>
+                <p>Vision 2.0 benefits from contract-style prompts. If you ask broad questions, you get broad answers. If you define sections, evidence rules, and confidence policy, output quality becomes significantly more reviewable.</p>
+                <h3>Recommended structure</h3>
                 <ul>
-                    <li><strong>Task:</strong> one sentence objective.</li>
-                    <li><strong>Focus:</strong> what parts of the image to prioritize.</li>
-                    <li><strong>Output:</strong> numbered sections or strict JSON format.</li>
-                    <li><strong>Uncertainty policy:</strong> ask the model to flag low-confidence statements.</li>
+                    <li><strong>Goal:</strong> one concrete objective sentence.</li>
+                    <li><strong>Focus regions:</strong> what visual zones matter most.</li>
+                    <li><strong>Output contract:</strong> required sections or JSON schema.</li>
+                    <li><strong>Evidence mode:</strong> separate direct reading from inference.</li>
+                    <li><strong>Uncertainty mode:</strong> require explicit low-confidence flags.</li>
                 </ul>
-                <p>Example prompt format:</p>
                 <div class="example-card">
-                    <span class="example-label">Prompt Structure</span>
-                    <p>"Analyze this screenshot. Return: (1) key visible elements, (2) possible issue summary, (3) missing details that cannot be read clearly, (4) confidence level for each claim."</p>
-                </div>
-                <p>This structure reduces hallucinated detail and improves reviewability for production teams.</p>
-
-                <h2>Example Scenarios: Image and Response Style</h2>
-                <p>Below are baseline scenario patterns that reflect realistic Vision 1.0 behavior.</p>
-
-                <div class="example-card">
-                    <span class="example-label">Scenario A: Product Screenshot</span>
-                    <p><strong>Input image type:</strong> app settings screen with clear headings and two warning banners.<br>
-                    <strong>Typical Vision 1.0 response:</strong> correctly identifies section names and warning text, but may skip one secondary button label and misread a small icon tooltip.</p>
+                    <span class="example-label">Prompt Pattern</span>
+                    <p>"Analyze this screen and return: (1) visible components, (2) probable issue, (3) exact readable text, (4) unclear elements, (5) confidence score per block."</p>
                 </div>
 
+                <h2>Practical Example Cases</h2>
+                <p>Below is a practical set of scenarios that represent realistic Vision 2.0 behavior.</p>
                 <div class="example-card">
-                    <span class="example-label">Scenario B: Store Shelf Photo</span>
-                    <p><strong>Input image type:</strong> medium-light retail shelf with many products and similar packaging.<br>
-                    <strong>Typical Vision 1.0 response:</strong> detects main product categories, but can confuse neighboring labels and undercount items in crowded rows.</p>
+                    <span class="example-label">Featured Example</span>
+                    <img class="vision-example-image" src="vision_2.0_cat.png" alt="A ginger cat sitting on a cluttered creative desk">
+                    <p><strong>Input:</strong> Describe this photo.</p>
+                    <div class="vision-output-panel">
+                        <span class="vision-output-title">Vision 2.0 Strict Response (English)</span>
+                        <ul>
+                            <li><strong>Primary subject:</strong> A fluffy ginger cat positioned in the center of a wooden desk.</li>
+                            <li><strong>Scene type:</strong> Indoor workspace with high object density and mixed creative/technical tools.</li>
+                            <li><strong>Visible creative items:</strong> Open notebook with handwritten notes and sketches, loose pages with charts/diagrams, paint palette, brush cup, colored pencils, watercolor set, sticky notes, and magnifying glass.</li>
+                            <li><strong>Visible technical items:</strong> Drawing tablet showing a fish illustration and a smartphone displaying code-like text.</li>
+                            <li><strong>Other visible objects:</strong> Small toys (robots and duck), Rubik's cube, camera with lens, multiple potted plants/succulents, coffee cup, and desk lamp.</li>
+                            <li><strong>Strict summary:</strong> The photo shows a cluttered creative workstation centered around a cat, with clear indicators of art/design activity and light technical work.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <span class="example-label">Case 1: Payment Warning Screen</span>
+                    <p><strong>Input type:</strong> billing page with warning cards, status chips, and secondary controls.<br>
+                    <strong>Typical Vision 2.0 output:</strong> captures core issue correctly, identifies major labels, marks ambiguous small text as uncertain.</p>
+                </div>
+                <div class="example-card">
+                    <span class="example-label">Case 2: Multi-Object Retail Photo</span>
+                    <p><strong>Input type:</strong> crowded shelf with similar packaging and mixed lighting.<br>
+                    <strong>Typical Vision 2.0 output:</strong> strong category grouping and scene summary; occasional counting drift in overlapping zones.</p>
+                </div>
+                <div class="example-card">
+                    <span class="example-label">Case 3: Dashboard with Graph + Filters</span>
+                    <p><strong>Input type:</strong> chart-heavy interface with compact labels.<br>
+                    <strong>Typical Vision 2.0 output:</strong> reliable trend explanation and panel detection; exact micro-label reading still limited by image quality.</p>
                 </div>
 
-                <div class="example-card">
-                    <span class="example-label">Scenario C: Chart Snapshot</span>
-                    <p><strong>Input image type:</strong> line chart screenshot with small axis labels.<br>
-                    <strong>Typical Vision 1.0 response:</strong> identifies trend direction correctly, but may fail on exact axis values or dense legend details.</p>
-                </div>
-
-                <p>These examples are intentionally practical: Vision 1.0 is useful for first-pass interpretation, but exact extraction on small details remains risky.</p>
-
-                <h2>Quality Governance for Teams</h2>
-                <p>If you deploy Vision 1.0 in production, add a lightweight governance layer. This can be as simple as confidence tagging plus human review for low-confidence outputs. The goal is not to remove automation; the goal is to make automation predictable.</p>
-                <p>A practical governance checklist:</p>
+                <h2>Adoption Strategy for Teams</h2>
+                <p>Migration from Vision 1.0 should be measurable. Avoid a blind switch. Run a short validation cycle on your own workload categories and compare stability, latency, and review burden.</p>
                 <ul>
-                    <li>Require explicit uncertainty flags in every response.</li>
-                    <li>Store the original prompt and output together for auditability.</li>
-                    <li>Route low-confidence results to manual review.</li>
-                    <li>Use fixed prompt templates for repeated workflows.</li>
-                    <li>Track error categories, not only pass or fail outcomes.</li>
+                    <li><strong>Stage 1:</strong> shadow run on historical visual tasks.</li>
+                    <li><strong>Stage 2:</strong> partial routing for low-risk workflows.</li>
+                    <li><strong>Stage 3:</strong> full default routing with fallback policy.</li>
+                    <li><strong>Stage 4:</strong> threshold-based optimization and monitoring.</li>
                 </ul>
-                <p>Teams that follow this pattern usually get better reliability from baseline vision models, even when the model itself is not top-tier.</p>
 
-                <h2>Positioning Against Newer Vision Generations</h2>
-                <p>Vision 1.0 remains part of the stack for compatibility and baseline coverage. However, from a product strategy perspective, it should not be treated as the long-term primary visual layer for advanced workloads.</p>
-                <p>If your workflow depends on speed, consistency, and deeper image reasoning, newer vision generations should be prioritized. Vision 1.0 can still play a supporting role for low-risk tasks, legacy compatibility, or controlled fallback flows.</p>
-                <p>In short: Vision 1.0 is useful, practical, and still relevant. It is also limited, slower, and often unstable under complexity. Both statements are true, and good engineering decisions depend on accepting both at once.</p>
+                <h2>Position in the Vision Roadmap</h2>
+                <p>Vision 2.0 is intentionally balanced: clearly better than 1.0, but not the final ceiling. It gives teams a stronger operational baseline today while leaving room for deeper reasoning in the next generation.</p>
+                <p>In short: Vision 2.0 is the current reliable workhorse. Vision 3.0 is the future high-capability target.</p>
 
-                <h2>Final Note</h2>
-                <p>Vision 1.0 is a foundational model. It sees the image, it can work with it, and it can provide helpful responses in many real scenarios. At the same time, it is not optimized for modern expectations of speed and stability in complex visual tasks.</p>
-                <p>It is supported in <strong>Gloy AI 1.8</strong> and <strong>Gloy AI 2.0</strong>, so teams can use one baseline visual layer across both products. For critical workflows, pair it with strict prompt templates, confidence signaling, and human verification.</p>
+                <h2>Final Statement</h2>
+                <p>Vision 2.0 delivers what production teams asked for most: better stability, slightly faster response, and stronger understanding of complete image context. It is a real upgrade over Vision 1.0 and a solid default for current visual tasks.</p>
+                <p>Use it with structured prompts, confidence rules, and human review in critical domains. That combination gives the best quality-to-risk profile in real environments.</p>
 
                 <div class="cta-section">
-                    <h3>Start with Vision 1.0</h3>
-                    <p style="color: var(--page-muted); margin-bottom: 20px;">Use it for baseline image understanding now, then scale to newer vision generations as your workflow requires higher speed and stronger stability.</p>
+                    <h3>Run Vision 2.0 in Production</h3>
+                    <p style="color: var(--page-muted); margin-bottom: 20px;">Start with controlled rollout, validate on your own images, then scale routing after acceptance thresholds are met.</p>
                     <a href="https://t.me/gloy_dev" target="_blank" class="cta-button">
                         <i class="fab fa-telegram"></i> Open in Telegram
                     </a>
                 </div>
             </div>
-
             <section class="continue-section" aria-label="Continue reading">
                 <div class="continue-header">
                     <h2 class="continue-title">Continue Reading</h2>
@@ -1182,79 +1236,11 @@
     </div>
     <script>
         (function () {
-            const audio = document.getElementById('release-audio');
-            const playBtn = document.getElementById('audio-play-btn');
-            const playIcon = playBtn.querySelector('i');
-            const playText = playBtn.querySelector('span');
-            const progress = document.getElementById('audio-progress');
-            const currentEl = document.getElementById('audio-current');
-            const durationEl = document.getElementById('audio-duration');
             const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
             const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
             const sidebarBackdrop = document.getElementById('sidebar-backdrop');
             const sidebarToc = document.getElementById('sidebar-toc');
             const continueGrid = document.getElementById('continue-reading-grid');
-            let isSeeking = false;
-
-            function formatTime(seconds) {
-                if (!Number.isFinite(seconds) || seconds < 0) return '00:00';
-                const hrs = Math.floor(seconds / 3600);
-                const mins = Math.floor((seconds % 3600) / 60);
-                const secs = Math.floor(seconds % 60);
-                if (hrs > 0) {
-                    return String(hrs).padStart(2, '0') + ':' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-                }
-                return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-            }
-
-            function updatePlayState() {
-                if (audio.paused) {
-                    playIcon.className = 'fas fa-play';
-                    playText.textContent = 'Listen';
-                } else {
-                    playIcon.className = 'fas fa-pause';
-                    playText.textContent = 'Pause';
-                }
-            }
-
-            audio.addEventListener('loadedmetadata', function () {
-                progress.max = audio.duration || 0;
-                durationEl.textContent = formatTime(audio.duration);
-            });
-
-            audio.addEventListener('timeupdate', function () {
-                if (!isSeeking) {
-                    progress.value = audio.currentTime;
-                }
-                currentEl.textContent = formatTime(audio.currentTime);
-            });
-
-            audio.addEventListener('ended', function () {
-                updatePlayState();
-            });
-
-            playBtn.addEventListener('click', function () {
-                if (audio.paused) {
-                    audio.play();
-                } else {
-                    audio.pause();
-                }
-                updatePlayState();
-            });
-
-            progress.addEventListener('input', function () {
-                isSeeking = true;
-                currentEl.textContent = formatTime(Number(progress.value));
-            });
-
-            progress.addEventListener('change', function () {
-                audio.currentTime = Number(progress.value);
-                isSeeking = false;
-            });
-
-            audio.addEventListener('pause', updatePlayState);
-            audio.addEventListener('play', updatePlayState);
-            updatePlayState();
 
             function isMobileSidebar() {
                 return window.matchMedia('(max-width: 1100px)').matches;
@@ -1424,17 +1410,17 @@
 
             function initContinueReading() {
                 if (!continueGrid) return;
-                const currentPage = window.location.pathname.split('/').pop() || 'vision-1.0-release.html';
+                const currentPage = window.location.pathname.split('/').pop() || 'vision-2.0-release.html';
                 const newsItems = [
                     {
-                        href: 'vision-2.0-release.html',
-                        title: 'Vision 2.0',
-                        excerpt: 'A more stable and slightly faster visual model with stronger whole-image understanding.',
+                        href: 'vision-1.0-release.html',
+                        title: 'Vision 1.0',
+                        excerpt: 'The foundational vision layer: baseline image understanding, slower and less stable than 2.0.',
                         category: 'Vision',
                         date: 'Feb 2026',
-                        readTime: '~10 min',
-                        tag: 'New',
-                        image: 'vision_2.0.png'
+                        readTime: '~9 min',
+                        tag: 'Vision',
+                        image: 'vision_1.0.png'
                     },
                     {
                         href: 'gloy-ai-2.0-release.html',
@@ -1484,3 +1470,5 @@
     </script>
 </body>
 </html>
+
+

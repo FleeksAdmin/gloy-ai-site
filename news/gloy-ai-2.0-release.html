@@ -890,6 +890,7 @@
                 <span class="sidebar-section-title">Latest News</span>
                 <nav class="sidebar-news-list">
                     <a class="sidebar-link current" href="gloy-ai-2.0-release.html">Gloy AI 2.0 Release</a>
+                    <a class="sidebar-link" href="vision-2.0-release.html">Vision 2.0</a>
                     <a class="sidebar-link" href="vision-1.0-release.html">Vision 1.0</a>
                     <a class="sidebar-link" href="introducing-gloydev-0.5-exp.html">Introducing Gloy Dev 0.5 Exp</a>
                 </nav>
@@ -1658,7 +1659,18 @@
 
             function initContinueReading() {
                 if (!continueGrid) return;
+                const currentPage = window.location.pathname.split('/').pop() || 'gloy-ai-2.0-release.html';
                 const newsItems = [
+                    {
+                        href: 'vision-2.0-release.html',
+                        title: 'Vision 2.0',
+                        excerpt: 'A more stable and slightly faster visual model with stronger full-scene understanding.',
+                        category: 'Vision',
+                        date: 'Feb 2026',
+                        readTime: '~10 min',
+                        tag: 'New',
+                        image: 'vision_2.0.png'
+                    },
                     {
                         href: 'introducing-gloydev-0.5-exp.html',
                         title: 'Introducing Gloy Dev 0.5 Exp',
@@ -1678,11 +1690,26 @@
                         readTime: '~9 min',
                         tag: 'New',
                         image: 'vision_1.0.png'
+                    },
+                    {
+                        href: 'gloy-weather-release.html',
+                        title: 'Gloy Weather',
+                        excerpt: 'Get weather updates quickly and beautifully. Just ask for your city and receive instant forecasts.',
+                        category: 'Feature',
+                        date: 'Feb 2026',
+                        readTime: '~3 min',
+                        tag: 'New',
+                        image: 'gloy_weather.png'
                     }
                 ];
 
+                // Filter out current page and shuffle
+                const otherNews = newsItems.filter(function(item) {
+                    return item.href !== currentPage;
+                });
+
                 continueGrid.innerHTML = '';
-                shuffleArray(newsItems).slice(0, 3).forEach(function (item) {
+                shuffleArray(otherNews).slice(0, 3).forEach(function (item) {
                     continueGrid.appendChild(createNewsCard(item));
                 });
             }
