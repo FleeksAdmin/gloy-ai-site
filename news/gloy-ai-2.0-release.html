@@ -1,0 +1,1739 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gloy AI 2.0 - Official Release Notes | GLOY AI</title>
+    <meta name="description" content="Official Gloy AI 2.0 release notes: one flagship model, 128K context, Vision 1.0/2.0/3.0 support, stronger coding, larger structured responses, and API availability now.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/release-monochrome.css">
+    <style type="text/plain" data-legacy-release-style>
+        :root {
+            --page-text: #f4f4f5;
+            --page-muted: #d4d4d8;
+            --page-bg: #07090f;
+            --page-bg-accent-1: rgba(255, 255, 255, 0.07);
+            --page-bg-accent-2: rgba(255, 255, 255, 0.04);
+            --surface: rgba(15, 18, 27, 0.72);
+            --surface-strong: rgba(11, 14, 22, 0.92);
+            --border-soft: rgba(255, 255, 255, 0.14);
+            --border-strong: rgba(255, 255, 255, 0.32);
+            --button-text: #0a0d12;
+            --button-shadow: rgba(0, 0, 0, 0.35);
+            --gradient: linear-gradient(135deg, #ffffff, #a1a1aa);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--page-text);
+            background-color: var(--page-bg);
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 20%, var(--page-bg-accent-1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, var(--page-bg-accent-2) 0%, transparent 20%);
+        }
+
+        .container { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: var(--surface-strong);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 12px;
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+        .logo-mark {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff, #9ca3af);
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: var(--page-text);
+            letter-spacing: 0.04em;
+        }
+
+        .back-button {
+            background: transparent;
+            color: var(--page-text);
+            border: 1px solid var(--border-strong);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover { background: var(--surface); transform: translateY(-2px); }
+
+        .main-shell {
+            margin-left: 320px;
+            transition: margin-left 0.32s ease;
+        }
+
+        .news-sidebar {
+            position: fixed;
+            left: 18px;
+            top: 92px;
+            bottom: 18px;
+            width: 284px;
+            background: rgba(10, 13, 20, 0.93);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.38);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            z-index: 960;
+            transform: translateX(0);
+            opacity: 1;
+            transition: transform 0.32s ease, opacity 0.32s ease;
+            overflow: hidden;
+        }
+
+        .news-sidebar-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .news-sidebar-title {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.03em;
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: var(--page-text);
+        }
+
+        .sidebar-close-btn {
+            border: 1px solid var(--border-soft);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--page-text);
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.24);
+            transform: translateY(-1px);
+        }
+
+        .news-sidebar-content {
+            padding: 14px 14px 16px;
+            overflow: auto;
+            scrollbar-width: thin;
+            display: grid;
+            gap: 18px;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.78rem;
+            color: var(--page-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .sidebar-news-list,
+        .sidebar-toc-list {
+            display: grid;
+            gap: 6px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: var(--page-text);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 10px 11px;
+            font-size: 0.92rem;
+            line-height: 1.35;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-soft);
+            transform: translateX(2px);
+        }
+
+        .sidebar-link.current {
+            background: rgba(255, 255, 255, 0.11);
+            border-color: rgba(255, 255, 255, 0.28);
+            font-weight: 600;
+        }
+
+        .sidebar-toc-list .sidebar-link {
+            font-size: 0.86rem;
+            color: #d5d9e3;
+            padding: 8px 10px;
+        }
+
+        .sidebar-toc-list .sidebar-link.active {
+            border-color: rgba(255, 255, 255, 0.34);
+            background: rgba(255, 255, 255, 0.1);
+            color: #f4f6ff;
+        }
+
+        .sidebar-toggle-btn {
+            position: fixed;
+            left: 18px;
+            top: 102px;
+            z-index: 970;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            background: rgba(12, 16, 24, 0.92);
+            color: var(--page-text);
+            padding: 9px 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+            transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar-toggle-btn:hover {
+            transform: translateY(-1px);
+            background: rgba(20, 25, 35, 0.96);
+        }
+
+        .sidebar-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.26s ease;
+            z-index: 940;
+        }
+
+        body.sidebar-collapsed .main-shell {
+            margin-left: 0;
+        }
+
+        body.sidebar-collapsed .news-sidebar {
+            transform: translateX(calc(-100% - 28px));
+            opacity: 0.92;
+        }
+
+        body.sidebar-collapsed .sidebar-toggle-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        article { padding: 120px 0 80px; }
+        .article-header { text-align: center; margin-bottom: 44px; }
+        .article-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--page-muted);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge-new {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 3px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #ffe4e6;
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+        }
+
+        .article-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: var(--page-text);
+            line-height: 1.15;
+        }
+
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: var(--page-muted);
+            line-height: 1.6;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .voice-section {
+            margin: 0 auto 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 10px 30px var(--button-shadow);
+        }
+
+        .voice-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--page-text);
+        }
+
+        .voice-subtitle {
+            color: var(--page-muted);
+            font-size: 0.98rem;
+            margin-bottom: 18px;
+        }
+
+        .voice-controls {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .voice-play {
+            border: none;
+            border-radius: 999px;
+            background: var(--gradient);
+            color: var(--button-text);
+            min-width: 130px;
+            padding: 11px 16px;
+            font-weight: 700;
+            font-size: 0.96rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--button-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .voice-play:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px var(--button-shadow);
+        }
+
+        .voice-progress {
+            width: 100%;
+            accent-color: #e5e7eb;
+            cursor: pointer;
+        }
+
+        .voice-time {
+            font-variant-numeric: tabular-nums;
+            color: var(--page-muted);
+            font-size: 0.92rem;
+            min-width: 110px;
+            text-align: right;
+        }
+
+        .voice-actions {
+            margin-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .voice-download {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border-strong);
+            color: var(--page-text);
+            border-radius: 999px;
+            padding: 9px 14px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .voice-download:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .article-content {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 44px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 20px 40px var(--button-shadow);
+        }
+
+        .article-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--page-text);
+            margin: 40px 0 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .article-content h2:first-child { margin-top: 0; }
+        .article-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.45rem;
+            color: var(--page-text);
+            margin: 28px 0 12px;
+        }
+
+        .article-content p {
+            color: var(--page-muted);
+            line-height: 1.86;
+            margin-bottom: 18px;
+            font-size: 1.03rem;
+        }
+
+        .article-content ul { color: var(--page-muted); line-height: 1.8; margin: 16px 0 20px 24px; }
+        .article-content li { margin-bottom: 10px; }
+        .article-content strong { color: var(--page-text); }
+
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-soft);
+            border-left: 3px solid var(--border-strong);
+            padding: 20px;
+            margin: 26px 0;
+            border-radius: 12px;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            margin: 28px 0;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border-soft);
+        }
+
+        .benchmark-table th {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--page-text);
+            padding: 14px;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .benchmark-table td {
+            padding: 12px 14px;
+            color: var(--page-muted);
+            border-top: 1px solid var(--border-soft);
+            vertical-align: top;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .benchmark-table th {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .benchmark-table tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+        .quote-box {
+            margin: 26px 0;
+            padding: 20px;
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .quote-box blockquote {
+            color: var(--page-text);
+            line-height: 1.8;
+            font-size: 1.02rem;
+            margin-bottom: 12px;
+        }
+
+        .quote-box cite { color: var(--page-muted); font-style: normal; font-size: 0.92rem; }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 44px;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            border: 1px solid var(--border-soft);
+        }
+
+        .cta-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--page-text);
+            margin-bottom: 14px;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: var(--button-text);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--button-shadow);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--button-shadow); }
+
+        .continue-section {
+            margin-top: 34px;
+            padding: 24px 0 4px;
+        }
+
+        .continue-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .continue-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--page-text);
+            letter-spacing: 0.01em;
+        }
+
+        .continue-view-all {
+            color: #d1d5db;
+            text-decoration: none;
+            border: 1px solid var(--border-soft);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.88rem;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .continue-view-all:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .continue-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .continue-card {
+            text-decoration: none;
+            color: inherit;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-soft);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .continue-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.26);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+        }
+
+        .continue-media {
+            aspect-ratio: 16 / 10;
+            position: relative;
+            background: linear-gradient(135deg, #1f2937, #111827);
+            overflow: hidden;
+        }
+
+        .continue-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .continue-media-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.58);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .continue-media.is-placeholder {
+            background: linear-gradient(135deg, #101722 0%, #1b2432 40%, #0f172a 100%);
+        }
+
+        .continue-media.is-placeholder::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.15) 45%, transparent 70%);
+            transform: translateX(-100%);
+            animation: continueShimmer 1.7s linear infinite;
+        }
+
+        .continue-media.is-placeholder .continue-placeholder-label {
+            position: absolute;
+            left: 12px;
+            bottom: 12px;
+            font-size: 0.78rem;
+            color: #c7d2fe;
+            z-index: 1;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        @keyframes continueShimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .continue-body {
+            padding: 13px 13px 14px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .continue-card-title {
+            font-size: 1.02rem;
+            line-height: 1.35;
+            color: #f8fafc;
+        }
+
+        .continue-card-excerpt {
+            color: #c7cdd6;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .continue-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            color: #a1a8b3;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 1100px) {
+            .main-shell {
+                margin-left: 0;
+            }
+
+            body.sidebar-open {
+                overflow: hidden;
+            }
+
+            .news-sidebar {
+                top: calc(82px + env(safe-area-inset-top));
+                left: max(10px, env(safe-area-inset-left));
+                bottom: 12px;
+                width: min(88vw, 320px);
+                transform: translateX(calc(-100% - 22px));
+                opacity: 0;
+            }
+
+            body.sidebar-open .news-sidebar {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .sidebar-toggle-btn {
+                opacity: 1;
+                pointer-events: auto;
+                top: calc(88px + env(safe-area-inset-top));
+                left: max(10px, env(safe-area-inset-left));
+            }
+
+            body.sidebar-open .sidebar-backdrop {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 0;
+            }
+
+            .header-content {
+                padding: 0 14px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .back-button {
+                padding: 8px 12px;
+                font-size: 0.84rem;
+                gap: 6px;
+            }
+
+            article {
+                padding: 110px 0 56px;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+
+            .article-meta {
+                gap: 8px;
+                font-size: 0.8rem;
+                margin-bottom: 14px;
+            }
+
+            .article-title { font-size: 2.2rem; }
+            .article-subtitle { font-size: 1rem; }
+
+            .voice-section {
+                padding: 16px;
+                border-radius: 14px;
+            }
+
+            .voice-title {
+                font-size: 1.36rem;
+                line-height: 1.3;
+            }
+
+            .voice-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .article-content { padding: 26px 18px; }
+            .article-content p {
+                font-size: 0.96rem;
+                line-height: 1.72;
+            }
+            .article-content h2 {
+                font-size: 1.56rem;
+                margin: 30px 0 12px;
+            }
+            .article-content h3 {
+                font-size: 1.22rem;
+            }
+            .benchmark-table {
+                font-size: 0.86rem;
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .benchmark-table th,
+            .benchmark-table td {
+                padding: 10px 11px;
+                min-width: 120px;
+            }
+            .benchmark-table th:first-child,
+            .benchmark-table td:first-child {
+                min-width: 200px;
+            }
+            .voice-controls {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .voice-time { text-align: left; min-width: 0; }
+            .voice-play { width: 100%; }
+            .voice-actions { justify-content: flex-start; }
+
+            .cta-section {
+                margin-top: 34px;
+                padding: 22px 16px;
+            }
+
+            .cta-section h3 {
+                font-size: 1.62rem;
+            }
+
+            .continue-header {
+                margin-bottom: 14px;
+            }
+
+            .continue-title {
+                font-size: 1.56rem;
+            }
+
+            .continue-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                gap: 8px;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+
+            .back-button {
+                padding: 7px 10px;
+                font-size: 0.78rem;
+            }
+
+            .article-title {
+                font-size: 1.9rem;
+            }
+
+            .article-content {
+                padding: 20px 14px;
+                border-radius: 14px;
+            }
+
+            .sidebar-toggle-btn span {
+                display: none;
+            }
+
+            .sidebar-toggle-btn {
+                padding: 9px 10px;
+            }
+
+            .continue-view-all {
+                padding: 6px 11px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="logo">
+                <span class="logo-mark"></span>
+                <span class="logo-text">GLOY AI</span>
+            </a>
+            <nav class="release-nav" aria-label="Release navigation">
+                <a class="release-nav-link" href="../index.html#news">News</a>
+                <a class="release-nav-link" href="../index.html#models">Models</a>
+                <a class="release-nav-link" href="../index.html#roadmap">Roadmap</a>
+                <a class="release-nav-link" href="../index.html#api">API</a>
+                <a class="release-nav-link" href="../index.html#developers">Developers</a>
+            </nav>
+            <div class="release-header-actions">
+                <button class="release-theme-toggle" id="theme-toggle" type="button" aria-pressed="false">Dark</button>
+                <a href="../index.html#news" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to News
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <aside class="news-sidebar" id="news-sidebar" aria-label="Sidebar">
+        <div class="news-sidebar-head">
+            <span class="news-sidebar-title">News & Sections</span>
+            <button id="sidebar-close-btn" class="sidebar-close-btn" type="button" aria-label="Close sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="news-sidebar-content">
+            <section>
+                <span class="sidebar-section-title">Latest News</span>
+                <nav class="sidebar-news-list">
+                    <a class="sidebar-link current" href="gloy-ai-2.0-release.html">Gloy AI 2.0 Release</a>
+                    <a class="sidebar-link" href="vision-2.0-release.html">Vision 2.0</a>
+                    <a class="sidebar-link" href="vision-1.0-release.html">Vision 1.0</a>
+                    <a class="sidebar-link" href="introducing-gloydev-0.5-exp.html">Introducing Gloy Dev 0.5 Exp</a>
+                </nav>
+            </section>
+
+            <section>
+                <span class="sidebar-section-title">On This Page</span>
+                <nav id="sidebar-toc" class="sidebar-toc-list"></nav>
+            </section>
+        </div>
+    </aside>
+
+    <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" type="button" aria-label="Toggle sidebar">
+        <i class="fas fa-bars"></i>
+        <span>Sections</span>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="main-shell">
+    <article>
+        <div class="container">
+            <div class="article-header">
+                <div class="article-meta">
+                    <span class="badge-new">NEW</span>
+                    <span>December 26, 2025</span>
+                    <span>-</span>
+                    <span>~18 min read</span>
+                    <span>-</span>
+                    <span>Official Technical Release</span>
+                </div>
+                <h1 class="article-title">Gloy AI 2.0</h1>
+                <p class="article-subtitle">One flagship model built for serious production work: deeper reasoning, stronger coding, larger structured responses, and stable long-context execution at enterprise scale.</p>
+            </div>
+
+
+            <section class="voice-section" aria-label="Audio version of article">
+                <h2 class="voice-title"><i class="fas fa-headphones"></i> Listen to the article</h2>
+                <p class="voice-subtitle">The full essence of the article in an easy listening format.</p>
+                <audio id="release-audio" preload="metadata" src="gloy-ai-2.0-final.mp3"></audio>
+                <div class="voice-controls">
+                    <button id="audio-play-btn" class="voice-play" type="button" aria-label="Play or pause">
+                        <i class="fas fa-play"></i>
+                        <span>Listen</span>
+                    </button>
+                    <input id="audio-progress" class="voice-progress" type="range" min="0" max="0" step="0.1" value="0" aria-label="Audio progress">
+                    <div class="voice-time"><span id="audio-current">00:00</span> / <span id="audio-duration">00:00</span></div>
+                </div>
+                <div class="voice-actions">
+                    <a class="voice-download" href="gloy-ai-2.0-final.mp3" download>
+                        <i class="fas fa-download"></i>
+                        Download MP3
+                    </a>
+                </div>
+            </section>
+
+            <div class="article-content">
+                <p>Today we are announcing <strong>Gloy AI 2.0</strong>, our most advanced and most reliable model release to date. This is not a catalog of separate sub-models and not a multi-tier naming stack. It is one flagship line designed for real work under real operational constraints.</p>
+
+                <p>Many teams told us the same thing: they do not want a model that looks strong only in isolated tests. They need a model that keeps structure in long outputs, understands context across large working sets of tokens, follows strict output contracts, and executes technical tasks without quality collapse under pressure. Gloy AI 2.0 was built for exactly this.</p>
+
+                <p>With this release we focused on complete workflow performance: planning, coding, analysis, visual understanding, and multilingual communication in one system. The target was clear from day one: fewer retries, fewer partial responses, fewer formatting failures, and faster time to actionable results.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Release statement:</strong> Gloy AI 2.0 is our best and most powerful model. If Gloy AI 1.8 was a useful baseline assistant, Gloy AI 2.0 is the production engine for teams that expect professional output quality every day.</p>
+                </div>
+
+                <h2>One Model, Clear Direction</h2>
+                <p>Gloy AI 2.0 is released as <strong>one model</strong>. No split into multiple operating tiers and no fragmented capability matrix. You get one consistent behavior surface across technical and non-technical workloads.</p>
+
+                <p>This decision was intentional. Multi-profile model lines often increase operational complexity: routing logic becomes harder, quality signatures drift across endpoints, and teams spend more time deciding "which model" than shipping work. With Gloy AI 2.0, routing is simpler and quality expectations are easier to standardize.</p>
+
+                <p>The result is cleaner integration, faster adoption in product teams, and less policy overhead in enterprise deployment playbooks.</p>
+
+                <h2>Sky and Earth: Gloy AI 2.0 vs Gloy AI 1.8</h2>
+                <p>The performance gap between the two generations is not incremental. It is structural.</p>
+
+                <div class="quote-box">
+                    <blockquote>Sky - Gloy AI 2.0. Earth - Gloy AI 1.8. That is the practical difference in real production conditions.</blockquote>
+                    <cite>Internal release positioning for migration planning</cite>
+                </div>
+
+                <p>Gloy AI 1.8 is now a legacy text-first system. It can still support lightweight writing and basic tasks, but it is not suitable as a primary model for modern coding workflows, long-chain reasoning, or high-density document intelligence. For practical engineering usage, treat 1.8 as a non-coding model: code output is disabled by design, including simple snippets like <code>print(&quot;hello world&quot;)</code>, to avoid low-quality code generation.</p>
+
+                <p>Gloy AI 2.0 is the opposite: it is engineered for modern multi-step work where correctness, depth, and execution speed must coexist.</p>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Capability Layer</th>
+                            <th>Gloy AI 2.0</th>
+                            <th>Gloy AI 1.8</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Model strategy</td>
+                            <td>Single flagship production model</td>
+                            <td>Legacy general text model</td>
+                        </tr>
+                        <tr>
+                            <td>Context window</td>
+                            <td>Up to 128K tokens</td>
+                            <td>Up to 32K tokens</td>
+                        </tr>
+                        <tr>
+                            <td>Coding readiness</td>
+                            <td>Strong for real engineering tasks</td>
+                            <td>Code output disabled by design (does not write code)</td>
+                        </tr>
+                        <tr>
+                            <td>Long response quality</td>
+                            <td>Large, structured, coherent</td>
+                            <td>Shorter and less stable</td>
+                        </tr>
+                        <tr>
+                            <td>Visual stack</td>
+                            <td>Vision 1.0, 2.0, 3.0 support</td>
+                            <td>Vision 1.0 and Vision 2.0 only</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended status</td>
+                            <td>Primary model for all new builds</td>
+                            <td>Legacy support only</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Context at Scale: 128K vs 32K</h2>
+                <p>Long-context reliability is one of the headline reasons to move to Gloy AI 2.0. The model supports an effective context up to <strong>128,000 tokens</strong>. This unlocks workflows that were impractical with 32K windows.</p>
+
+                <p>With 128K context, teams can keep full project state in memory for much longer: architecture docs, implementation history, support incidents, release notes, policy constraints, and source excerpts in one session. That means fewer context cuts and fewer dangerous omissions.</p>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Document Scale</th>
+                            <th>Gloy AI 2.0 Retrieval Stability</th>
+                            <th>Gloy AI 1.8 Retrieval Stability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8K tokens</td>
+                            <td>99.1%</td>
+                            <td>96.2%</td>
+                        </tr>
+                        <tr>
+                            <td>16K tokens</td>
+                            <td>98.2%</td>
+                            <td>89.7%</td>
+                        </tr>
+                        <tr>
+                            <td>32K tokens</td>
+                            <td>97.5%</td>
+                            <td>81.4%</td>
+                        </tr>
+                        <tr>
+                            <td>64K tokens</td>
+                            <td>96.4%</td>
+                            <td>Not supported</td>
+                        </tr>
+                        <tr>
+                            <td>96K tokens</td>
+                            <td>95.3%</td>
+                            <td>Not supported</td>
+                        </tr>
+                        <tr>
+                            <td>128K tokens</td>
+                            <td>94.8%</td>
+                            <td>Not supported</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>For legal operations, enterprise support, risk teams, and engineering organizations, this single upgrade changes the cost profile of analysis work. Instead of splitting material into many brittle fragments, teams can run complete evidence chains with stronger continuity.</p>
+
+                <h2>Coding Capability: From Legacy Limits to Production Execution</h2>
+                <p>We want to be explicit: <strong>Gloy AI 1.8 does not output code at all</strong>. This includes even minimal examples like <code>print(&quot;hello world&quot;)</code>. We made this product decision to avoid low-quality code generation and keep 1.8 focused on light text workflows.</p>
+
+                <p>Gloy AI 2.0 closes that gap. It is built to generate larger, cleaner, and more executable technical outputs with higher first-pass success.</p>
+
+                <h3>Where Gloy AI 2.0 is strongest in software work</h3>
+                <ul>
+                    <li>Repository-level reasoning over large code surfaces and dependency paths.</li>
+                    <li>Feature implementation from specification with explicit tradeoffs.</li>
+                    <li>Bug localization with ranked hypotheses and validation steps.</li>
+                    <li>Patch plans that include rollback logic and test strategy.</li>
+                    <li>Higher consistency in frontend work, including component-level behavior detail.</li>
+                </ul>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Engineering Evaluation</th>
+                            <th>Gloy AI 2.0</th>
+                            <th>Gloy AI 1.8</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Issue-to-patch correctness</td>
+                            <td>58.7%</td>
+                            <td>Not available (code output disabled)</td>
+                        </tr>
+                        <tr>
+                            <td>Verified fix completion</td>
+                            <td>82.1%</td>
+                            <td>Not available (code output disabled)</td>
+                        </tr>
+                        <tr>
+                            <td>Code review defect detection precision</td>
+                            <td>86.0%</td>
+                            <td>Not available (code output disabled)</td>
+                        </tr>
+                        <tr>
+                            <td>Large refactor stability</td>
+                            <td>79.4%</td>
+                            <td>Not available (code output disabled)</td>
+                        </tr>
+                        <tr>
+                            <td>Frontend implementation completeness</td>
+                            <td>88.2%</td>
+                            <td>Not available (code output disabled)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>In practical terms: teams can ask for full implementation plans and receive outputs that are closer to merge-ready quality. Fewer sessions end with "rewrite this from scratch" and more sessions end with "run tests and ship."</p>
+
+                <h2>Vision Support: 1.0, 2.0, and 3.0</h2>
+                <p>Gloy AI 2.0 supports <strong>Vision 1.0, Vision 2.0, and Vision 3.0</strong>. Gloy AI 1.8 supports only <strong>Vision 1.0 and Vision 2.0</strong>, and does not include Vision 3.0.</p>
+
+                <ul>
+                    <li><strong>Vision 1.0</strong>: not fast, basic object understanding, often unstable.</li>
+                    <li><strong>Vision 2.0</strong>: faster, strong photo understanding, sometimes unstable.</li>
+                    <li><strong>Vision 3.0</strong>: very fast, deeply understands images, stable in analysis, sees fine detail.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Developer guidance:</strong> use Vision 3.0 by default. It is the fastest and most stable visual mode, with the deepest understanding across screenshots, photos, charts, and technical diagrams.</p>
+                </div>
+
+                <p>The model now handles visual plus textual reasoning with stronger alignment, which is critical for support diagnostics, product QA, and operations workflows that rely on screenshots as primary evidence.</p>
+
+                <h2>Large and High-Quality Responses by Default</h2>
+                <p>Another major upgrade is response depth. Gloy AI 2.0 can produce longer outputs while keeping internal structure stable: headings, ordered logic, constraints, and action plans remain coherent across extended answers.</p>
+
+                <p>This matters for teams that request complete outputs in one pass, such as technical design docs, migration plans, compliance notes, implementation checklists, and board-level summaries. With Gloy AI 2.0, long responses are no longer a quality risk by default.</p>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Long Output Metric</th>
+                            <th>Gloy AI 2.0</th>
+                            <th>Gloy AI 1.8</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Section completion rate (long format)</td>
+                            <td>95.7%</td>
+                            <td>44.2%</td>
+                        </tr>
+                        <tr>
+                            <td>Constraint retention in long outputs</td>
+                            <td>94.1%</td>
+                            <td>39.8%</td>
+                        </tr>
+                        <tr>
+                            <td>Internal consistency over extended answers</td>
+                            <td>92.8%</td>
+                            <td>33.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Follow-up correction requirement</td>
+                            <td>Low</td>
+                            <td>High</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Prompting Framework for Professional Results</h2>
+                <p>A strong model still depends on high-quality prompts. Teams that standardize prompt structure usually get better first-pass outputs, lower rework, and more predictable formatting quality.</p>
+
+                <p>For serious production usage, we recommend a five-part prompt contract:</p>
+                <ul>
+                    <li><strong>Objective:</strong> define the exact business or technical outcome in one clear sentence.</li>
+                    <li><strong>Context:</strong> provide constraints, source boundaries, and assumptions.</li>
+                    <li><strong>Output format:</strong> specify exact structure (sections, table schema, checklist, patch plan).</li>
+                    <li><strong>Quality bar:</strong> define what counts as success and what is unacceptable.</li>
+                    <li><strong>Validation:</strong> ask the model to flag uncertainties and list verification steps.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Prompting tip:</strong> ask for explicit assumptions and confidence labels. This reduces hidden guesswork and makes the output easier to review in production workflows.</p>
+                </div>
+
+                <p><strong>Example engineering prompt:</strong><br>"Analyze this bug report and output: (1) symptom summary, (2) likely root causes ranked by confidence, (3) validation plan, (4) patch proposal, (5) rollback checklist, (6) final test matrix."</p>
+
+                <p><strong>Example operations prompt:</strong><br>"Convert these meeting notes into an executive release brief with scope, milestones, dependencies, risks, mitigations, owners, and KPI targets. Keep language concise and audit-ready."</p>
+
+                <h2>Multilingual Quality for Real Global Teams</h2>
+                <p>Gloy AI 2.0 is strong across multilingual workflows and performs reliably with <strong>Ukrainian, Russian, English</strong>, and other major languages. It can switch languages inside one session while preserving intent and structure.</p>
+
+                <p>Teams can use one model layer for product communication, user support, technical documentation, and engineering coordination across regions. This reduces translation drift and improves consistency in global operations.</p>
+
+                <ul>
+                    <li>High-quality style transfer across languages.</li>
+                    <li>Cleaner handling of technical terminology and domain vocabulary.</li>
+                    <li>Better cross-language consistency in long operational threads.</li>
+                </ul>
+
+                <h2>Instruction Accuracy and Execution Discipline</h2>
+                <p>Gloy AI 2.0 follows detailed instructions with higher precision. This is not cosmetic improvement; it is operational. In production, format violations and skipped constraints create real cost and risk.</p>
+
+                <p>The model now preserves objective, scope, and output contract more consistently through long tasks. It also degrades more gracefully when source data is incomplete, clearly marking unknowns instead of filling gaps with weak assumptions.</p>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Execution Quality Metric</th>
+                            <th>Gloy AI 2.0</th>
+                            <th>Gloy AI 1.8</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Instruction compliance</td>
+                            <td>95.4%</td>
+                            <td>58.4%</td>
+                        </tr>
+                        <tr>
+                            <td>Output format correctness</td>
+                            <td>94.9%</td>
+                            <td>46.7%</td>
+                        </tr>
+                        <tr>
+                            <td>Unknown-state signaling accuracy</td>
+                            <td>91.7%</td>
+                            <td>38.9%</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-step task continuity</td>
+                            <td>93.2%</td>
+                            <td>35.6%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Reliability, Factual Stability, and Governance</h2>
+                <p>Gloy AI 2.0 reduces response-level factual breaks relative to Gloy AI 1.8 in mixed workloads that combine reasoning, retrieval, and structured generation. It is also more stable during long interaction chains where context complexity increases over time.</p>
+
+                <p>Like all advanced models, it is still not perfect. Human review remains mandatory for legal, medical, financial, and other high-risk outputs. But the baseline quality and reliability floor are materially higher than in the previous generation.</p>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Reliability Category</th>
+                            <th>Gloy AI 2.0</th>
+                            <th>Gloy AI 1.8</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Responses without detected major factual errors</td>
+                            <td>93.8%</td>
+                            <td>62.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Stable quality after long interaction sequences</td>
+                            <td>92.1%</td>
+                            <td>34.8%</td>
+                        </tr>
+                        <tr>
+                            <td>Tool-result integration consistency</td>
+                            <td>90.8%</td>
+                            <td>31.2%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Performance in End-to-End Workflows</h2>
+                <p>Benchmarks are useful, but migration decisions are usually made on workflow outcomes. Early deployment programs show strong improvements in complete task delivery, not only isolated subtask quality.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Case 1 - Engineering operations:</strong> a platform team moved bug triage from Gloy AI 1.8 to Gloy AI 2.0. Median time from incident report to actionable patch plan dropped from 57 minutes to 21 minutes, with fewer failed validation loops.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Case 2 - Product and strategy:</strong> planning teams generated full release briefs from fragmented notes. First-pass acceptance increased from 39% to 71%, reducing manual editorial cycles and accelerating release governance.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Case 3 - Document intelligence:</strong> legal and compliance workflows used the 128K window for cross-document reasoning. Reviewers reported fewer missed cross-links and stronger traceability for final decision notes.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Case 4 - Support analytics:</strong> customer operations teams analyzed long ticket chains, transcripts, and policy references in one pass. Escalation summaries became more complete and reduced handoff loss between teams.</p>
+                </div>
+
+                <h2>Deprecation Outlook for Gloy AI 1.8</h2>
+                <p>Gloy AI 1.8 remains available for now as a legacy option for light text tasks. However, it is now considered outdated and may be disabled in the near future as migration to Gloy AI 2.0 completes.</p>
+
+                <p>If your workflows still depend on 1.8, we recommend migration planning now. The primary reasons are technical: smaller 32K context, code output disabled by design, and lower stability in long structured sessions.</p>
+
+                <ul>
+                    <li>Do not plan new core systems on Gloy AI 1.8.</li>
+                    <li>Move coding and complex analysis workloads to Gloy AI 2.0 first.</li>
+                    <li>Keep 1.8 only for temporary low-risk text workflows during transition.</li>
+                </ul>
+
+                <h2>Access and Availability</h2>
+                <p>Gloy AI 2.0 is available for developers in the API now. Web browser access is in final rollout preparation and will be available soon.</p>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Channel</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>API</td>
+                            <td>Available now</td>
+                            <td>Recommended channel for immediate integration and testing</td>
+                        </tr>
+                        <tr>
+                            <td>Web browser</td>
+                            <td>Coming soon</td>
+                            <td>Staged release for service stability and smooth onboarding</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Our recommendation is simple: run your evaluation in API first, validate quality on your own tasks, and then enable browser workflows when rollout reaches your account group.</p>
+
+                <h2>Migration Guide: 1.8 to 2.0</h2>
+                <p>The fastest migration path is staged and measurable. We recommend controlled rollout with clear acceptance metrics per workload category.</p>
+
+                <h3>Suggested rollout stages</h3>
+                <ul>
+                    <li><strong>Stage 1 - Shadow mode:</strong> run Gloy AI 2.0 in parallel on historical tasks and compare outputs.</li>
+                    <li><strong>Stage 2 - Guarded production:</strong> route low-risk tasks first with human sign-off.</li>
+                    <li><strong>Stage 3 - Core workflow migration:</strong> move coding, analysis, and document-heavy tasks.</li>
+                    <li><strong>Stage 4 - Legacy retirement:</strong> keep 1.8 only where required and set sunset checkpoints.</li>
+                </ul>
+
+                <p>Teams that use this sequence usually achieve better quality gains with lower operational friction, because migration risk is visible and controlled at each step.</p>
+
+                <h2>Detailed Appendix: Expanded Capability Snapshot</h2>
+                <p>The following table provides a deeper side-by-side map for teams building internal migration scorecards.</p>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Evaluation Line</th>
+                            <th>Gloy AI 2.0</th>
+                            <th>Gloy AI 1.8</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Knowledge-work completion (wins or ties)</td><td>73.1%</td><td>24.6%</td></tr>
+                        <tr><td>Knowledge-work clear wins</td><td>55.8%</td><td>22.5%</td></tr>
+                        <tr><td>Spreadsheet + planning artifact quality</td><td>72.0%</td><td>28.4%</td></tr>
+                        <tr><td>Repository patch generation</td><td>58.7%</td><td>Not available (code output disabled)</td></tr>
+                        <tr><td>Verified engineering fixes</td><td>82.1%</td><td>Not available (code output disabled)</td></tr>
+                        <tr><td>Long-form technical explanation quality</td><td>90.6%</td><td>29.7%</td></tr>
+                        <tr><td>Chart reasoning with tools</td><td>89.4%</td><td>37.5%</td></tr>
+                        <tr><td>High-resolution UI understanding</td><td>87.0%</td><td>33.4%</td></tr>
+                        <tr><td>Tool workflow reliability - telecom style</td><td>98.1%</td><td>40.2%</td></tr>
+                        <tr><td>Tool workflow reliability - retail style</td><td>83.9%</td><td>26.9%</td></tr>
+                        <tr><td>Long-context retrieval at 32K</td><td>97.5%</td><td>81.4%</td></tr>
+                        <tr><td>Long-context retrieval at 64K</td><td>96.4%</td><td>Not supported</td></tr>
+                        <tr><td>Long-context retrieval at 96K</td><td>95.3%</td><td>Not supported</td></tr>
+                        <tr><td>Long-context retrieval at 128K</td><td>94.8%</td><td>Not supported</td></tr>
+                        <tr><td>Instruction compliance in strict templates</td><td>95.4%</td><td>58.4%</td></tr>
+                        <tr><td>Formatting stability in long outputs</td><td>94.9%</td><td>46.7%</td></tr>
+                        <tr><td>Responses without major factual breaks</td><td>93.8%</td><td>62.5%</td></tr>
+                        <tr><td>Multilingual intent retention</td><td>94.5%</td><td>57.1%</td></tr>
+                    </tbody>
+                </table>
+
+                <p>All values above come from controlled internal harnesses designed to imitate professional environments. Real results may vary with data quality, domain complexity, and acceptance policy.</p>
+
+                <h2>FAQ</h2>
+                <p><strong>Q: Is Gloy AI 2.0 the best model in your lineup now?</strong><br>Yes. Gloy AI 2.0 is the strongest and most capable model we provide.</p>
+                <p><strong>Q: Does Gloy AI 1.8 still write code well?</strong><br>No. Gloy AI 1.8 does not write code at all, including simple snippets like <code>print(&quot;hello world&quot;)</code>. Code output is intentionally disabled to prevent low-quality coding results.</p>
+                <p><strong>Q: Is Gloy AI 1.8 going away?</strong><br>Possibly soon. We may disable Gloy AI 1.8 in the near term after migration milestones are complete.</p>
+                <p><strong>Q: What is the context size of each model?</strong><br>Gloy AI 2.0 supports up to 128K tokens. Gloy AI 1.8 supports up to 32K tokens.</p>
+                <p><strong>Q: Which vision mode should teams use?</strong><br>Use Vision 3.0 by default. Gloy AI 1.8 supports only Vision 1.0 and Vision 2.0, while Gloy AI 2.0 supports all three.</p>
+                <p><strong>Q: Where can we try Gloy AI 2.0 first?</strong><br>Use the API now. Browser availability is coming soon in staged rollout.</p>
+
+                <h2>Final Note</h2>
+                <p>Gloy AI 2.0 is built for teams that care about output quality, execution speed, and operational reliability at the same time. It handles code, long analysis, visual reasoning, multilingual communication, and large-context tasks in one consistent system.</p>
+
+                <p>If your workflow still runs on Gloy AI 1.8, migration is no longer just an optimization. It is the path to modern capability coverage. The gap is too large to ignore: 32K versus 128K context, legacy code quality versus production-grade engineering support, and limited output depth versus full structured deliverables.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Bottom line:</strong> Gloy AI 2.0 is our ultra-powerful flagship model. For new builds and serious production workflows, this is the model to run.</p>
+                </div>
+
+                <div class="cta-section">
+                    <h3>Start with Gloy AI 2.0</h3>
+                    <p>Run your first evaluation in API now and prepare your browser rollout next.</p>
+                    <a href="https://t.me/gloy_dev" target="_blank" class="cta-button">
+                        <i class="fab fa-telegram"></i> Open in Telegram
+                    </a>
+                </div>
+            </div>
+
+            <section class="continue-section" aria-label="Continue reading">
+                <div class="continue-header">
+                    <h2 class="continue-title">Continue Reading</h2>
+                    <a class="continue-view-all" href="../index.html">View all news</a>
+                </div>
+                <div id="continue-reading-grid" class="continue-grid"></div>
+            </section>
+        </div>
+    </article>
+    </div>
+    <script src="../assets/release-pages.js"></script>
+    <script>
+        (function () {
+            const audio = document.getElementById('release-audio');
+            const playBtn = document.getElementById('audio-play-btn');
+            const playIcon = playBtn.querySelector('i');
+            const playText = playBtn.querySelector('span');
+            const progress = document.getElementById('audio-progress');
+            const currentEl = document.getElementById('audio-current');
+            const durationEl = document.getElementById('audio-duration');
+            const sidebar = document.getElementById('news-sidebar');
+            const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+            const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+            const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+            const sidebarToc = document.getElementById('sidebar-toc');
+            const continueGrid = document.getElementById('continue-reading-grid');
+            let isSeeking = false;
+
+            function formatTime(seconds) {
+                if (!Number.isFinite(seconds) || seconds < 0) return '00:00';
+                const hrs = Math.floor(seconds / 3600);
+                const mins = Math.floor((seconds % 3600) / 60);
+                const secs = Math.floor(seconds % 60);
+                if (hrs > 0) {
+                    return String(hrs).padStart(2, '0') + ':' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+                }
+                return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+            }
+
+
+            function updatePlayState() {
+                if (audio.paused) {
+                    playIcon.className = 'fas fa-play';
+                    playText.textContent = 'Listen';
+                } else {
+                    playIcon.className = 'fas fa-pause';
+                    playText.textContent = 'Pause';
+                }
+            }
+
+            function syncDuration() {
+                progress.max = audio.duration || 0;
+                durationEl.textContent = formatTime(audio.duration);
+            }
+
+            audio.addEventListener('loadedmetadata', syncDuration);
+            audio.addEventListener('durationchange', syncDuration);
+            audio.addEventListener('canplay', syncDuration);
+
+            audio.addEventListener('timeupdate', function () {
+                if (!isSeeking) {
+                    progress.value = audio.currentTime;
+                }
+                currentEl.textContent = formatTime(audio.currentTime);
+            });
+
+            audio.addEventListener('ended', function () {
+                updatePlayState();
+            });
+
+            playBtn.addEventListener('click', function () {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+                updatePlayState();
+            });
+
+            progress.addEventListener('input', function () {
+                isSeeking = true;
+                currentEl.textContent = formatTime(Number(progress.value));
+            });
+
+            progress.addEventListener('change', function () {
+                audio.currentTime = Number(progress.value);
+                isSeeking = false;
+            });
+
+            audio.addEventListener('pause', updatePlayState);
+            audio.addEventListener('play', updatePlayState);
+            audio.load();
+            syncDuration();
+            updatePlayState();
+
+            function isMobileSidebar() {
+                return window.matchMedia('(max-width: 1100px)').matches;
+            }
+
+            function setSidebarDesktopCollapsed(collapsed) {
+                document.body.classList.toggle('sidebar-collapsed', collapsed);
+                updateToggleButtonState();
+            }
+
+            function setSidebarMobileOpen(open) {
+                document.body.classList.toggle('sidebar-open', open);
+                updateToggleButtonState();
+            }
+
+            function initSidebarState() {
+                if (isMobileSidebar()) {
+                    document.body.classList.remove('sidebar-collapsed');
+                    setSidebarMobileOpen(false);
+                } else {
+                    setSidebarDesktopCollapsed(false);
+                    setSidebarMobileOpen(false);
+                }
+            }
+
+            function toggleSidebar() {
+                if (isMobileSidebar()) {
+                    setSidebarMobileOpen(!document.body.classList.contains('sidebar-open'));
+                } else {
+                    setSidebarDesktopCollapsed(!document.body.classList.contains('sidebar-collapsed'));
+                }
+            }
+
+            sidebarToggleBtn.addEventListener('click', toggleSidebar);
+            sidebarCloseBtn.addEventListener('click', toggleSidebar);
+            sidebarBackdrop.addEventListener('click', function () { setSidebarMobileOpen(false); });
+            window.addEventListener('resize', initSidebarState);
+            initSidebarState();
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key !== 'Escape') return;
+                if (isMobileSidebar() && document.body.classList.contains('sidebar-open')) {
+                    setSidebarMobileOpen(false);
+                } else if (!isMobileSidebar() && !document.body.classList.contains('sidebar-collapsed')) {
+                    setSidebarDesktopCollapsed(true);
+                }
+            });
+
+            function updateToggleButtonState() {
+                const isOpenDesktop = !isMobileSidebar() && !document.body.classList.contains('sidebar-collapsed');
+                const isOpenMobile = isMobileSidebar() && document.body.classList.contains('sidebar-open');
+                const isOpen = isOpenDesktop || isOpenMobile;
+                sidebarToggleBtn.setAttribute('aria-expanded', String(isOpen));
+                sidebarCloseBtn.setAttribute('aria-expanded', String(isOpen));
+            }
+
+            function slugify(input) {
+                return input.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').slice(0, 60);
+            }
+
+            function buildToc() {
+                const headings = document.querySelectorAll('.article-content h2');
+                sidebarToc.innerHTML = '';
+                headings.forEach(function (heading, index) {
+                    if (!heading.id) {
+                        heading.id = 'section-' + (index + 1) + '-' + slugify(heading.textContent || ('part-' + (index + 1)));
+                    }
+                    const link = document.createElement('a');
+                    link.href = '#' + heading.id;
+                    link.className = 'sidebar-link';
+                    link.textContent = heading.textContent.trim();
+                    link.addEventListener('click', function () {
+                        if (isMobileSidebar()) setSidebarMobileOpen(false);
+                    });
+                    sidebarToc.appendChild(link);
+                });
+            }
+
+            function initTocSpy() {
+                const tocLinks = Array.from(sidebarToc.querySelectorAll('a'));
+                if (!tocLinks.length) return;
+                const map = new Map(tocLinks.map(function (link) { return [link.getAttribute('href').slice(1), link]; }));
+                const observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        const link = map.get(entry.target.id);
+                        if (!link) return;
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(function (l) { l.classList.remove('active'); });
+                            link.classList.add('active');
+                        }
+                    });
+                }, { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 });
+
+                document.querySelectorAll('.article-content h2').forEach(function (heading) {
+                    observer.observe(heading);
+                });
+            }
+
+            buildToc();
+            initTocSpy();
+
+            function shuffleArray(list) {
+                const arr = list.slice();
+                for (let i = arr.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+                return arr;
+            }
+
+            function createNewsCard(item) {
+                const card = document.createElement('a');
+                card.className = 'continue-card';
+                card.href = item.href;
+
+                const media = document.createElement('div');
+                media.className = 'continue-media';
+
+                const badge = document.createElement('span');
+                badge.className = 'continue-media-badge';
+                badge.textContent = item.tag;
+                media.appendChild(badge);
+
+                if (item.image) {
+                    const img = document.createElement('img');
+                    img.loading = 'lazy';
+                    img.src = item.image;
+                    img.alt = item.title + ' preview';
+                    img.addEventListener('error', function () {
+                        media.classList.add('is-placeholder');
+                        media.innerHTML = '<span class="continue-media-badge">' + item.tag + '</span><span class="continue-placeholder-label">Preview loading</span>';
+                    });
+                    media.appendChild(img);
+                } else {
+                    media.classList.add('is-placeholder');
+                    const placeholder = document.createElement('span');
+                    placeholder.className = 'continue-placeholder-label';
+                    placeholder.textContent = 'Preview loading';
+                    media.appendChild(placeholder);
+                }
+
+                const body = document.createElement('div');
+                body.className = 'continue-body';
+
+                const title = document.createElement('h3');
+                title.className = 'continue-card-title';
+                title.textContent = item.title;
+
+                const excerpt = document.createElement('p');
+                excerpt.className = 'continue-card-excerpt';
+                excerpt.textContent = item.excerpt;
+
+                const meta = document.createElement('div');
+                meta.className = 'continue-meta';
+                meta.innerHTML = '<span>' + item.category + '</span><span>' + item.date + '</span><span>' + item.readTime + '</span>';
+
+                body.appendChild(title);
+                body.appendChild(excerpt);
+                body.appendChild(meta);
+
+                card.appendChild(media);
+                card.appendChild(body);
+                return card;
+            }
+
+            function initContinueReading() {
+                if (!continueGrid) return;
+                const currentPage = window.location.pathname.split('/').pop() || 'gloy-ai-2.0-release.html';
+                const newsItems = [
+                    {
+                        href: 'vision-2.0-release.html',
+                        title: 'Vision 2.0',
+                        excerpt: 'A more stable and slightly faster visual model with stronger full-scene understanding.',
+                        category: 'Vision',
+                        date: 'Feb 2026',
+                        readTime: '~10 min',
+                        tag: 'New',
+                        image: 'vision_2.0.png'
+                    },
+                    {
+                        href: 'introducing-gloydev-0.5-exp.html',
+                        title: 'Introducing Gloy Dev 0.5 Exp',
+                        excerpt: 'Our most capable coding model through API, focused on reliable engineering output and faster iteration.',
+                        category: 'Engineering',
+                        date: 'Feb 2026',
+                        readTime: '~8 min',
+                        tag: 'Dev',
+                        image: 'gd_news.png'
+                    },
+                    {
+                        href: 'vision-1.0-release.html',
+                        title: 'Vision 1.0',
+                        excerpt: 'Foundational visual model supported in Gloy AI 1.8 and 2.0 with baseline image understanding.',
+                        category: 'Vision',
+                        date: 'Feb 2026',
+                        readTime: '~9 min',
+                        tag: 'New',
+                        image: 'vision_1.0.png'
+                    },
+                    {
+                        href: 'gloy-weather-release.html',
+                        title: 'Gloy Weather',
+                        excerpt: 'Get weather updates quickly and beautifully. Just ask for your city and receive instant forecasts.',
+                        category: 'Feature',
+                        date: 'Feb 2026',
+                        readTime: '~3 min',
+                        tag: 'New',
+                        image: 'gloy_weather.png'
+                    }
+                ];
+
+                // Filter out current page and shuffle
+                const otherNews = newsItems.filter(function(item) {
+                    return item.href !== currentPage;
+                });
+
+                continueGrid.innerHTML = '';
+                shuffleArray(otherNews).slice(0, 3).forEach(function (item) {
+                    continueGrid.appendChild(createNewsCard(item));
+                });
+            }
+
+            initContinueReading();
+        })();
+    </script>
+</body>
+</html>
