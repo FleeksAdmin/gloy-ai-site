@@ -391,6 +391,48 @@ body.theme-dark .nav-trigger.is-open {
     min-height: 46px;
     padding: 0 20px;
     white-space: nowrap;
+    gap: 10px;
+}
+
+.theme-toggle-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.theme-icon {
+    position: absolute;
+    inset: 0;
+    width: 18px;
+    height: 18px;
+    transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.theme-icon-sun {
+    opacity: 0;
+    transform: scale(0.8) rotate(-18deg);
+}
+
+.theme-icon-moon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.theme-toggle-label {
+    line-height: 1;
+}
+
+body.theme-dark .theme-icon-sun {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+body.theme-dark .theme-icon-moon {
+    opacity: 0;
+    transform: scale(0.8) rotate(18deg);
 }
 
 .cta-button:hover,
@@ -486,9 +528,13 @@ body.theme-dark .calc-tab.is-active {
 .nav-toggle {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 4px;
     width: 46px;
     height: 46px;
+    padding: 0;
+    flex-shrink: 0;
     border-radius: 999px;
     border: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.9);
@@ -526,13 +572,19 @@ body.theme-dark .nav-toggle span {
 .footer-column a,
 .developer-links a {
     width: fit-content;
+    transition: color 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
 }
 
 .mega-column a:hover,
 .footer-column a:hover,
 .developer-links a:hover,
 .release-body a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+}
+
+.mega-column a:hover,
+.footer-column a:hover {
+    opacity: 0.68;
 }
 
 .mega-eyebrow,
@@ -1905,9 +1957,15 @@ body.theme-dark .matrix-blocked {
 }
 
 .plan-note a {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #fff;
+    opacity: 0.9;
+    transition: opacity 0.28s ease, color 0.28s ease;
+}
+
+.plan-note a:hover {
+    opacity: 1;
 }
 
 .status-banner {
@@ -2191,8 +2249,57 @@ body.theme-dark .site-footer {
     }
 
     .topbar {
-        grid-template-columns: 1fr auto auto;
+        grid-template-columns: minmax(0, 1fr) auto auto;
         justify-content: space-between;
+        gap: 10px;
+    }
+
+    .brand,
+    .brand-copy,
+    .header-actions {
+        min-width: 0;
+    }
+
+    .brand {
+        gap: 12px;
+    }
+
+    .brand-mark {
+        width: 40px;
+        height: 40px;
+    }
+
+    .brand-copy strong {
+        font-size: 1.15rem;
+    }
+
+    .brand-copy small {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .header-actions {
+        display: flex;
+        justify-self: end;
+    }
+
+    .header-actions .cta-button {
+        display: none;
+    }
+
+    .theme-toggle,
+    .nav-toggle {
+        width: 46px;
+        min-width: 46px;
+        min-height: 46px;
+        height: 46px;
+        padding: 0;
+    }
+
+    .theme-toggle-label {
+        display: none;
     }
 
     .site-navigation {
@@ -2236,14 +2343,6 @@ body.theme-dark .site-footer {
         display: flex;
     }
 
-    .header-actions {
-        display: flex;
-    }
-
-    .header-actions .cta-button {
-        display: none;
-    }
-
     .release-grid,
     .pricing-board,
     .plan-grid,
@@ -2258,6 +2357,37 @@ body.theme-dark .site-footer {
 @media (max-width: 720px) {
     .shell {
         width: min(100% - 24px, 1280px);
+    }
+
+    .topbar {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 8px;
+    }
+
+    .brand {
+        gap: 10px;
+    }
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+        font-size: 0.92rem;
+    }
+
+    .brand-copy strong {
+        font-size: 1.02rem;
+    }
+
+    .brand-copy small {
+        display: none;
+    }
+
+    .theme-toggle,
+    .nav-toggle {
+        width: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        height: 44px;
     }
 
     .hero-section::before,
@@ -2308,6 +2438,21 @@ body.theme-dark .site-footer {
 
     .plan-note p {
         text-align: left;
+    }
+}
+
+@media (max-width: 520px) {
+    .topbar {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+    }
+
+    .brand-copy strong {
+        font-size: 0.98rem;
+    }
+
+    .site-navigation {
+        left: 12px;
+        right: 12px;
     }
 }
 

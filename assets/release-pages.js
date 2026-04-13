@@ -5,18 +5,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)");
     const supportsLivePointer = false;
 
-    const applyTheme = (theme) => {
-        const isDark = theme === "dark";
+    const applyTheme = (theme, options = {}) => {
+        const { persist = true } = options;
+        const nextTheme = theme;
+        const isDark = nextTheme === "dark";
         body.classList.toggle("theme-dark", isDark);
         document.documentElement.style.colorScheme = isDark ? "dark" : "light";
 
         if (themeToggle) {
-            themeToggle.textContent = isDark ? "Light" : "Dark";
+            const themeToggleLabel = themeToggle.querySelector(".theme-toggle-label");
+            if (themeToggleLabel) {
+                themeToggleLabel.textContent = isDark ? "Light" : "Dark";
+            }
+            themeToggle.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
             themeToggle.setAttribute("aria-pressed", String(isDark));
         }
 
+        if (!persist) {
+            return;
+        }
+
         try {
-            window.localStorage.setItem("gloy-theme", isDark ? "dark" : "light");
+            window.localStorage.setItem("gloy-theme", nextTheme);
         } catch (error) {
             // Ignore storage failures and keep the current in-memory state.
         }
@@ -24,19 +34,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const queryTheme = new URLSearchParams(window.location.search).get("theme");
 
-    if (queryTheme === "dark" || queryTheme === "light") {
-        applyTheme(queryTheme);
-    } else {
+    const resolveTheme = () => {
+        if (queryTheme === "dark" || queryTheme === "light") {
+            return queryTheme;
+        }
+
         try {
             const storedTheme = window.localStorage.getItem("gloy-theme");
-            applyTheme(storedTheme === "dark" || storedTheme === "light" ? storedTheme : (systemPrefersDark.matches ? "dark" : "light"));
+            if (storedTheme === "dark" || storedTheme === "light") {
+                return storedTheme;
+            }
         } catch (error) {
-            applyTheme(systemPrefersDark.matches ? "dark" : "light");
+            // Ignore storage failures and rely on system preference.
+        }
+
+        return window.matchMedia("(max-width: 980px)").matches ? "light" : (systemPrefersDark.matches ? "dark" : "light");
+    };
+
+    if (queryTheme === "dark" || queryTheme === "light") {
+        applyTheme(resolveTheme(), { persist: false });
+    } else {
+        try {
+            applyTheme(resolveTheme(), { persist: false });
+        } catch (error) {
+            applyTheme(systemPrefersDark.matches ? "dark" : "light", { persist: false });
         }
     }
 
     themeToggle?.addEventListener("click", () => {
         applyTheme(body.classList.contains("theme-dark") ? "light" : "dark");
+    });
+
+    systemPrefersDark.addEventListener("change", () => {
+        applyTheme(resolveTheme(), { persist: false });
     });
 
     const setupGlobalEffects = () => {

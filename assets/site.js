@@ -131,14 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     capabilities: [["Access", 96], ["Scale", 88], ["Flexibility", 84]]
                 },
                 {
-                    name: "Telegram bot",
+                    name: "GLOY AI access",
                     role: "Launch surface",
-                    detail: "Direct way to use GLOY AI with no additional app flow",
-                    href: "https://t.me/gloyai_bot",
-                    summary: "Direct launch surface with minimal onboarding.",
+                    detail: "Direct launch and updates through the official Telegram channel",
+                    href: "https://t.me/gloy_dev",
+                    summary: "Direct public entry point with minimal onboarding.",
                     metrics: [["Channel", "Telegram"], ["Mode", "Launch"], ["Access", "Direct"]],
-                    useCases: ["Instant entry", "Mobile access", "Daily chat", "Fast adoption"],
-                    notes: ["Best for user acquisition", "Lowest-friction entry point", "Core consumer surface"],
+                    useCases: ["Instant entry", "Mobile access", "Daily chat", "Fast updates"],
+                    notes: ["Official public surface", "Lowest-friction entry point", "Core launch channel"],
                     capabilities: [["Reasoning", 46], ["Speed", 90], ["Multimodal", 18]]
                 },
                 {
@@ -441,18 +441,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    const applyTheme = (theme) => {
-        const isDark = theme === "dark";
+    const applyTheme = (theme, options = {}) => {
+        const { persist = true } = options;
+        const nextTheme = theme;
+        const isDark = nextTheme === "dark";
         body.classList.toggle("theme-dark", isDark);
         document.documentElement.style.colorScheme = isDark ? "dark" : "light";
 
         if (themeToggle) {
-            themeToggle.textContent = isDark ? "Light" : "Dark";
+            const themeToggleLabel = themeToggle.querySelector(".theme-toggle-label");
+            if (themeToggleLabel) {
+                themeToggleLabel.textContent = isDark ? "Light" : "Dark";
+            }
+            themeToggle.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
             themeToggle.setAttribute("aria-pressed", String(isDark));
         }
 
+        if (!persist) {
+            return;
+        }
+
         try {
-            window.localStorage.setItem("gloy-theme", isDark ? "dark" : "light");
+            window.localStorage.setItem("gloy-theme", nextTheme);
         } catch (error) {
             // Ignore storage failures and keep theme in-memory only.
         }
@@ -462,12 +472,33 @@ document.addEventListener("DOMContentLoaded", () => {
         applyTheme(body.classList.contains("theme-dark") ? "light" : "dark");
     };
 
+    const resolveTheme = () => {
+        const queryTheme = new URLSearchParams(window.location.search).get("theme");
+        if (queryTheme === "dark" || queryTheme === "light") {
+            return queryTheme;
+        }
+
+        try {
+            const storedTheme = window.localStorage.getItem("gloy-theme");
+            if (storedTheme === "dark" || storedTheme === "light") {
+                return storedTheme;
+            }
+        } catch (error) {
+            // Ignore storage failures and rely on system preference.
+        }
+
+        return window.matchMedia("(max-width: 980px)").matches ? "light" : (systemPrefersDark.matches ? "dark" : "light");
+    };
+
     try {
-        const storedTheme = window.localStorage.getItem("gloy-theme");
-        applyTheme(storedTheme === "dark" || storedTheme === "light" ? storedTheme : (systemPrefersDark.matches ? "dark" : "light"));
+        applyTheme(resolveTheme(), { persist: false });
     } catch (error) {
-        applyTheme(systemPrefersDark.matches ? "dark" : "light");
+        applyTheme(systemPrefersDark.matches ? "dark" : "light", { persist: false });
     }
+
+    systemPrefersDark.addEventListener("change", () => {
+        applyTheme(resolveTheme(), { persist: false });
+    });
 
     const wait = (duration) => new Promise((resolve) => {
         window.setTimeout(resolve, duration);

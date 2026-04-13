@@ -1240,6 +1240,7 @@ body.theme-dark {
     justify-content: center !important;
     min-height: 46px !important;
     padding: 0 18px !important;
+    gap: 10px !important;
     border-radius: 999px !important;
     border: 1px solid rgba(0, 0, 0, 0.14) !important;
     background: rgba(255, 255, 255, 0.92) !important;
@@ -1255,6 +1256,47 @@ body.theme-dark {
         border-color 0.5s ease,
         color 0.5s ease,
         box-shadow 0.5s ease !important;
+}
+
+.theme-toggle-icon {
+    position: relative !important;
+    width: 18px !important;
+    height: 18px !important;
+    display: inline-grid !important;
+    place-items: center !important;
+    flex-shrink: 0 !important;
+}
+
+.theme-icon {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 18px !important;
+    height: 18px !important;
+    transition: opacity 0.28s ease, transform 0.28s ease !important;
+}
+
+.theme-icon-sun {
+    opacity: 0 !important;
+    transform: scale(0.8) rotate(-18deg) !important;
+}
+
+.theme-icon-moon {
+    opacity: 1 !important;
+    transform: scale(1) rotate(0deg) !important;
+}
+
+.theme-toggle-label {
+    line-height: 1 !important;
+}
+
+body.theme-dark .theme-icon-sun {
+    opacity: 1 !important;
+    transform: scale(1) rotate(0deg) !important;
+}
+
+body.theme-dark .theme-icon-moon {
+    opacity: 0 !important;
+    transform: scale(0.8) rotate(18deg) !important;
 }
 
 .release-theme-toggle:hover {
@@ -1633,7 +1675,13 @@ body.theme-dark .warning-box {
 
     .release-theme-toggle {
         min-height: 42px !important;
-        padding: 0 14px !important;
+        width: 42px !important;
+        min-width: 42px !important;
+        padding: 0 !important;
+    }
+
+    .theme-toggle-label {
+        display: none !important;
     }
 
     .back-button {
